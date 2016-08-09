@@ -109,9 +109,11 @@ public class UpdateActorProfileIntoCatalogProcessor extends PackageProcessor {
                     hasChanges = true;
                 }
 
-                if (!actorProfile.getLocation().equals(actorsCatalogToUpdate.getLocation())) {
-                    actorsCatalogToUpdate.setLocation(actorProfile.getLocation().getLatitude(), actorProfile.getLocation().getLongitude());
-                    hasChanges = true;
+                if (actorsCatalogToUpdate.getLocation()!=null) {
+                    if (!actorProfile.getLocation().equals(actorsCatalogToUpdate.getLocation())) {
+                        actorsCatalogToUpdate.setLocation(actorProfile.getLocation().getLatitude(), actorProfile.getLocation().getLongitude());
+                        hasChanges = true;
+                    }
                 }
 
                 if (!actorProfile.getExtraData().equals(actorsCatalogToUpdate.getExtraData())) {
