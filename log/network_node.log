@@ -1,0 +1,563 @@
+2016-08-09 17:27:13 INFO  NetworkNodePluginRoot     - Calling method - start()...
+2016-08-09 17:27:13 INFO  NetworkNodePluginRoot     - pluginId = null
+2016-08-09 17:28:54 INFO  NetworkNodePluginRoot     - Calling method - start()...
+2016-08-09 17:28:54 INFO  NetworkNodePluginRoot     - pluginId = null
+2016-08-09 17:28:54 INFO  NetworkNodePluginRoot     - Deleting older session and his associate entities
+2016-08-09 17:28:54 INFO  DatabaseManager     - Open a database connection (create a new database if it doesn't exist yet)
+2016-08-09 17:28:58 INFO  NetworkNodePluginRoot     - Calling method - start()...
+2016-08-09 17:28:58 INFO  NetworkNodePluginRoot     - pluginId = null
+2016-08-09 17:28:58 INFO  NetworkNodePluginRoot     - Deleting older session and his associate entities
+2016-08-09 17:28:58 INFO  DatabaseManager     - Open a database connection (create a new database if it doesn't exist yet)
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ClientSession)
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - deleted all ClientSession entities = 1
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.Client)
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - deleted all Client entities = 1
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkServiceSession)
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - deleted all NetworkServiceSession entities = 0
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkService)
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - deleted all NetworkService entities = 0
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorSession)
+2016-08-09 17:28:59 INFO  AbstractBaseDao     - deleted all ActorSession entities = 0
+2016-08-09 17:28:59 INFO  NetworkNodePluginRoot     - Calling method - initializeIdentity()...
+2016-08-09 17:28:59 INFO  NetworkNodePluginRoot     - Loading identity...
+2016-08-09 17:28:59 INFO  NetworkNodePluginRoot     - No previous identity found - Proceeding to create new one...
+2016-08-09 17:28:59 INFO  NetworkNodePluginRoot     - identity.getPrivateKey() = 6c82c19ecfb41f7888b44e66a9de66a989057d3544ae2a35768fca05abb92bab
+2016-08-09 17:28:59 INFO  NetworkNodePluginRoot     - identity.getPublicKey() = 04BACADFFBF7B943E13C4AF809570A202A094C5CF772103790C545DAC6A5708A575C9E743160A17F03426C2B4E628B50004D933C629CA358A8CCAAB0444D06AE56
+2016-08-09 17:31:25 INFO  NetworkNodePluginRoot     - Calling method - start()...
+2016-08-09 17:31:25 INFO  NetworkNodePluginRoot     - pluginId = null
+2016-08-09 17:31:25 INFO  NetworkNodePluginRoot     - Deleting older session and his associate entities
+2016-08-09 17:31:25 INFO  DatabaseManager     - Open a database connection (create a new database if it doesn't exist yet)
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ClientSession)
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - deleted all ClientSession entities = 0
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.Client)
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - deleted all Client entities = 0
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkServiceSession)
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - deleted all NetworkServiceSession entities = 0
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkService)
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - deleted all NetworkService entities = 0
+2016-08-09 17:31:25 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorSession)
+2016-08-09 17:31:25 ERROR AbstractBaseDao     - com.objectdb.o._PersistenceException: Type ActorSession is not found
+2016-08-09 17:31:25 ERROR NetworkNodePluginRoot     - Can't Deleting older session and his associate entities: CAN'T DELETE RECORD IN DATABASE EXCEPTION
+2016-08-09 17:31:25 INFO  NetworkNodePluginRoot     - Calling method - initializeIdentity()...
+2016-08-09 17:31:25 INFO  NetworkNodePluginRoot     - Loading identity...
+2016-08-09 17:31:25 INFO  NetworkNodePluginRoot     - No previous identity found - Proceeding to create new one...
+2016-08-09 17:31:25 INFO  NetworkNodePluginRoot     - identity.getPrivateKey() = 703c36fc544dce415e2cd20cd1a9457440d402c91fe307090dd5d584ecb64f38
+2016-08-09 17:31:25 INFO  NetworkNodePluginRoot     - identity.getPublicKey() = 04BBE9BB41CC6A22E8096B3E82816BCD85CBC5694A6CF4A2D8D62D516875BB91C7340628BF57C097F5AFA3F3389323FAD2D54D8B44BEB4807F99D80F616D0273AC
+2016-08-09 17:33:00 INFO  NetworkNodePluginRoot     - Calling method - start()...
+2016-08-09 17:33:00 INFO  NetworkNodePluginRoot     - pluginId = null
+2016-08-09 17:33:00 INFO  NetworkNodePluginRoot     - Deleting older session and his associate entities
+2016-08-09 17:33:00 INFO  DatabaseManager     - Open a database connection (create a new database if it doesn't exist yet)
+2016-08-09 17:33:00 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ClientSession)
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - deleted all ClientSession entities = 0
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.Client)
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - deleted all Client entities = 0
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkServiceSession)
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - deleted all NetworkServiceSession entities = 0
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkService)
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - deleted all NetworkService entities = 0
+2016-08-09 17:33:01 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorSession)
+2016-08-09 17:33:01 ERROR AbstractBaseDao     - com.objectdb.o._PersistenceException: Type ActorSession is not found
+2016-08-09 17:33:01 ERROR NetworkNodePluginRoot     - Can't Deleting older session and his associate entities: CAN'T DELETE RECORD IN DATABASE EXCEPTION
+2016-08-09 17:33:01 INFO  NetworkNodePluginRoot     - Calling method - initializeIdentity()...
+2016-08-09 17:33:01 INFO  NetworkNodePluginRoot     - Loading identity...
+2016-08-09 17:33:01 INFO  NetworkNodePluginRoot     - No previous identity found - Proceeding to create new one...
+2016-08-09 17:33:01 INFO  NetworkNodePluginRoot     - identity.getPrivateKey() = 4e5ae69b2e127f7624dcbb9d56013b6591bc980eadf041468fa560c86f98d5bc
+2016-08-09 17:33:01 INFO  NetworkNodePluginRoot     - identity.getPublicKey() = 043AFEC2A105FAF8C4EF8EC4A286C703762FD74D1AAA9E7B1C1D61653766E0F7F27B6B83E624F6B4B3A69B1C002DEB83AAF33ADF271FF2EF939788AFE84620FE21
+2016-08-09 17:33:37 INFO  NetworkNodePluginRoot     - Calling method - start()...
+2016-08-09 17:33:37 INFO  NetworkNodePluginRoot     - pluginId = null
+2016-08-09 17:33:37 INFO  NetworkNodePluginRoot     - Deleting older session and his associate entities
+2016-08-09 17:33:37 INFO  DatabaseManager     - Open a database connection (create a new database if it doesn't exist yet)
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ClientSession)
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - deleted all ClientSession entities = 0
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.Client)
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - deleted all Client entities = 0
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkServiceSession)
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - deleted all NetworkServiceSession entities = 0
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkService)
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - deleted all NetworkService entities = 0
+2016-08-09 17:33:38 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorSession)
+2016-08-09 17:33:38 ERROR AbstractBaseDao     - com.objectdb.o._PersistenceException: Type ActorSession is not found
+2016-08-09 17:33:38 ERROR NetworkNodePluginRoot     - Can't Deleting older session and his associate entities: CAN'T DELETE RECORD IN DATABASE EXCEPTION
+2016-08-09 17:33:38 INFO  NetworkNodePluginRoot     - Calling method - initializeIdentity()...
+2016-08-09 17:33:38 INFO  NetworkNodePluginRoot     - Loading identity...
+2016-08-09 17:33:38 INFO  NetworkNodePluginRoot     - No previous identity found - Proceeding to create new one...
+2016-08-09 17:33:38 INFO  NetworkNodePluginRoot     - identity.getPrivateKey() = 6672acf3f15983400d174b6bbe2134cfb641788e45bdfe1a679af193ae8cc022
+2016-08-09 17:33:38 INFO  NetworkNodePluginRoot     - identity.getPublicKey() = 04C7ACC42B0B0B2FFCDBD130EEE94A6C1A94E1F5BE85B9EDF5FBD056711912700E9A9812A1EE41F13E51A3986D1C2DAFC434F501EFE99909F3BE82264D5BF54F98
+2016-08-09 17:34:19 INFO  NetworkNodePluginRoot     - Calling method - start()...
+2016-08-09 17:34:19 INFO  NetworkNodePluginRoot     - pluginId = null
+2016-08-09 17:34:19 INFO  NetworkNodePluginRoot     - Deleting older session and his associate entities
+2016-08-09 17:34:19 INFO  DatabaseManager     - Open a database connection (create a new database if it doesn't exist yet)
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ClientSession)
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - deleted all ClientSession entities = 0
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.Client)
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - deleted all Client entities = 0
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkServiceSession)
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - deleted all NetworkServiceSession entities = 0
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkService)
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - deleted all NetworkService entities = 0
+2016-08-09 17:34:20 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorSession)
+2016-08-09 17:34:20 ERROR AbstractBaseDao     - com.objectdb.o._PersistenceException: Type ActorSession is not found
+2016-08-09 17:34:20 ERROR NetworkNodePluginRoot     - Can't Deleting older session and his associate entities: CAN'T DELETE RECORD IN DATABASE EXCEPTION
+2016-08-09 17:34:20 INFO  NetworkNodePluginRoot     - Calling method - initializeIdentity()...
+2016-08-09 17:34:20 INFO  NetworkNodePluginRoot     - Loading identity...
+2016-08-09 17:34:20 INFO  NetworkNodePluginRoot     - No previous identity found - Proceeding to create new one...
+2016-08-09 17:34:20 INFO  NetworkNodePluginRoot     - identity.getPrivateKey() = 53739ee41e96125a8dcc6ad27533f481af23dbee91a67d7aac6f6a077f18301e
+2016-08-09 17:34:20 INFO  NetworkNodePluginRoot     - identity.getPublicKey() = 04BE77D20CE6DFE277EB8A05E64B57A7D9BE801BDA4F5B11E7C270EAA1E51CA340A93AC676CD7493343D101D7FC99871B5A2F8B08AC88C2F9DB2EC844FF5645632
+2016-08-09 17:36:06 INFO  NetworkNodePluginRoot     - Calling method - start()...
+2016-08-09 17:36:06 INFO  NetworkNodePluginRoot     - pluginId = 67251773-87f1-4325-90c7-8d8361553161
+2016-08-09 17:36:06 INFO  NetworkNodePluginRoot     - Deleting older session and his associate entities
+2016-08-09 17:36:06 INFO  DatabaseManager     - Open a database connection (create a new database if it doesn't exist yet)
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ClientSession)
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - deleted all ClientSession entities = 0
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.Client)
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - deleted all Client entities = 0
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - Executing list()
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkServiceSession)
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - deleted all NetworkServiceSession entities = 0
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkService)
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - deleted all NetworkService entities = 0
+2016-08-09 17:36:06 INFO  AbstractBaseDao     - Executing deleteAll(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorSession)
+2016-08-09 17:36:06 ERROR AbstractBaseDao     - com.objectdb.o._PersistenceException: Type ActorSession is not found
+2016-08-09 17:36:06 ERROR NetworkNodePluginRoot     - Can't Deleting older session and his associate entities: CAN'T DELETE RECORD IN DATABASE EXCEPTION
+2016-08-09 17:36:06 INFO  NetworkNodePluginRoot     - Calling method - initializeIdentity()...
+2016-08-09 17:36:06 INFO  NetworkNodePluginRoot     - Loading identity...
+2016-08-09 17:36:06 INFO  NetworkNodePluginRoot     - No previous identity found - Proceeding to create new one...
+2016-08-09 17:36:06 INFO  NetworkNodePluginRoot     - identity.getPrivateKey() = 1952466d0fb0a44ef918e633acde4136105a421be57f5a920b783aa2d2e7bdd2
+2016-08-09 17:36:06 INFO  NetworkNodePluginRoot     - identity.getPublicKey() = 0441A57087CBF4F80631F9EBAF93418A736D92F89C6FF253982567CB8A7522436BBEAE25570A7D607103C6CB26B56041872511491A072DB0F3E0F079600AA7E627
+2016-08-09 17:36:07 INFO  NetworkNodePluginRoot     - Starting initializeConfigurationFile()...
+2016-08-09 17:36:07 INFO  NetworkNodePluginRoot     - Configuration file doesn't exit
+2016-08-09 17:36:07 INFO  ConfigurationManager     - Creating new configuration file...
+2016-08-09 17:36:07 INFO  ConfigurationManager     - Directory is created!
+2016-08-09 17:36:07 INFO  ConfigurationManager     - File is created!
+2016-08-09 17:36:07 INFO  ConfigurationManager     - Add configuration content
+2016-08-09 17:36:07 INFO  ConfigurationManager     - Setup configuration file is complete!
+2016-08-09 17:36:07 INFO  ConfigurationManager     - Configuration file path = /home/mati/externalStorage/node/resources/configuration/server_conf.properties
+2016-08-09 17:36:07 INFO  ConfigurationManager     - Loading configuration...
+2016-08-09 17:36:07 INFO  NetworkNodePluginRoot     - >>>> Server public ip: 186.23.58.203 get by online service
+2016-08-09 17:36:07 INFO  NetworkNodePluginRoot     - Generating Node Profile...
+2016-08-09 17:36:07 INFO  NetworkNodePluginRoot     - >>>> Trying to get the location of the node...
+2016-08-09 17:36:08 INFO  NetworkNodePluginRoot     - Node Profile = NodeProfile{defaultPort=8080, ip='186.23.58.203', name='Fermat Node (mati-pc)'}
+2016-08-09 17:36:08 INFO  FermatEmbeddedNodeServer     - Configure INTERNAL_IP  : 0.0.0.0
+2016-08-09 17:36:08 INFO  FermatEmbeddedNodeServer     - Configure PORT: 8080
+2016-08-09 17:36:08 INFO  org.xnio     - XNIO version 3.3.7.Final
+2016-08-09 17:36:08 INFO  org.xnio.nio     - XNIO NIO Implementation Version 3.3.7.Final
+2016-08-09 17:36:08 WARN  io.undertow.websockets.jsr     - UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2016-08-09 17:36:08 INFO  io.undertow.websockets.jsr     - UT026003: Adding annotated server endpoint class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.channels.endpoinsts.nodes.FermatWebSocketNodeChannelServerEndpoint for path /node-channel
+2016-08-09 17:36:08 INFO  io.undertow.websockets.jsr     - UT026003: Adding annotated server endpoint class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.channels.endpoinsts.clients.FermatWebSocketClientChannelServerEndpoint for path /client-channel
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002225: Deploying javax.ws.rs.core.Application: class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.AvailableNodes from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.HelloResource from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.OnlineComponents from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.Profiles from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.Nodes from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.NetworkData from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.Monitoring from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.UserAuth from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.ConfigurationService from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.DeveloperDatabaseResource from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.DataBases from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  org.jboss.resteasy.resteasy_jaxrs.i18n     - RESTEASY002200: Adding class resource com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.services.Actors from Application class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.JaxRsActivator
+2016-08-09 17:36:08 INFO  FermatEmbeddedNodeServer     - ***********************************************************
+2016-08-09 17:36:08 INFO  FermatEmbeddedNodeServer     - NODE SERVER LISTENING   : 0.0.0.0 : 8080
+2016-08-09 17:36:08 INFO  FermatEmbeddedNodeServer     - ***********************************************************
+2016-08-09 17:36:08 INFO  NetworkNodePluginRoot     - Add references to the node context...
+2016-08-09 17:36:08 INFO  NetworkNodePluginRoot     - Initialize node catalog
+2016-08-09 17:36:09 INFO  NetworkNodePluginRoot     - {"success":true,"isRegistered":false}
+2016-08-09 17:36:09 INFO  NetworkNodePluginRoot     - Is Register? = false
+2016-08-09 17:36:09 INFO  NetworkNodePluginRoot     - Am I a Seed Node? = false
+2016-08-09 17:36:09 INFO  NetworkNodePluginRoot     - Requesting registration of the node profile in the node catalog...
+2016-08-09 17:36:09 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Trying to connect to ws://193.234.224.198:8080/fermat/ws/node-channel
+2016-08-09 17:36:09 INFO  io.undertow.websockets.jsr     - UT026004: Adding annotated client endpoint class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.channels.endpoinsts.nodes.FermatWebSocketClientNodeChannelServerEndpoint
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  --------------------------------------------------------------------- 
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  Starting method onConnect
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  id = PUSFibpJNasbISWMwiX0rLRZSLtXwVmd61Zpj23s
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  url = ws://193.234.224.198:8080/fermat/ws/node-channel
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Sending message {"nodeProfile":{"defaultPort":8080,"ip":"186.23.58.203","name":"Fermat Node (mati-pc)","identityPublicKey":"0441A57087CBF4F80631F9EBAF93418A736D92F89C6FF253982567CB8A7522436BBEAE25570A7D607103C6CB26B56041872511491A072DB0F3E0F079600AA7E627","location":{"lat":-34.7765,"lng":-58.4069},"type":"NODE","status":"UNKNOWN"},"messageContentType":"OBJECT"}
+2016-08-09 17:36:10 INFO  NetworkNodePluginRoot     - ***** Request the list of transactions in the node catalog
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Trying to connect to ws://193.234.224.198:8080/fermat/ws/node-channel
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - New message Received
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Session: PUSFibpJNasbISWMwiX0rLRZSLtXwVmd61Zpj23s packageReceived = ADD_NODE_TO_CATALOG_RESPONSE
+2016-08-09 17:36:10 INFO  AddNodeToCatalogResponseProcessor     - Processing new package received: ADD_NODE_TO_CATALOG_RESPONSE
+2016-08-09 17:36:10 INFO  AddNodeToCatalogResponseProcessor     - MsgRespond status SUCCESS
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Closed session : PUSFibpJNasbISWMwiX0rLRZSLtXwVmd61Zpj23s Code: (NORMAL_CLOSURE) - reason: Finish add node to catalog process
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  --------------------------------------------------------------------- 
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  Starting method onConnect
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  id = O7OXIzKGQLvub0p53qTG0K0EQsgxxqd6BetotyFk
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  url = ws://193.234.224.198:8080/fermat/ws/node-channel
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Sending message {"offset":0,"max":50,"messageContentType":"OBJECT"}
+2016-08-09 17:36:10 INFO  NetworkNodePluginRoot     - *****
+2016-08-09 17:36:10 INFO  NetworkNodePluginRoot     - >>>>> Request the list of transactions in the actors catalog
+2016-08-09 17:36:10 INFO  NetworkNodePluginRoot     - >>>>> Checking if exists a registered node
+2016-08-09 17:36:10 INFO  NetworkNodePluginRoot     - >>>>> Cannot find nodes registered in database, request transactions to seed node
+2016-08-09 17:36:10 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Trying to connect to ws://193.234.224.198:8080/fermat/ws/node-channel
+2016-08-09 17:36:11 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - New message Received
+2016-08-09 17:36:11 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Session: O7OXIzKGQLvub0p53qTG0K0EQsgxxqd6BetotyFk packageReceived = GET_NODE_CATALOG_RESPONSE
+2016-08-09 17:36:11 INFO  GetNodeCatalogResponseProcessor     - Processing new package received
+2016-08-09 17:36:11 INFO  GetNodeCatalogResponseProcessor     - com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.data.node.response.GetNodeCatalogResponse@17abeebe
+2016-08-09 17:36:11 INFO  AbstractBaseDao     - Executing count()
+2016-08-09 17:36:11 INFO  GetNodeCatalogResponseProcessor     - Row in node catalog  = 0
+2016-08-09 17:36:11 INFO  GetNodeCatalogResponseProcessor     - nodesCatalog size = 3
+2016-08-09 17:36:11 INFO  GetNodeCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:11 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:11 INFO  AbstractBaseDao     - Executing persist(NodeCatalog{id='0441A57087CBF4F80631F9EBAF93418A736D92F89C6FF253982567CB8A7522436BBEAE25570A7D607103C6CB26B56041872511491A072DB0F3E0F079600AA7E627', location=GeoLocation{id=0441A57087CBF4F80631F9EBAF93418A736D92F89C6FF253982567CB8A7522436BBEAE25570A7D607103C6CB26B56041872511491A072DB0F3E0F079600AA7E627, latitude=-34.7765, longitude=-58.4069, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470774994509, source=null}, status=UNKNOWN, defaultPort=8080, ip='186.23.58.203', name='Fermat Node (mati-pc)', lastConnectionTimestamp=2016-08-09 17:36:34.509, lateNotificationsCounter=0, offlineCounter=0, registeredTimestamp=2016-08-09 17:36:34.509, signature='', version=0, pendingPropagations=0, triedToPropagateTimes=0} )
+2016-08-09 17:36:11 INFO  GetNodeCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:11 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:11 INFO  AbstractBaseDao     - Executing persist(NodeCatalog{id='0466868FA3C23C691A35A52B84347C11A72DA73D76914BF845F0CEEAD5D25E5BAC92102BBE3F28768B4F035B9A2B3BED60339D38D37A834BF5B0260039859B5610', location=GeoLocation{id=0466868FA3C23C691A35A52B84347C11A72DA73D76914BF845F0CEEAD5D25E5BAC92102BBE3F28768B4F035B9A2B3BED60339D38D37A834BF5B0260039859B5610, latitude=45.4643, longitude=9.1895, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470771239754, source=null}, status=UNKNOWN, defaultPort=8080, ip='193.234.224.223', name='Fermat Node (zulip.fermat.chat)', lastConnectionTimestamp=2016-08-09 16:33:59.753, lateNotificationsCounter=0, offlineCounter=0, registeredTimestamp=2016-08-09 16:33:59.753, signature='', version=0, pendingPropagations=0, triedToPropagateTimes=0} )
+2016-08-09 17:36:11 INFO  GetNodeCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:11 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:11 INFO  AbstractBaseDao     - Executing persist(NodeCatalog{id='04EAB9083CBCE2A03AC208BE9166FFEB24921D4CDC805EA22A20DD9C0F53F59747C7C0FAC16E28C856908653B2CDC2A5A36F3DD008C0D87A5F0E7F318025781CC6', location=GeoLocation{id=04EAB9083CBCE2A03AC208BE9166FFEB24921D4CDC805EA22A20DD9C0F53F59747C7C0FAC16E28C856908653B2CDC2A5A36F3DD008C0D87A5F0E7F318025781CC6, latitude=45.4643, longitude=9.1895, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470771226963, source=null}, status=null, defaultPort=8080, ip='193.234.224.198', name='Fermat Node (fermat-dev1.fermat.cloud)', lastConnectionTimestamp=2016-08-09 16:33:46.963, lateNotificationsCounter=0, offlineCounter=0, registeredTimestamp=2016-08-09 16:33:46.963, signature='', version=0, pendingPropagations=0, triedToPropagateTimes=0} )
+2016-08-09 17:36:11 INFO  AbstractBaseDao     - Executing count()
+2016-08-09 17:36:11 INFO  GetNodeCatalogResponseProcessor     - Row in node catalog  = 3
+2016-08-09 17:36:11 INFO  GetNodeCatalogResponseProcessor     - Row in catalog seed node = 3
+2016-08-09 17:36:11 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Closed session : O7OXIzKGQLvub0p53qTG0K0EQsgxxqd6BetotyFk Code: (NORMAL_CLOSURE) - reason: Process finish...
+2016-08-09 17:36:11 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  --------------------------------------------------------------------- 
+2016-08-09 17:36:11 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  Starting method onConnect
+2016-08-09 17:36:11 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  id = oJKixS5Yyn45Q5VkZQNBoF2kqt0LL36YVm3JeRS9
+2016-08-09 17:36:11 INFO  FermatWebSocketClientNodeChannelServerEndpoint     -  url = ws://193.234.224.198:8080/fermat/ws/node-channel
+2016-08-09 17:36:11 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Sending message {"offset":0,"max":15,"messageContentType":"OBJECT"}
+2016-08-09 17:36:11 INFO  NetworkNodePluginRoot     - >>>>>
+2016-08-09 17:36:11 INFO  NetworkNodePluginRoot     - Initializing propagate catalog agents ...
+2016-08-09 17:36:11 INFO  PropagateCatalogAgent     - Starting propagate nodes catalog agent.
+2016-08-09 17:36:11 INFO  UPNPService     - Starting port forwarding ...
+2016-08-09 17:36:11 INFO  UPNPService     - Looking for Gateway Devices...
+2016-08-09 17:36:11 INFO  UPNPService     - 1 gateway(s) found
+2016-08-09 17:36:11 INFO  UPNPService     - Listing gateway details of device #1
+2016-08-09 17:36:11 INFO  UPNPService     - 	Friendly name: Wireless Router TL-WR740N
+2016-08-09 17:36:11 INFO  UPNPService     - 	Presentation URL: http://192.168.0.1:80/      
+2016-08-09 17:36:11 INFO  UPNPService     - 	Model name: TL-WR740N
+2016-08-09 17:36:11 INFO  UPNPService     - 	Model number: 4.0
+2016-08-09 17:36:11 INFO  UPNPService     - 	Local interface address: 192.168.0.105
+
+2016-08-09 17:36:11 INFO  UPNPService     - Using the first active gateway: Wireless Router TL-WR740N
+2016-08-09 17:36:11 INFO  UPNPService     - Using local address: 192.168.0.105
+2016-08-09 17:36:11 INFO  UPNPService     - External address: 186.23.58.203
+2016-08-09 17:36:11 INFO  UPNPService     - Querying device to see if a port mapping already exists for port 8080
+2016-08-09 17:36:11 WARN  UPNPService     - Port 8080 is already mapped. Aborting to forwarding.
+2016-08-09 17:36:13 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - New message Received
+2016-08-09 17:36:13 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Session: oJKixS5Yyn45Q5VkZQNBoF2kqt0LL36YVm3JeRS9 packageReceived = GET_ACTOR_CATALOG_RESPONSE
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Processing new package received
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing count()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Row in node catalog  = 0
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - nodesCatalog size = 15
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:13 INFO  AbstractBaseDao     - Executing count()
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Row in node catalog  = 15
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Row in catalog seed node = 40
+2016-08-09 17:36:13 INFO  GetActorCatalogResponseProcessor     - Requesting more transactions.
+2016-08-09 17:36:15 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - New message Received
+2016-08-09 17:36:15 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Session: oJKixS5Yyn45Q5VkZQNBoF2kqt0LL36YVm3JeRS9 packageReceived = GET_ACTOR_CATALOG_RESPONSE
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Processing new package received
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing count()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Row in node catalog  = 15
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - nodesCatalog size = 15
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:15 INFO  AbstractBaseDao     - Executing count()
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Row in node catalog  = 30
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Row in catalog seed node = 40
+2016-08-09 17:36:15 INFO  GetActorCatalogResponseProcessor     - Requesting more transactions.
+2016-08-09 17:36:16 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - New message Received
+2016-08-09 17:36:16 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Session: oJKixS5Yyn45Q5VkZQNBoF2kqt0LL36YVm3JeRS9 packageReceived = GET_ACTOR_CATALOG_RESPONSE
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Processing new package received
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing count()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Row in node catalog  = 30
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - nodesCatalog size = 10
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Executing method processCatalogUpdate
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:16 INFO  AbstractBaseDao     - Executing count()
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Row in node catalog  = 40
+2016-08-09 17:36:16 INFO  GetActorCatalogResponseProcessor     - Row in catalog seed node = 40
+2016-08-09 17:36:16 INFO  FermatWebSocketClientNodeChannelServerEndpoint     - Closed session : oJKixS5Yyn45Q5VkZQNBoF2kqt0LL36YVm3JeRS9 Code: (NORMAL_CLOSURE) - reason: Process finish...
+2016-08-09 17:36:21 INFO  PropagateActorsCatalogTask     - Executing node propagateActorsCatalog()
+2016-08-09 17:36:21 INFO  PropagateNodesCatalogTask     - Executing node propagateNodesCatalog()
+2016-08-09 17:36:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: currentNodesInCatalog: 2
+2016-08-09 17:36:21 INFO  PropagateNodesCatalogTask     - Executing node propagation: currentNodesInCatalog: 2
+2016-08-09 17:36:21 INFO  PropagateNodesCatalogTask     - Executing node propagation: countOfItemsToShare: 0
+2016-08-09 17:36:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: countOfItemsToShare: 0
+2016-08-09 17:36:21 INFO  PropagateActorsCatalogTask     - No nodes in catalog to propagate with.
+2016-08-09 17:36:21 INFO  PropagateNodesCatalogTask     - No nodes in catalog to propagate with.
+2016-08-09 17:36:26 INFO  ClientChannelConfigurator     - originHeaderValue = 186.23.58.203:8080
+2016-08-09 17:36:26 INFO  FermatWebSocketClientChannelServerEndpoint     -  New connection stablished: NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO
+2016-08-09 17:36:26 INFO  AbstractBaseDao     - Executing findById(043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE)
+2016-08-09 17:36:27 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_CLIENT_REQUEST)
+2016-08-09 17:36:27 INFO  CheckInClientRequestProcessor     - Processing new package received: CHECK_IN_CLIENT_REQUEST
+2016-08-09 17:36:27 INFO  AbstractBaseDao     - Executing save(Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=GeoLocation{id=043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470774987006, source=null}, status=UNKNOWN, deviceType='', session='null'})
+2016-08-09 17:36:27 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:27 INFO  ClientSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE)
+2016-08-09 17:36:27 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='04E92208934B2BC60A16AE28615F2468081A7EF65F128B44D861BC9D0596EDE14B801045223A9AB493D988D895BF973455995764560D438E552B2CADCE4FB6D7FC', location=GeoLocation{id=04E92208934B2BC60A16AE28615F2468081A7EF65F128B44D861BC9D0596EDE14B801045223A9AB493D988D895BF973455995764560D438E552B2CADCE4FB6D7FC, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007904, source=null}, status=UNKNOWN, networkServiceType=CRYPTO_BROKER, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 04E92208934B2BC60A16AE28615F2468081A7EF65F128B44D861BC9D0596EDE14B801045223A9AB493D988D895BF973455995764560D438E552B2CADCE4FB6D7FC)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = CRYPTO_BROKER)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=04E92208934B2BC60A16AE28615F2468081A7EF65F128B44D861BC9D0596EDE14B801045223A9AB493D988D895BF973455995764560D438E552B2CADCE4FB6D7FC}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='046B2C6AD22E6030BDC6524B2169C4C14C952B2504833DF554000153D82371E1C7F715476F5DF4E3C99D7A3A7687DDE393DDA88FC4DC9908C5CE4565C8301298A2', location=GeoLocation{id=046B2C6AD22E6030BDC6524B2169C4C14C952B2504833DF554000153D82371E1C7F715476F5DF4E3C99D7A3A7687DDE393DDA88FC4DC9908C5CE4565C8301298A2, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007913, source=null}, status=UNKNOWN, networkServiceType=CRYPTO_ADDRESSES, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 046B2C6AD22E6030BDC6524B2169C4C14C952B2504833DF554000153D82371E1C7F715476F5DF4E3C99D7A3A7687DDE393DDA88FC4DC9908C5CE4565C8301298A2)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = CRYPTO_ADDRESSES)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=046B2C6AD22E6030BDC6524B2169C4C14C952B2504833DF554000153D82371E1C7F715476F5DF4E3C99D7A3A7687DDE393DDA88FC4DC9908C5CE4565C8301298A2}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='0419AFA759B0C779DE1B5824DA83AB34A85C156B6E4DE80E2E7161858E688252688D34F4452DA0C064B21E56206DAECAC001E4316E35547B9A75D7C4A6A6D8B0DD', location=GeoLocation{id=0419AFA759B0C779DE1B5824DA83AB34A85C156B6E4DE80E2E7161858E688252688D34F4452DA0C064B21E56206DAECAC001E4316E35547B9A75D7C4A6A6D8B0DD, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007916, source=null}, status=UNKNOWN, networkServiceType=FERMAT_MONITOR, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 0419AFA759B0C779DE1B5824DA83AB34A85C156B6E4DE80E2E7161858E688252688D34F4452DA0C064B21E56206DAECAC001E4316E35547B9A75D7C4A6A6D8B0DD)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = FERMAT_MONITOR)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=0419AFA759B0C779DE1B5824DA83AB34A85C156B6E4DE80E2E7161858E688252688D34F4452DA0C064B21E56206DAECAC001E4316E35547B9A75D7C4A6A6D8B0DD}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='04FDCFCA333FA45930E6F2C18E5B8742D70296F7257E4BBBCDE95DD83F946A1FE7D9B605B51B26C825A4CEC14819AD83A9C6A39A4CE502BE88D988DFB2B20ACFED', location=GeoLocation{id=04FDCFCA333FA45930E6F2C18E5B8742D70296F7257E4BBBCDE95DD83F946A1FE7D9B605B51B26C825A4CEC14819AD83A9C6A39A4CE502BE88D988DFB2B20ACFED, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007918, source=null}, status=UNKNOWN, networkServiceType=NEGOTIATION_TRANSMISSION, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 04FDCFCA333FA45930E6F2C18E5B8742D70296F7257E4BBBCDE95DD83F946A1FE7D9B605B51B26C825A4CEC14819AD83A9C6A39A4CE502BE88D988DFB2B20ACFED)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = NEGOTIATION_TRANSMISSION)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=04FDCFCA333FA45930E6F2C18E5B8742D70296F7257E4BBBCDE95DD83F946A1FE7D9B605B51B26C825A4CEC14819AD83A9C6A39A4CE502BE88D988DFB2B20ACFED}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='0461EBD5D1D0A187FD4B9E0E3BBFDD8DA7AD192B473B73048286F0341B2C4ACB48130A647BA7C16F25BA4408132809CC175E5E04C642F3919C9C6804BD1B27727E', location=GeoLocation{id=0461EBD5D1D0A187FD4B9E0E3BBFDD8DA7AD192B473B73048286F0341B2C4ACB48130A647BA7C16F25BA4408132809CC175E5E04C642F3919C9C6804BD1B27727E, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007921, source=null}, status=UNKNOWN, networkServiceType=CRYPTO_PAYMENT_REQUEST, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 0461EBD5D1D0A187FD4B9E0E3BBFDD8DA7AD192B473B73048286F0341B2C4ACB48130A647BA7C16F25BA4408132809CC175E5E04C642F3919C9C6804BD1B27727E)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = CRYPTO_PAYMENT_REQUEST)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=0461EBD5D1D0A187FD4B9E0E3BBFDD8DA7AD192B473B73048286F0341B2C4ACB48130A647BA7C16F25BA4408132809CC175E5E04C642F3919C9C6804BD1B27727E}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='0478977262F8F53E193D9A636AEECB2F2E2B94F7D30FD85D701577484190B438A7D010D93CFCE6567B3E457A42307950429E0CA38D9658DA3ABFD79259FA121FF1', location=GeoLocation{id=0478977262F8F53E193D9A636AEECB2F2E2B94F7D30FD85D701577484190B438A7D010D93CFCE6567B3E457A42307950429E0CA38D9658DA3ABFD79259FA121FF1, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007924, source=null}, status=UNKNOWN, networkServiceType=CRYPTO_TRANSMISSION, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 0478977262F8F53E193D9A636AEECB2F2E2B94F7D30FD85D701577484190B438A7D010D93CFCE6567B3E457A42307950429E0CA38D9658DA3ABFD79259FA121FF1)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = CRYPTO_TRANSMISSION)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=0478977262F8F53E193D9A636AEECB2F2E2B94F7D30FD85D701577484190B438A7D010D93CFCE6567B3E457A42307950429E0CA38D9658DA3ABFD79259FA121FF1}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='0475A37B2AB395FB2C897D9DB694AC534BC6E830792AB060B672119EC1B2E95BAE01ABE4D7531F207CAC651299B4E760A2CA0C6F9403777A218E37CD274D529B28', location=GeoLocation{id=0475A37B2AB395FB2C897D9DB694AC534BC6E830792AB060B672119EC1B2E95BAE01ABE4D7531F207CAC651299B4E760A2CA0C6F9403777A218E37CD274D529B28, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007928, source=null}, status=UNKNOWN, networkServiceType=TRANSACTION_TRANSMISSION, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 0475A37B2AB395FB2C897D9DB694AC534BC6E830792AB060B672119EC1B2E95BAE01ABE4D7531F207CAC651299B4E760A2CA0C6F9403777A218E37CD274D529B28)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = TRANSACTION_TRANSMISSION)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=0475A37B2AB395FB2C897D9DB694AC534BC6E830792AB060B672119EC1B2E95BAE01ABE4D7531F207CAC651299B4E760A2CA0C6F9403777A218E37CD274D529B28}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='048A470CFF1DF4EB8C8F946A27638DA86C0CE613ADE91B18BA8E7F5222E94730FB024633D30A515654ECC40DA52755D08425E4FB06D90D17D49C70F2E859D476FE', location=GeoLocation{id=048A470CFF1DF4EB8C8F946A27638DA86C0CE613ADE91B18BA8E7F5222E94730FB024633D30A515654ECC40DA52755D08425E4FB06D90D17D49C70F2E859D476FE, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007932, source=null}, status=UNKNOWN, networkServiceType=CHAT, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 048A470CFF1DF4EB8C8F946A27638DA86C0CE613ADE91B18BA8E7F5222E94730FB024633D30A515654ECC40DA52755D08425E4FB06D90D17D49C70F2E859D476FE)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = CHAT)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=048A470CFF1DF4EB8C8F946A27638DA86C0CE613ADE91B18BA8E7F5222E94730FB024633D30A515654ECC40DA52755D08425E4FB06D90D17D49C70F2E859D476FE}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='047DF6859218B589A54F7F23EB9BA229E91C1115A34E116036F16F3B70922759B87A51B95FB228933EBB5572E4E846477878E46AE7E7B99105FD41E83A73B2C3CE', location=GeoLocation{id=047DF6859218B589A54F7F23EB9BA229E91C1115A34E116036F16F3B70922759B87A51B95FB228933EBB5572E4E846477878E46AE7E7B99105FD41E83A73B2C3CE, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007935, source=null}, status=UNKNOWN, networkServiceType=INTRA_USER, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 047DF6859218B589A54F7F23EB9BA229E91C1115A34E116036F16F3B70922759B87A51B95FB228933EBB5572E4E846477878E46AE7E7B99105FD41E83A73B2C3CE)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = INTRA_USER)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=047DF6859218B589A54F7F23EB9BA229E91C1115A34E116036F16F3B70922759B87A51B95FB228933EBB5572E4E846477878E46AE7E7B99105FD41E83A73B2C3CE}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='04EBB6DCE9BE0319A5A6BBDEE0CF90B267E86DE155EE3C877CE3A0933FD1585CE6EC46D365DBB7FAFF6806CEC8B0A7D1BF4B33F11C333948CC7C5B7EBE84069099', location=GeoLocation{id=04EBB6DCE9BE0319A5A6BBDEE0CF90B267E86DE155EE3C877CE3A0933FD1585CE6EC46D365DBB7FAFF6806CEC8B0A7D1BF4B33F11C333948CC7C5B7EBE84069099, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007939, source=null}, status=UNKNOWN, networkServiceType=ACTOR_CHAT, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 04EBB6DCE9BE0319A5A6BBDEE0CF90B267E86DE155EE3C877CE3A0933FD1585CE6EC46D365DBB7FAFF6806CEC8B0A7D1BF4B33F11C333948CC7C5B7EBE84069099)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = ACTOR_CHAT)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=04EBB6DCE9BE0319A5A6BBDEE0CF90B267E86DE155EE3C877CE3A0933FD1585CE6EC46D365DBB7FAFF6806CEC8B0A7D1BF4B33F11C333948CC7C5B7EBE84069099}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_NETWORK_SERVICE_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     - Processing new package received: CHECK_IN_NETWORK_SERVICE_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing save(NetworkService{id='0456C0354FF93FE3EDB958BBB0783A58C434BEE042E189EDBB0A2F1FBDE407B4ED59EDF39C2E18E028BBB13D2019A18F116171F8D902585822FBD534E8DD7A68A1', location=GeoLocation{id=0456C0354FF93FE3EDB958BBB0783A58C434BEE042E189EDBB0A2F1FBDE407B4ED59EDF39C2E18E028BBB13D2019A18F116171F8D902585822FBD534E8DD7A68A1, latitude=0.003158832006699921, longitude=1.1753471775933067E-4, altitude=0.0, accuracy=0.0, altitudeAccuracy=null, time=1470775007942, source=null}, status=UNKNOWN, networkServiceType=CRYPTO_CUSTOMER, client=Client{id='043F29BCE80CE5BDA345E2BDEF97EF9ACF91451D1D130C8CF834C9B2480649073F50B0005318D6C0907D2D02A717EF28CA3155628D06D0AEF9914E00EA0E72E8EE', location=null, status=null, deviceType='null', session='null'}})
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - Executing checkIn(NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, 0456C0354FF93FE3EDB958BBB0783A58C434BEE042E189EDBB0A2F1FBDE407B4ED59EDF39C2E18E028BBB13D2019A18F116171F8D902585822FBD534E8DD7A68A1)
+2016-08-09 17:36:47 INFO  NetworkServiceSessionDao     - type = CRYPTO_CUSTOMER)
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing list({sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO, networkService.id=0456C0354FF93FE3EDB958BBB0783A58C434BEE042E189EDBB0A2F1FBDE407B4ED59EDF39C2E18E028BBB13D2019A18F116171F8D902585822FBD534E8DD7A68A1}
+2016-08-09 17:36:47 INFO  CheckInNetworkServiceRequestProcessor     -  ---------------------------------------------------------------------- 
+2016-08-09 17:36:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_ACTOR_REQUEST)
+2016-08-09 17:36:47 INFO  CheckInActorRequestProcessor     - Processing new package received: CHECK_IN_ACTOR_REQUEST
+2016-08-09 17:36:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:48 INFO  AbstractBaseDao     - Executing findById(0441A57087CBF4F80631F9EBAF93418A736D92F89C6FF253982567CB8A7522436BBEAE25570A7D607103C6CB26B56041872511491A072DB0F3E0F079600AA7E627)
+2016-08-09 17:36:48 INFO  AbstractBaseDao     - Executing list({actor.id=041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB, sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO}
+2016-08-09 17:36:48 INFO  CheckInActorRequestProcessor     - Registered new Actor = Jane Doe
+2016-08-09 17:36:48 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (CHECK_IN_ACTOR_REQUEST)
+2016-08-09 17:36:48 INFO  CheckInActorRequestProcessor     - Processing new package received: CHECK_IN_ACTOR_REQUEST
+2016-08-09 17:36:48 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:36:48 INFO  AbstractBaseDao     - Executing findById(0441A57087CBF4F80631F9EBAF93418A736D92F89C6FF253982567CB8A7522436BBEAE25570A7D607103C6CB26B56041872511491A072DB0F3E0F079600AA7E627)
+2016-08-09 17:36:48 INFO  AbstractBaseDao     - Executing list({actor.id=048F8D303338825146105436B5E9EF191B941CE987089C170D9ACECBA3369E76B08FE14EF3AFC3C767DBE8EF1DF107404515D79347349631D87F62607470A51208, sessionId=NJemJYfNtp3PezNstULQQZsGtI6gYt7PgM3zcMmO}
+2016-08-09 17:36:48 INFO  CheckInActorRequestProcessor     - Registered new Actor = dsad
+2016-08-09 17:37:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:37:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:37:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:37:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:37:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:37:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:37:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:38:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:38:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:38:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:38:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:38:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:38:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:38:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:39:21 INFO  PropagateActorsCatalogTask     - Executing node propagateActorsCatalog()
+2016-08-09 17:39:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: currentNodesInCatalog: 2
+2016-08-09 17:39:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: countOfItemsToShare: 0
+2016-08-09 17:39:21 INFO  PropagateActorsCatalogTask     - No nodes in catalog to propagate with.
+2016-08-09 17:39:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:39:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:39:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:39:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:39:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:39:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:39:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:40:48 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:40:48 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:40:48 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:40:48 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:40:48 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:40:48 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:40:48 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:41:21 INFO  PropagateNodesCatalogTask     - Executing node propagateNodesCatalog()
+2016-08-09 17:41:23 INFO  PropagateNodesCatalogTask     - Executing node propagation: currentNodesInCatalog: 2
+2016-08-09 17:41:27 INFO  PropagateNodesCatalogTask     - Executing node propagation: countOfItemsToShare: 0
+2016-08-09 17:41:27 INFO  PropagateNodesCatalogTask     - No nodes in catalog to propagate with.
+2016-08-09 17:41:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:41:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:41:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:41:48 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:41:48 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:41:50 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:41:50 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:42:21 INFO  PropagateActorsCatalogTask     - Executing node propagateActorsCatalog()
+2016-08-09 17:42:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: currentNodesInCatalog: 2
+2016-08-09 17:42:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: countOfItemsToShare: 0
+2016-08-09 17:42:21 INFO  PropagateActorsCatalogTask     - No nodes in catalog to propagate with.
+2016-08-09 17:42:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:42:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:42:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:42:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:42:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:42:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:42:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:43:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:43:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:43:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:43:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:43:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:43:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:43:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:44:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:44:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:44:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:44:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:44:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:44:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:44:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:45:21 INFO  PropagateActorsCatalogTask     - Executing node propagateActorsCatalog()
+2016-08-09 17:45:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: currentNodesInCatalog: 2
+2016-08-09 17:45:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: countOfItemsToShare: 0
+2016-08-09 17:45:21 INFO  PropagateActorsCatalogTask     - No nodes in catalog to propagate with.
+2016-08-09 17:45:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:45:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:45:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:45:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:45:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:45:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:45:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish

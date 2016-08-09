@@ -1,0 +1,8 @@
+rootProject.name = 'fermat.node'
+include ':fermat-api'
+include ':fermat-pip-api'
+include ':fermat-p2p-api'
+apply from: 'OSA/settings.gradle'
+include ':fermat-p2p-plugin-communication-network-node-bitdubai'
+
+include ':fermat-linux-core'

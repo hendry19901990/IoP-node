@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'application'
+apply plugin: 'gradle-one-jar'
+
+version = '1.6.1'
+
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.github.rholder:gradle-one-jar:1.0.4'
+        classpath fileTree(dir: 'libs', include: '*.jar')
+    }
+}
+
+dependencies {
+//    compile project(':fermat-osa-linux-core')
+    compile ':fermat-p2p-plugin-communication-network-node-bitdubai'
+    compile ':fermat-osa-addon-linux-device-location-bitdubai'
+    compile ':fermat-osa-addon-linux-file-system-bitdubai'
+
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
+
+ext.sharedManifest = manifest {
+    attributes 'One-Jar-URL-Factory': 'com.simontuffs.onejar.JarClassLoader$FileURLFactory',
+               'One-Jar-Show-Expand': 'true'
+}
+
+task linuxCoreJar(type: OneJar) {
+
+    manifest = project.manifest {
+        from sharedManifest
+    }
+    mainClass = 'com.bitdubai.linux.core.app.FermatLinuxAppMain'
+    mainClassName = 'com.bitdubai.linux.core.app.FermatLinuxAppMain'
+    archiveName = project.name + '-with-dependencies-' + version + ".jar"
+    additionalDir = file('src/main/resources/one-jar.properties')
+}

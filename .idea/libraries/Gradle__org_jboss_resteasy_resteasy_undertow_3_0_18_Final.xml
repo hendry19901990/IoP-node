@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jboss.resteasy:resteasy-undertow:3.0.18.Final">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jboss.resteasy/resteasy-undertow/3.0.18.Final/f58bf433a7d0160054db585c405ec85a2d3b4c8c/resteasy-undertow-3.0.18.Final.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jboss.resteasy/resteasy-undertow/3.0.18.Final/3908697bceaffec501bf6eacd09aa10c89c1540d/resteasy-undertow-3.0.18.Final-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

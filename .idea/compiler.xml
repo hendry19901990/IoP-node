@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+      <entry name="!?*.aj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="artifactID_main" target="1.5" />
+      <module name="artifactID_test" target="1.5" />
+      <module name="fermat-api_main" target="1.7" />
+      <module name="fermat-api_test" target="1.7" />
+      <module name="fermat-linux-core_main" target="1.7" />
+      <module name="fermat-linux-core_test" target="1.7" />
+      <module name="fermat-osa-addon-linux-device-location-bitdubai_main" target="1.7" />
+      <module name="fermat-osa-addon-linux-device-location-bitdubai_test" target="1.7" />
+      <module name="fermat-osa-addon-linux-file-system-bitdubai_main" target="1.7" />
+      <module name="fermat-osa-addon-linux-file-system-bitdubai_test" target="1.7" />
+      <module name="fermat-p2p-api_main" target="1.7" />
+      <module name="fermat-p2p-api_test" target="1.7" />
+      <module name="fermat-p2p-plugin-communication-network-node-bitdubai_main" target="1.7" />
+      <module name="fermat-p2p-plugin-communication-network-node-bitdubai_test" target="1.7" />
+      <module name="fermat-pip-api_main" target="1.7" />
+      <module name="fermat-pip-api_test" target="1.7" />
+      <module name="fermat.node_main" target="1.5" />
+      <module name="fermat.node_test" target="1.5" />
+      <module name="robertID_main" target="1.5" />
+      <module name="robertID_test" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
