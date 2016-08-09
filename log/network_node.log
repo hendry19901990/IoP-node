@@ -561,3 +561,32 @@
 2016-08-09 17:45:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
 2016-08-09 17:45:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
 2016-08-09 17:45:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:46:21 INFO  PropagateNodesCatalogTask     - Executing node propagateNodesCatalog()
+2016-08-09 17:46:21 INFO  PropagateNodesCatalogTask     - Executing node propagation: currentNodesInCatalog: 2
+2016-08-09 17:46:21 INFO  PropagateNodesCatalogTask     - Executing node propagation: countOfItemsToShare: 0
+2016-08-09 17:46:21 INFO  PropagateNodesCatalogTask     - No nodes in catalog to propagate with.
+2016-08-09 17:46:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:46:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:46:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:46:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:46:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:46:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:46:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:47:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:47:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:47:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:47:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:47:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:47:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:47:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish
+2016-08-09 17:48:21 INFO  PropagateActorsCatalogTask     - Executing node propagateActorsCatalog()
+2016-08-09 17:48:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: currentNodesInCatalog: 2
+2016-08-09 17:48:21 INFO  PropagateActorsCatalogTask     - Executing actor propagation: countOfItemsToShare: 0
+2016-08-09 17:48:21 INFO  PropagateActorsCatalogTask     - No nodes in catalog to propagate with.
+2016-08-09 17:48:47 INFO  FermatWebSocketClientChannelServerEndpoint     - New package received (UPDATE_PROFILE_GEOLOCATION_REQUEST)
+2016-08-09 17:48:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Processing new package received UPDATE_PROFILE_GEOLOCATION_REQUEST
+2016-08-09 17:48:47 INFO  AbstractBaseDao     - Executing exist()
+2016-08-09 17:48:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Updating actor profile location
+2016-08-09 17:48:47 INFO  AbstractBaseDao     - Executing findById(041F8F28DC75C8498A705857406999284D30B24E79FF079E3B0C8D3D02AA1B9C42DC29E141D33CA70161B609F6DEC69AC621A9E5CBD5A9225F2C287A2E7F566DCB)
+2016-08-09 17:48:47 INFO  AbstractBaseDao     - Executing update(class com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog)
+2016-08-09 17:48:47 INFO  UpdateProfileLocationIntoCatalogProcessor     - Process finish

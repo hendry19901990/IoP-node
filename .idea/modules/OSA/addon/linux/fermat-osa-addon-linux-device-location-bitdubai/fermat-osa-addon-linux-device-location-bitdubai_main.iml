@@ -9,14 +9,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.4" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.commons:commons-collections4:4.0" level="project" />
+    <orderEntry type="library" name="Gradle: commons-collections:commons-collections:3.2.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.bitcoinj:bitcoinj-core:0.13.3" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5" level="project" />
+    <orderEntry type="module" module-name="fermat-api_main" />
     <orderEntry type="library" name="Gradle: com.thoughtworks.xstream:xstream:1.4.7" level="project" />
     <orderEntry type="library" name="Gradle: org.kohsuke:github-api:1.69" level="project" />
-    <orderEntry type="library" name="Gradle: commons-collections:commons-collections:3.2.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5" level="project" />
-    <orderEntry type="library" name="Gradle: org.bitcoinj:bitcoinj-core:0.13.3" level="project" />
-    <orderEntry type="module" module-name="fermat-api_main" />
-    <orderEntry type="library" name="Gradle: org.apache.commons:commons-collections4:4.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.commons:commons-lang3:3.4" level="project" />
-    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.2.2" level="project" />
   </component>
 </module>
