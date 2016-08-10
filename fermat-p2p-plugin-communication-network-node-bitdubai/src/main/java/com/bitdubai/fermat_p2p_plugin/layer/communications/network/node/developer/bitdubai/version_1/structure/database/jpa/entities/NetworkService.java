@@ -40,7 +40,7 @@ public class NetworkService extends AbstractBaseEntity<String>{
      * Represent the location
      */
     @MapsId
-    @OneToOne(cascade = {CascadeType.ALL}, targetEntity = GeoLocation.class, orphanRemoval = true)
+    @OneToOne(targetEntity = GeoLocation.class)
     private GeoLocation location;
 
     /**
@@ -92,7 +92,7 @@ public class NetworkService extends AbstractBaseEntity<String>{
         this.networkServiceType = networkServiceProfile.getNetworkServiceType();
         this.client = new Client(networkServiceProfile.getClientIdentityPublicKey());
         if (networkServiceProfile.getLocation() != null){
-            this.location = new GeoLocation(this.id, networkServiceProfile.getLocation().getLatitude(), networkServiceProfile.getLocation().getLongitude());
+            this.location = new GeoLocation(networkServiceProfile.getClientIdentityPublicKey(), networkServiceProfile.getLocation().getLatitude(), networkServiceProfile.getLocation().getLongitude());
         }else {
             this.location = null;
         }
@@ -111,7 +111,7 @@ public class NetworkService extends AbstractBaseEntity<String>{
         this.networkServiceType = networkServiceType;
         this.client = new Client(clientIdentityPublicKey);
         if (location != null){
-            this.location = new GeoLocation(this.id, location.getLatitude(), location.getLongitude());
+            this.location = new GeoLocation(clientIdentityPublicKey, location.getLatitude(), location.getLongitude());
         }else {
             this.location = null;
         }
