@@ -10,16 +10,14 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.Head
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.NetworkNodePluginRoot;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.context.NodeContext;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.context.NodeContextItem;
-
 import org.apache.commons.lang.ClassUtils;
 import org.jboss.logging.Logger;
 
+import javax.websocket.ClientEndpointConfig;
+import javax.websocket.HandshakeResponse;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import javax.websocket.ClientEndpointConfig;
-import javax.websocket.HandshakeResponse;
 
 /**
  * The class <code>ClientNodeChannelConfigurator</code>

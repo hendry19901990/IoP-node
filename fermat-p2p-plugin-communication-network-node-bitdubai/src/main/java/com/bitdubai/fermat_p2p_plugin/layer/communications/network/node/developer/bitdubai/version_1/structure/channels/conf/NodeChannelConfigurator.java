@@ -8,7 +8,6 @@ package com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.develop
 
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
-
 import org.apache.commons.lang.ClassUtils;
 import org.jboss.logging.Logger;
 
