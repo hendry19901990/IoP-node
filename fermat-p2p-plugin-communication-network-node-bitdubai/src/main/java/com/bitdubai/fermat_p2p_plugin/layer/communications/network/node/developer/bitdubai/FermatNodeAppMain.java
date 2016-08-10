@@ -8,7 +8,7 @@ import com.bitdubai.fermat_osa_addon.layer.linux.file_system.developer.bitdubai.
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.NetworkNodePluginRoot;
 
 /**
- * The Class <code>com.bitdubai.linux.core.app.FermatLinuxAppMain</code> initialize
+ * The Class <code>com.bitdubai.linux.core.app.FermatNodeAppMain</code> initialize
  * all fermat system
  * <p/>
  * <p/>
@@ -17,7 +17,7 @@ import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.develope
  * @version 1.0
  * @since Java JDK 1.7
  */
-public class FermatLinuxAppMain {
+public class FermatNodeAppMain {
 
     /**
      * Represent the fermatContext instance
