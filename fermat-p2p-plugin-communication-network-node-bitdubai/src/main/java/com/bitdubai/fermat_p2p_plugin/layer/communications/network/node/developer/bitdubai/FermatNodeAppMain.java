@@ -37,20 +37,12 @@ public class FermatNodeAppMain {
 
         try {
 
-//            fermatSystem.start(fermatLinuxContext, new OSAPlatform());
-
             System.out.println("***********************************************************************");
-            System.out.println("* FERMAT - Linux Core - Version 1.0 (2016)                            *");
+            System.out.println("* FERMAT - Network Node - Version 1.0 (2016)                            *");
             System.out.println("* www.fermat.org                                                      *");
             System.out.println("***********************************************************************");
             System.out.println("");
             System.out.println("- Starting process ...");
-
-            /*
-             * Start the network node.
-             */
-
-//            fermatSystem.startAndGetPluginVersion(new PluginVersionReference(Platforms.COMMUNICATION_PLATFORM, Layers.COMMUNICATION, Plugins.NETWORK_NODE, Developers.BITDUBAI, new Version()));
 
             DeviceLocationSystemAddonRoot deviceLocationSystemAddonRoot = new DeviceLocationSystemAddonRoot();
             deviceLocationSystemAddonRoot.start();
@@ -66,7 +58,7 @@ public class FermatNodeAppMain {
 
             networkNodePluginRoot.start();
 
-            System.out.println("FERMAT - Linux Core - started satisfactory...");
+            System.out.println("FERMAT - Network Node - started satisfactory...");
 
         } catch (Exception e) {
 
