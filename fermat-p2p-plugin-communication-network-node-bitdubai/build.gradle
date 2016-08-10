@@ -139,8 +139,8 @@ task linuxCoreJar(type: OneJar) {
     manifest = project.manifest {
         from sharedManifest
     }
-    mainClass = 'com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.FermatLinuxAppMain'
-    mainClassName = 'com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.FermatLinuxAppMain'
+    mainClass = 'com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.FermatNodeAppMain'
+    mainClassName = 'com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.FermatNodeAppMain'
     archiveName = project.name + '-with-dependencies-' + version + ".jar"
     additionalDir = file('src/main/resources/one-jar.properties')
 }
