@@ -108,17 +108,15 @@ public class Profiles implements RestFulServices {
             /*
              * hold the result list
              */
-            List<ActorProfile> resultList = filterActors(discoveryQueryParameters, clientIdentityPublicKey);
+            List<ActorProfile> filteredLis = filterActors(discoveryQueryParameters, clientIdentityPublicKey);
 
-            LOG.info("filteredLis.size() =" + resultList.size());
+            LOG.info("filteredLis.size() =" + filteredLis != null ? filteredLis.size() : 0);
 
             /*
              * Convert the list to json representation
              */
-            String jsonListRepresentation = GsonProvider.getGson().toJson(resultList, new TypeToken<List<ActorProfile>>() {
+            String jsonListRepresentation = GsonProvider.getGson().toJson(filteredLis, new TypeToken<List<ActorProfile>>() {
             }.getType());
-
-            System.out.println(jsonListRepresentation);
 
             /*
              * Create the respond
@@ -166,7 +164,7 @@ public class Profiles implements RestFulServices {
         if (actorsList != null && !actorsList.isEmpty()) {
             resultList = new ArrayList<>();
             for (ActorCatalog actorCatalog: actorsList) {
-                resultList.add(buildActorProfileFromActorCatalogRecordAndSetStatus(actorCatalog));
+                resultList.add(buildActorProfileFromActorCatalogAndSetStatus(actorCatalog));
             }
         }
 
@@ -177,7 +175,7 @@ public class Profiles implements RestFulServices {
     /**
      * Build an Actor Profile from an Actor Catalog record and set its status.
      */
-    private ActorProfile buildActorProfileFromActorCatalogRecordAndSetStatus(final ActorCatalog actorCatalog){
+    private ActorProfile buildActorProfileFromActorCatalogAndSetStatus(final ActorCatalog actorCatalog){
 
         ActorProfile actorProfile = actorCatalog.getActorProfile();
         if (actorProfile.getStatus() == ProfileStatus.UNKNOWN){
@@ -199,6 +197,10 @@ public class Profiles implements RestFulServices {
     private ProfileStatus isActorOnline(ActorCatalog actorsCatalog) {
 
         try {
+
+            LOG.info("homeNode = " + actorsCatalog.getHomeNode() != null ? actorsCatalog.getHomeNode().getId() : "");
+            LOG.info("getNodeProfile = " + getPluginRoot().getNodeProfile() != null ?  getPluginRoot().getNodeProfile().getIdentityPublicKey() : "");
+            LOG.info("homeNode is the same = " + actorsCatalog.getHomeNode() != null ? actorsCatalog.getHomeNode().getId().equals(getPluginRoot().getNodeProfile().getIdentityPublicKey()) : false);
 
             if(actorsCatalog.getHomeNode().getId().equals(getPluginRoot().getIdentity().getPublicKey())) {
                return ProfileStatus.OFFLINE;
