@@ -71,7 +71,6 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
         EntityManager connection = getConnection();
         connection.setProperty("javax.persistence.cache.storeMode", CacheStoreMode.BYPASS);
 
-        System.out.println("I am a clientIdentityPublicKey: " + clientIdentityPublicKey);
         try {
             CriteriaBuilder criteriaBuilder = connection.getCriteriaBuilder();
             CriteriaQuery<ActorCatalog> criteriaQuery = criteriaBuilder.createQuery(entityClass);
