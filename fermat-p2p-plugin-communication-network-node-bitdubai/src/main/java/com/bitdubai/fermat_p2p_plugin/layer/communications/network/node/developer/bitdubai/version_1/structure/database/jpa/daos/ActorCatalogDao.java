@@ -90,9 +90,10 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
 
                 //We are gonna calculate the geoRectangle only in case this filter exists
                 if(filters.containsKey("location")){
+
                     //Getting GeoLocation from client
-                    GeoLocation clientGeoLocation = getClientGeoLocation(
-                            clientIdentityPublicKey);
+                    GeoLocation clientGeoLocation =  connection.find(GeoLocation.class, clientIdentityPublicKey);
+
                     //Calculate the BasicGeoRectangle
                     double distance;
                     try{
@@ -374,7 +375,6 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
             filters.put("alias",  params.getAlias());
 
         if (params.getActorType() != null){
-            System.out.println("---------------------------------Actor type:"+params.getActorType());
             filters.put("actorType", params.getActorType());
         }
 
@@ -465,22 +465,32 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
 
     }
 
-    public ResultDiscoveryTraceActor getActorHomeNodeData(String publicKey) throws CantReadRecordDataBaseException {
+    /**
+     * Get the photo of the actor
+     *
+     * @param actorID
+     * @return byte[]
+     * @throws CantReadRecordDataBaseException
+     */
+    public byte[] getPhoto(String actorID) throws CantReadRecordDataBaseException {
 
-        ActorProfile actorProfile = new ActorProfile();
-        actorProfile.setIdentityPublicKey(publicKey);
+        LOG.debug("Executing getPhoto(" + actorID + ")");
+        EntityManager connection = getConnection();
 
-        NodeProfile nodeProfile = new NodeProfile();
+        try {
 
-        NodeCatalog nodeCatalog = getHomeNode(publicKey);
+            TypedQuery<byte[]> query = connection.createQuery("SELECT a.photo FROM ActorCatalog a WHERE id = :id", byte[].class);
+            query.setParameter("id", actorID);
+            query.setMaxResults(1);
 
-        if (nodeCatalog != null) {
-            nodeProfile.setDefaultPort(nodeCatalog.getDefaultPort());
-            nodeProfile.setIp(nodeCatalog.getIp());
+            List<byte[]> photos = query.getResultList();
+            return (photos != null && !photos.isEmpty() ? photos.get(0) : null);
 
-            return new ResultDiscoveryTraceActor(nodeProfile, actorProfile);
-        } else {
-            return null;
+        } catch (Exception e) {
+            LOG.error(e);
+            throw new CantReadRecordDataBaseException(CantReadRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
         }
 
     }
