@@ -54,7 +54,7 @@ public class NetworkServiceSessionDao extends AbstractBaseDao<NetworkServiceSess
      * @param session
      * @param networkServiceProfile
      */
-    public synchronized void checkIn(Session session, NetworkServiceProfile networkServiceProfile) throws CantInsertRecordDataBaseException {
+    public void checkIn(Session session, NetworkServiceProfile networkServiceProfile) throws CantInsertRecordDataBaseException {
 
         LOG.info("Executing checkIn(" + session.getId() + ", " + networkServiceProfile.getIdentityPublicKey() + ")");
         LOG.info("type = " + networkServiceProfile.getNetworkServiceType() + ")");
