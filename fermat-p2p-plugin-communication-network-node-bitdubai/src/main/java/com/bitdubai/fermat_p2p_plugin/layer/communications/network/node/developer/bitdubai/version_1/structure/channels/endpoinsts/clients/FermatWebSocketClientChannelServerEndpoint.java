@@ -154,8 +154,8 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
              */
             processMessage(packageReceived, session);
 
-        }catch (PackageTypeNotSupportedException p){
-            LOG.warn(p.getMessage());
+        }catch (PackageTypeNotSupportedException p){;
+            LOG.warn("Session: "+session.getId(),p);
         }
 
     }
