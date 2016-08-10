@@ -8,7 +8,6 @@ package com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.develop
 
 
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.FermatEmbeddedNodeServer;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.ClassUtils;

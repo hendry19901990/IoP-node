@@ -5,9 +5,6 @@
 package com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.daos;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.DiscoveryQueryParameters;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ResultDiscoveryTraceActor;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.NodeProfile;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.GeoLocation;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NodeCatalog;
@@ -17,27 +14,12 @@ import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.develope
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.exceptions.CantUpdateRecordDataBaseException;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.util.geolocation.BasicGeoRectangle;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.util.geolocation.CoordinateCalculator;
-
 import org.apache.commons.lang.ClassUtils;
 import org.jboss.logging.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.UUID;
-
-import javax.persistence.CacheStoreMode;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.*;
+import javax.persistence.criteria.*;
+import java.util.*;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.ActorCatalogDao</code>
@@ -89,7 +71,6 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
         EntityManager connection = getConnection();
         connection.setProperty("javax.persistence.cache.storeMode", CacheStoreMode.BYPASS);
 
-        System.out.println("I am a clientIdentityPublicKey: " + clientIdentityPublicKey);
         try {
             CriteriaBuilder criteriaBuilder = connection.getCriteriaBuilder();
             CriteriaQuery<ActorCatalog> criteriaQuery = criteriaBuilder.createQuery(entityClass);
@@ -105,9 +86,10 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
 
                 //We are gonna calculate the geoRectangle only in case this filter exists
                 if(filters.containsKey("location")){
+
                     //Getting GeoLocation from client
-                    GeoLocation clientGeoLocation = getClientGeoLocation(
-                            clientIdentityPublicKey);
+                    GeoLocation clientGeoLocation =  connection.find(GeoLocation.class, clientIdentityPublicKey);
+
                     //Calculate the BasicGeoRectangle
                     double distance;
                     try{
@@ -389,7 +371,6 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
             filters.put("alias",  params.getAlias());
 
         if (params.getActorType() != null){
-            System.out.println("---------------------------------Actor type:"+params.getActorType());
             filters.put("actorType", params.getActorType());
         }
 
@@ -480,22 +461,32 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
 
     }
 
-    public ResultDiscoveryTraceActor getActorHomeNodeData(String publicKey) throws CantReadRecordDataBaseException {
+    /**
+     * Get the photo of the actor
+     *
+     * @param actorID
+     * @return byte[]
+     * @throws CantReadRecordDataBaseException
+     */
+    public byte[] getPhoto(String actorID) throws CantReadRecordDataBaseException {
 
-        ActorProfile actorProfile = new ActorProfile();
-        actorProfile.setIdentityPublicKey(publicKey);
+        LOG.debug("Executing getPhoto(" + actorID + ")");
+        EntityManager connection = getConnection();
 
-        NodeProfile nodeProfile = new NodeProfile();
+        try {
 
-        NodeCatalog nodeCatalog = getHomeNode(publicKey);
+            TypedQuery<byte[]> query = connection.createQuery("SELECT a.photo FROM ActorCatalog a WHERE id = :id", byte[].class);
+            query.setParameter("id", actorID);
+            query.setMaxResults(1);
 
-        if (nodeCatalog != null) {
-            nodeProfile.setDefaultPort(nodeCatalog.getDefaultPort());
-            nodeProfile.setIp(nodeCatalog.getIp());
+            List<byte[]> photos = query.getResultList();
+            return (photos != null && !photos.isEmpty() ? photos.get(0) : null);
 
-            return new ResultDiscoveryTraceActor(nodeProfile, actorProfile);
-        } else {
-            return null;
+        } catch (Exception e) {
+            LOG.error(e);
+            throw new CantReadRecordDataBaseException(CantReadRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
         }
 
     }

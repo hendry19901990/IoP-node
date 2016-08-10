@@ -8,7 +8,7 @@ import com.bitdubai.fermat_osa_addon.layer.linux.file_system.developer.bitdubai.
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.NetworkNodePluginRoot;
 
 /**
- * The Class <code>com.bitdubai.linux.core.app.FermatLinuxAppMain</code> initialize
+ * The Class <code>com.bitdubai.linux.core.app.FermatNodeAppMain</code> initialize
  * all fermat system
  * <p/>
  * <p/>
@@ -17,7 +17,7 @@ import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.develope
  * @version 1.0
  * @since Java JDK 1.7
  */
-public class FermatLinuxAppMain {
+public class FermatNodeAppMain {
 
     /**
      * Represent the fermatContext instance
@@ -37,20 +37,12 @@ public class FermatLinuxAppMain {
 
         try {
 
-//            fermatSystem.start(fermatLinuxContext, new OSAPlatform());
-
             System.out.println("***********************************************************************");
-            System.out.println("* FERMAT - Linux Core - Version 1.0 (2016)                            *");
+            System.out.println("* FERMAT - Network Node - Version 1.0 (2016)                            *");
             System.out.println("* www.fermat.org                                                      *");
             System.out.println("***********************************************************************");
             System.out.println("");
             System.out.println("- Starting process ...");
-
-            /*
-             * Start the network node.
-             */
-
-//            fermatSystem.startAndGetPluginVersion(new PluginVersionReference(Platforms.COMMUNICATION_PLATFORM, Layers.COMMUNICATION, Plugins.NETWORK_NODE, Developers.BITDUBAI, new Version()));
 
             DeviceLocationSystemAddonRoot deviceLocationSystemAddonRoot = new DeviceLocationSystemAddonRoot();
             deviceLocationSystemAddonRoot.start();
@@ -66,7 +58,7 @@ public class FermatLinuxAppMain {
 
             networkNodePluginRoot.start();
 
-            System.out.println("FERMAT - Linux Core - started satisfactory...");
+            System.out.println("FERMAT - Network Node - started satisfactory...");
 
         } catch (Exception e) {
 

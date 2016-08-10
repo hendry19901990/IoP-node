@@ -13,18 +13,16 @@ import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.develope
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.enums.RegistrationType;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.exceptions.CantDeleteRecordDataBaseException;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.exceptions.CantInsertRecordDataBaseException;
-
 import org.apache.commons.lang.ClassUtils;
 import org.jboss.logging.Logger;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.websocket.Session;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.NetworkServiceSessionDao</code>
@@ -56,7 +54,7 @@ public class NetworkServiceSessionDao extends AbstractBaseDao<NetworkServiceSess
      * @param session
      * @param networkServiceProfile
      */
-    public synchronized void checkIn(Session session, NetworkServiceProfile networkServiceProfile) throws CantInsertRecordDataBaseException {
+    public void checkIn(Session session, NetworkServiceProfile networkServiceProfile) throws CantInsertRecordDataBaseException {
 
         LOG.info("Executing checkIn(" + session.getId() + ", " + networkServiceProfile.getIdentityPublicKey() + ")");
         LOG.info("type = " + networkServiceProfile.getNetworkServiceType() + ")");

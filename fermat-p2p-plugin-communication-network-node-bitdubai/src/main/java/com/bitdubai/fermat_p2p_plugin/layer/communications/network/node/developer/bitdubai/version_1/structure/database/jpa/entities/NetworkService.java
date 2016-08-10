@@ -9,14 +9,7 @@ import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.Networ
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.ProfileStatus;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.NetworkServiceProfile;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -47,7 +40,7 @@ public class NetworkService extends AbstractBaseEntity<String>{
      * Represent the location
      */
     @MapsId
-    @OneToOne(cascade = {CascadeType.ALL}, targetEntity = GeoLocation.class, orphanRemoval = true)
+    @OneToOne(targetEntity = GeoLocation.class)
     private GeoLocation location;
 
     /**
@@ -99,7 +92,7 @@ public class NetworkService extends AbstractBaseEntity<String>{
         this.networkServiceType = networkServiceProfile.getNetworkServiceType();
         this.client = new Client(networkServiceProfile.getClientIdentityPublicKey());
         if (networkServiceProfile.getLocation() != null){
-            this.location = new GeoLocation(this.id, networkServiceProfile.getLocation().getLatitude(), networkServiceProfile.getLocation().getLongitude());
+            this.location = new GeoLocation(networkServiceProfile.getClientIdentityPublicKey(), networkServiceProfile.getLocation().getLatitude(), networkServiceProfile.getLocation().getLongitude());
         }else {
             this.location = null;
         }
@@ -118,7 +111,7 @@ public class NetworkService extends AbstractBaseEntity<String>{
         this.networkServiceType = networkServiceType;
         this.client = new Client(clientIdentityPublicKey);
         if (location != null){
-            this.location = new GeoLocation(this.id, location.getLatitude(), location.getLongitude());
+            this.location = new GeoLocation(clientIdentityPublicKey, location.getLatitude(), location.getLongitude());
         }else {
             this.location = null;
         }

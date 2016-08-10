@@ -11,19 +11,6 @@ import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.develope
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.rest.security.AdminRestApiSecurityFilter;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.servlets.HomeServlet;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.util.ConfigurationManager;
-
-import org.apache.commons.lang.ClassUtils;
-import org.jboss.logging.Logger;
-import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
-import org.jboss.resteasy.spi.ResteasyDeployment;
-import org.jboss.resteasy.spi.ResteasyProviderFactory;
-import org.xnio.OptionMap;
-import org.xnio.Options;
-import org.xnio.Xnio;
-import org.xnio.XnioWorker;
-
-import javax.servlet.DispatcherType;
-
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.UndertowOptions;
@@ -40,8 +27,13 @@ import io.undertow.servlet.api.ServletContainer;
 import io.undertow.util.Headers;
 import io.undertow.websockets.extensions.PerMessageDeflateHandshake;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
+import org.apache.commons.lang.ClassUtils;
+import org.jboss.logging.Logger;
+import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
+import org.jboss.resteasy.spi.ResteasyDeployment;
+import org.jboss.resteasy.spi.ResteasyProviderFactory;
 
-import java.util.concurrent.TimeUnit;
+import javax.servlet.DispatcherType;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.FermatEmbeddedNodeServer</code>
@@ -138,25 +130,25 @@ public class FermatEmbeddedNodeServer {
 
         /*
          * Create and configure the xnioWorker
-         */
+
         final Xnio xnio = Xnio.getInstance("nio", Undertow.class.getClassLoader());
         final XnioWorker xnioWorker = xnio.createWorker(OptionMap.builder()
 //                .set(Options.WORKER_IO_THREADS, Runtime.getRuntime().availableProcessors() * 4)
                 .set(Options.CONNECTION_HIGH_WATER, 1000000)
                 .set(Options.WORKER_TASK_KEEPALIVE, (int)TimeUnit.SECONDS.toMillis(90))
                 .set(Options.CONNECTION_LOW_WATER, 1000000)
-                .set(Options.WORKER_TASK_CORE_THREADS, 30)
-                .set(Options.WORKER_TASK_MAX_THREADS, 40)
+                .set(Options.WORKER_TASK_CORE_THREADS, 128)
+                .set(Options.WORKER_TASK_MAX_THREADS, 512)
                 .set(Options.TCP_NODELAY, true)
 //                .set(Options.CORK, true)
-                .getMap());
+                .getMap());*/
 
         /*
          * Create the App WebSocketDeploymentInfo and configure
          */
         WebSocketDeploymentInfo appWebSocketDeploymentInfo = new WebSocketDeploymentInfo();
         //appWebSocketDeploymentInfo.setBuffers(new XnioByteBufferPool(new ByteBufferSlicePool(BufferAllocator.BYTE_BUFFER_ALLOCATOR, 1024, 1024 * 2)));
-        appWebSocketDeploymentInfo.setWorker(xnioWorker);
+        //appWebSocketDeploymentInfo.setWorker(xnioWorker);
         appWebSocketDeploymentInfo.setDispatchToWorkerThread(Boolean.TRUE);
         appWebSocketDeploymentInfo.addEndpoint(FermatWebSocketNodeChannelServerEndpoint.class);
         appWebSocketDeploymentInfo.addEndpoint(FermatWebSocketClientChannelServerEndpoint.class);
