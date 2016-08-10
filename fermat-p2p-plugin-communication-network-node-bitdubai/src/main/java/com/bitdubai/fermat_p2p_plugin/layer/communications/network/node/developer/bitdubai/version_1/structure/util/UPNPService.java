@@ -7,11 +7,10 @@ import org.bitlet.weupnp.PortMappingEntry;
 import org.jboss.logging.Logger;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.util.Map;
-
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by rrequena on 11/05/16.
