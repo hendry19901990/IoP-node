@@ -60,6 +60,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.NetworkNodePluginRoot</code> is
@@ -126,6 +127,7 @@ public class NetworkNodePluginRoot extends AbstractPlugin implements NetworkNode
      */
     public NetworkNodePluginRoot() {
         super(new PluginVersionReference(new Version()));
+        super.setId(UUID.fromString("6e933c4e-6fd8-4c2c-a583-39edc2f78065"));
     }
 
     /**
@@ -645,21 +647,7 @@ public class NetworkNodePluginRoot extends AbstractPlugin implements NetworkNode
          */
         if (isSeedServer){
 
-            /*
-             * Validate if the node is registered in the node catalog
-             */
-            if (isRegister){
-
-                /*
-                 * Validate if the node server profile register had changed
-                 */
-                if (validateNodeProfileRegisterChange()){
-                    updateNodeProfileOnCatalog();
-                }
-
-            } else {
-                insertNodeProfileIntoCatalog();
-            }
+            insertOrUpdateNodeProfileIntoCatalog();
 
         } else {
 
@@ -688,9 +676,9 @@ public class NetworkNodePluginRoot extends AbstractPlugin implements NetworkNode
      * Insert the node profile into the catalog
      * @throws CantInsertRecordDataBaseException
      */
-    private void insertNodeProfileIntoCatalog() throws Exception {
+    private void insertOrUpdateNodeProfileIntoCatalog() throws Exception {
 
-        LOG.info("Inserting my profile in my the node catalog...");
+        LOG.info("Insert or update my profile in my node catalog...");
 
         /*
          * Create the NodesCatalog entity
@@ -711,52 +699,11 @@ public class NetworkNodePluginRoot extends AbstractPlugin implements NetworkNode
          * Insert NodesCatalog into data base
          */
 
-        JPADaoFactory.getNodeCatalogDao().persist(nodeCatalog);
+        JPADaoFactory.getNodeCatalogDao().save(nodeCatalog);
 
         ConfigurationManager.updateValue(ConfigurationManager.REGISTERED_IN_CATALOG, String.valueOf(Boolean.TRUE));
         ConfigurationManager.updateValue(ConfigurationManager.LAST_REGISTER_NODE_PROFILE, HexadecimalConverter.convertHexString(nodeProfile.toJson().getBytes("UTF-8")));
 
-    }
-
-    /**
-     * Update the node profile into the catalog
-     * @throws CantInsertRecordDataBaseException
-     */
-    private void updateNodeProfileOnCatalog() throws Exception {
-
-        LOG.info("Updating my profile in the node catalog");
-
-        if (JPADaoFactory.getNodeCatalogDao().exist(nodeProfile.getIdentityPublicKey())) {
-
-            /*
-             * Create the NodesCatalog entity
-             */
-            NodeCatalog nodeCatalog = new NodeCatalog();
-            nodeCatalog.setIp(nodeProfile.getIp());
-            nodeCatalog.setDefaultPort(nodeProfile.getDefaultPort());
-            nodeCatalog.setId(nodeProfile.getIdentityPublicKey());
-            nodeCatalog.setName(nodeProfile.getName());
-            nodeCatalog.setOfflineCounter(0);
-            nodeCatalog.setLastConnectionTimestamp(new Timestamp(System.currentTimeMillis()));
-            nodeCatalog.setTriedToPropagateTimes(0);
-            nodeCatalog.setLocation((GeoLocation) nodeProfile.getLocation());
-            int nodeCatalogVersion = JPADaoFactory.getNodeCatalogDao().getNodeVersionById(nodeProfile.getIdentityPublicKey());
-            nodeCatalog.setVersion(nodeCatalogVersion+1);
-            nodeCatalog.setPendingPropagations(NodesCatalogPropagationConfiguration.DESIRED_PROPAGATIONS);
-
-            /*
-             * Update NodesCatalog into data base
-             */
-            JPADaoFactory.getNodeCatalogDao().update(nodeCatalog);
-
-            ConfigurationManager.updateValue(ConfigurationManager.REGISTERED_IN_CATALOG, String.valueOf(Boolean.TRUE));
-            ConfigurationManager.updateValue(ConfigurationManager.LAST_REGISTER_NODE_PROFILE, HexadecimalConverter.convertHexString(nodeProfile.toJson().getBytes("UTF-8")));
-
-        } else {
-
-            insertNodeProfileIntoCatalog();
-
-        }
     }
 
     /**
