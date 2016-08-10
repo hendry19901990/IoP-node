@@ -137,12 +137,12 @@ public class ClientSessionDao extends AbstractBaseDao<ClientSession>{
                 ProfileRegistrationHistory profileRegistrationHistory = new ProfileRegistrationHistory(clientSession.getClient().getId(), clientSession.getClient().getDeviceType(), ProfileTypes.CLIENT, RegistrationType.CHECK_OUT, RegistrationResult.SUCCESS, "Delete all network service and actor session associate with this client");
                 connection.persist(profileRegistrationHistory);
 
-                //Delete client geolocation
+                /*Delete client geolocation
                 Query queryClientGeolocationDelete = connection.createQuery("DELETE FROM GeoLocation gl WHERE gl.id = :id");
                 queryClientGeolocationDelete.setParameter("id", session.getId());
                 int deletedClientGeoLocation = queryClientGeolocationDelete.executeUpdate();
 
-                LOG.info("deleted client geolocation = " + deletedClientGeoLocation);
+                LOG.info("deleted client geolocation = " + deletedClientGeoLocation); */
 
                 transaction.commit();
                 connection.flush();
