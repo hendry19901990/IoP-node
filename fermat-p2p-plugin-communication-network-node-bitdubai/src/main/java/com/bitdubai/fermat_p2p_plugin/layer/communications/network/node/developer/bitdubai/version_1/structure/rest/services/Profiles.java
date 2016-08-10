@@ -102,15 +102,15 @@ public class Profiles implements RestFulServices {
              */
             DiscoveryQueryParameters discoveryQueryParameters = DiscoveryQueryParameters.parseContent(discoveryParam);
 
-            LOG.info("clientIdentityPublicKey  = " + clientIdentityPublicKey);
-            LOG.info("discoveryQueryParameters = " + discoveryQueryParameters.toJson());
+            LOG.info(" ClientIdentityPublicKey  = " + clientIdentityPublicKey);
+            LOG.info(" DiscoveryQueryParameters = " + discoveryQueryParameters.toJson());
 
             /*
              * hold the result list
              */
             List<ActorProfile> filteredLis = filterActors(discoveryQueryParameters, clientIdentityPublicKey);
 
-            LOG.info("filteredLis.size() =" + filteredLis != null ? filteredLis.size() : 0);
+            LOG.info("FilteredLis.size() =" + filteredLis != null ? filteredLis.size() : 0);
 
             /*
              * Convert the list to json representation
@@ -126,7 +126,7 @@ public class Profiles implements RestFulServices {
 
         } catch (Exception e){
 
-            LOG.error("requested list is not available.", e);
+            LOG.error("Requested list is not available.", e);
             jsonObjectRespond.addProperty("failure", "Requested list is not available");
         }
 
@@ -197,10 +197,6 @@ public class Profiles implements RestFulServices {
     private ProfileStatus isActorOnline(ActorCatalog actorsCatalog) {
 
         try {
-
-            LOG.info("homeNode = " + actorsCatalog.getHomeNode() != null ? actorsCatalog.getHomeNode().getId() : "");
-            LOG.info("getNodeProfile = " + getPluginRoot().getNodeProfile() != null ?  getPluginRoot().getNodeProfile().getIdentityPublicKey() : "");
-            LOG.info("homeNode is the same = " + actorsCatalog.getHomeNode() != null ? actorsCatalog.getHomeNode().getId().equals(getPluginRoot().getNodeProfile().getIdentityPublicKey()) : false);
 
             if(actorsCatalog.getHomeNode().getId().equals(getPluginRoot().getIdentity().getPublicKey())) {
                return ProfileStatus.OFFLINE;
