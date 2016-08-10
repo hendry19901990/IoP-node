@@ -47,10 +47,45 @@ public class Profiles implements RestFulServices {
      */
     private final Logger LOG = Logger.getLogger(ClassUtils.getShortClassName(Profiles.class));
 
-    /**
-     * Represent the pluginRoot
-     */
-    private NetworkNodePluginRoot pluginRoot;
+    @GET
+    @GZIP
+    @Path("/actor/photo/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFullPhoto(@PathParam("id") String actorIdentityPublicKey){
+
+        LOG.info(" --------------------------------------------------------------------- ");
+        LOG.info("Profiles - Starting listActors");
+        JsonObject jsonObjectRespond = new JsonObject();
+
+        try{
+
+            LOG.info("actorIdentityPublicKey  = " + actorIdentityPublicKey);
+            byte[] photo = JPADaoFactory.getActorCatalogDao().getPhoto(actorIdentityPublicKey);
+
+            /*
+             * Create the respond
+             */
+            if (photo != null && photo.length > 0) {
+                jsonObjectRespond.addProperty("photo", Base64.encodeBase64String(photo));
+                jsonObjectRespond.addProperty("success", Boolean.TRUE);
+            }else {
+                jsonObjectRespond.addProperty("success", Boolean.FALSE);
+                jsonObjectRespond.addProperty("failure", "Actor photo is not available");
+            }
+
+        } catch (Exception e){
+
+            e.printStackTrace();
+
+            LOG.warn("Actor photo is not available, or actor no exist");
+            jsonObjectRespond.addProperty("success", Boolean.FALSE);
+            jsonObjectRespond.addProperty("failure", "Actor photo is not available, or actor no exist");
+        }
+
+        String jsonString = GsonProvider.getGson().toJson(jsonObjectRespond);
+        return Response.status(200).entity(jsonString).build();
+
+    }
 
     @POST
     @GZIP
@@ -107,49 +142,6 @@ public class Profiles implements RestFulServices {
 
     }
 
-
-    @GET
-    @GZIP
-    @Path("/actor/photo/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getFullPhoto(@PathParam("id") String actorIdentityPublicKey){
-
-        LOG.info(" --------------------------------------------------------------------- ");
-        LOG.info("Profiles - Starting listActors");
-        JsonObject jsonObjectRespond = new JsonObject();
-
-        try{
-
-            LOG.info("actorIdentityPublicKey  = " + actorIdentityPublicKey);
-            ActorCatalog actorsCatalog = JPADaoFactory.getActorCatalogDao().findById(actorIdentityPublicKey);
-
-            /*
-             * Create the respond
-             */
-            if (actorsCatalog.getPhoto() != null && actorsCatalog.getPhoto().length > 0) {
-                jsonObjectRespond.addProperty("photo", Base64.encodeBase64String(actorsCatalog.getPhoto()));
-                jsonObjectRespond.addProperty("success", Boolean.TRUE);
-            }else {
-                jsonObjectRespond.addProperty("success", Boolean.FALSE);
-                jsonObjectRespond.addProperty("failure", "Actor photo is not available");
-            }
-
-        } catch (Exception e){
-
-            e.printStackTrace();
-
-            LOG.warn("Actor photo is not available, or actor no exist");
-            jsonObjectRespond.addProperty("success", Boolean.FALSE);
-            jsonObjectRespond.addProperty("failure", "Actor photo is not available, or actor no exist");
-        }
-
-        String jsonString = GsonProvider.getGson().toJson(jsonObjectRespond);
-        return Response.status(200).entity(jsonString).build();
-
-    }
-
-
-
     /**
      * Filter all actor component profiles from database that match with the given parameters.
      * We'll use the @clientIdentityPublicKey param to filter the actors who belongs to the client asking.
@@ -161,10 +153,6 @@ public class Profiles implements RestFulServices {
     private List<ActorProfile> filterActors(final DiscoveryQueryParameters discoveryQueryParameters,
                                             final String                   clientIdentityPublicKey ) throws CantReadRecordDataBaseException {
 
-        Map<String, ActorProfile> profileList = new HashMap<>();
-
-        List<ActorCatalog> actorsList;
-
         int max    = 10;
         int offset =  0;
 
@@ -174,64 +162,29 @@ public class Profiles implements RestFulServices {
         if (discoveryQueryParameters.getOffset() != null && discoveryQueryParameters.getOffset() >= 0)
             offset = discoveryQueryParameters.getOffset();
 
-        System.out.println("The max and offset applied in database are: max=" + max + " | offset=" + offset);
+        List<ActorProfile> resultList = null;
+        List<ActorCatalog> actorsList = JPADaoFactory.getActorCatalogDao().findAll(discoveryQueryParameters, clientIdentityPublicKey, max, offset);
 
-        actorsList = JPADaoFactory.getActorCatalogDao().findAll(discoveryQueryParameters, clientIdentityPublicKey, max, offset);
+        if (actorsList != null && !actorsList.isEmpty()) {
+            resultList = new ArrayList<>();
+            for (ActorCatalog actorCatalog: actorsList) {
+                resultList.add(buildActorProfileFromActorCatalogRecordAndSetStatus(actorCatalog));
+            }
+        }
 
-        if (discoveryQueryParameters.isOnline() != null && discoveryQueryParameters.isOnline())
-            for (ActorCatalog actorsCatalog : actorsList)
-             profileList.put(actorsCatalog.getId(), buildActorProfileFromActorCatalogRecordAndSetStatus(actorsCatalog, discoveryQueryParameters.getOriginalPhoto()));
-        else
-            for (ActorCatalog actorsCatalog : actorsList)
-                profileList.put(actorsCatalog.getId(), buildActorProfileFromActorCatalogRecord(actorsCatalog, discoveryQueryParameters.getOriginalPhoto()));
-
-        return new ArrayList<>(profileList.values());
+        return resultList;
     }
 
-    /**
-     * Build an Actor Profile from an Actor Catalog record.
-     */
-    private ActorProfile buildActorProfileFromActorCatalogRecord(final ActorCatalog actor, final Boolean originalPhoto){
-
-        ActorProfile actorProfile = new ActorProfile();
-
-        actorProfile.setIdentityPublicKey(actor.getId());
-        actorProfile.setAlias(actor.getAlias());
-        actorProfile.setName(actor.getName());
-        actorProfile.setActorType(actor.getActorType());
-
-        if(originalPhoto != null && originalPhoto)
-            actorProfile.setPhoto(actor.getPhoto());
-        else
-            actorProfile.setPhoto(actor.getThumbnail());
-
-        actorProfile.setExtraData(actor.getExtraData());
-        actorProfile.setLocation(actor.getLocation());
-
-        return actorProfile;
-    }
 
     /**
      * Build an Actor Profile from an Actor Catalog record and set its status.
      */
-    private ActorProfile buildActorProfileFromActorCatalogRecordAndSetStatus(final ActorCatalog actor, final Boolean originalPhoto){
+    private ActorProfile buildActorProfileFromActorCatalogRecordAndSetStatus(final ActorCatalog actorCatalog){
 
-        ActorProfile actorProfile = new ActorProfile();
-
-        actorProfile.setIdentityPublicKey(actor.getId());
-        actorProfile.setAlias(actor.getAlias());
-        actorProfile.setName(actor.getName());
-        actorProfile.setActorType(actor.getActorType());
-
-        if(originalPhoto != null && originalPhoto)
-            actorProfile.setPhoto            (actor.getPhoto());
-        else
-            actorProfile.setPhoto            (actor.getThumbnail());
-
-        actorProfile.setExtraData        (actor.getExtraData());
-        actorProfile.setLocation         (actor.getLocation());
-
-        actorProfile.setStatus           (isActorOnline(actor));
+        ActorProfile actorProfile = actorCatalog.getActorProfile();
+        if (actorProfile.getStatus() == ProfileStatus.UNKNOWN){
+            actorProfile.setStatus(isActorOnline(actorCatalog));
+        }
 
         return actorProfile;
     }
@@ -242,8 +195,7 @@ public class Profiles implements RestFulServices {
      *   if it belongs we'll check directly if he is online in the check-ins table
      *   if not we'll call to the other node.
      *
-     * @param actorsCatalog  the record of the profile from the actors catalog table.
-     *
+     * @param actorsCatalog  the record of the profile from the actors catalog table
      * @return an element of the ProfileStatus enum.
      */
     private ProfileStatus isActorOnline(ActorCatalog actorsCatalog) {
@@ -251,15 +203,9 @@ public class Profiles implements RestFulServices {
         try {
 
             if(actorsCatalog.getHomeNode().getId().equals(getPluginRoot().getIdentity().getPublicKey())) {
-
-                if (actorsCatalog.getSession() != null)
-                    return ProfileStatus.ONLINE;
-                else
-                    return ProfileStatus.OFFLINE;
-
+               return ProfileStatus.OFFLINE;
             } else {
-
-                return isActorOnlineInOtherNode(actorsCatalog);
+               return isActorOnlineInOtherNode(actorsCatalog);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -310,11 +256,7 @@ public class Profiles implements RestFulServices {
      * @return a plugin root object.
      */
     private NetworkNodePluginRoot getPluginRoot() {
-
-        if (pluginRoot == null)
-            pluginRoot = (NetworkNodePluginRoot) NodeContext.get(NodeContextItem.PLUGIN_ROOT);
-
-        return pluginRoot;
+        return (NetworkNodePluginRoot) NodeContext.get(NodeContextItem.PLUGIN_ROOT);
     }
 
 }
