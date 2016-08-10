@@ -147,50 +147,51 @@ public class OnlineComponents implements RestFulServices {
         LOG.info("identityPublicKey = " + identityPublicKey);
 
         try {
+
+            JsonObject jsonObject = new JsonObject();
             String actorSessionId = JPADaoFactory.getActorSessionDao().getSessionId(identityPublicKey);
 
+            LOG.info("actorSessionId = " + actorSessionId);
+
             if (actorSessionId != null && !actorSessionId.isEmpty()) {
-                JsonObject jsonObject = new JsonObject();
+
                 jsonObject.addProperty("success", Boolean.TRUE);
                 jsonObject.addProperty("isOnline", Boolean.TRUE);
                 jsonObject.addProperty("sameNode", Boolean.TRUE);
 
-                return Response.status(200).entity(GsonProvider.getGson().toJson(jsonObject)).build();
             } else {
 
                 NodeCatalog homeNode = JPADaoFactory.getActorCatalogDao().getHomeNode(identityPublicKey);
 
-                if (homeNode != null && homeNode.getId().equals(pluginRoot.getIdentity().getPublicKey())) {
+                LOG.info("homeNode = " + homeNode != null ? homeNode.getId() : "");
+                LOG.info("getNodeProfile = " + pluginRoot.getNodeProfile() != null ?  pluginRoot.getNodeProfile().getIdentityPublicKey() : "");
+                LOG.info("homeNode is the same = " + homeNode != null ? homeNode.getId().equals(pluginRoot.getNodeProfile().getIdentityPublicKey()) : false);
 
-                    JsonObject jsonObject = new JsonObject();
+                if (homeNode != null && homeNode.getId().equals(pluginRoot.getNodeProfile().getIdentityPublicKey())) {
+
                     jsonObject.addProperty("success", Boolean.TRUE);
                     jsonObject.addProperty("isOnline", Boolean.FALSE);
                     jsonObject.addProperty("sameNode", Boolean.TRUE);
-
-                    return Response.status(200).entity(GsonProvider.getGson().toJson(jsonObject)).build();
 
                 } else if (homeNode != null) {
 
                     String nodeUrl = homeNode.getIp() + ":" + homeNode.getDefaultPort();
                     Boolean isOnline = isActorOnline(identityPublicKey, nodeUrl);
-
-                    JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("success", Boolean.TRUE);
                     jsonObject.addProperty("isOnline", isOnline);
                     jsonObject.addProperty("sameNode", Boolean.FALSE);
 
-                    return Response.status(200).entity(GsonProvider.getGson().toJson(jsonObject)).build();
                 } else {
 
-                    JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("success", Boolean.FALSE);
                     jsonObject.addProperty("isOnline", Boolean.FALSE);
                     jsonObject.addProperty("sameNode", Boolean.FALSE);
                     jsonObject.addProperty("details", "Home nod not found.");
-
-                    return Response.status(200).entity(GsonProvider.getGson().toJson(jsonObject)).build();
                 }
             }
+
+            LOG.info("respond = " + jsonObject);
+            return Response.status(200).entity(GsonProvider.getGson().toJson(jsonObject)).build();
 
         } catch (Exception e) {
 
