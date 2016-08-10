@@ -2,228 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8fb43ac6-a375-4e47-8099-407e67f2dfe4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/.gitignore" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_2_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_annotations_2_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_2_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_core_2_4_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_2_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_fasterxml_jackson_core_jackson_databind_2_4_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_2_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_guava_16_0_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_protobuf_protobuf_java_2_5_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_googlecode_catch_exception_catch_exception_1_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_infradna_tool_bridge_method_annotation_1_14.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_madgag_spongycastle_core_1_51_0_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp_okhttp_2_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_2_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sun_istack_istack_commons_runtime_2_16.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sun_mail_javax_mail_1_5_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sun_xml_bind_jaxb_core_2_2_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sun_xml_bind_jaxb_impl_2_2_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_sun_xml_fastinfoset_FastInfoset_1_2_12.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_thoughtworks_xstream_xstream_1_4_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_codec_commons_codec_1_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_codec_commons_codec_1_9.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_collections_commons_collections_3_2_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_configuration_commons_configuration_1_10.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_io_commons_io_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_io_commons_io_2_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_lang_commons_lang_2_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__commons_logging_commons_logging_1_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_jsonwebtoken_jjwt_0_6_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_undertow_undertow_core_1_3_23_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_undertow_undertow_servlet_1_3_23_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_undertow_undertow_websockets_jsr_1_3_23_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_activation_activation_1_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_javaee_api_7_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_transaction_javax_transaction_api_1_2.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_validation_validation_api_1_1_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_xml_bind_jaxb_api_2_2_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_xml_bind_jsr173_api_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_11.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__log4j_log4j_1_2_17.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_coobird_thumbnailator_0_4_8.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_jcip_jcip_annotations_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_jpountz_lz4_lz4_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_collections4_4_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_commons_commons_lang3_3_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_httpcomponents_httpclient_4_3_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_httpcomponents_httpcore_4_3_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_james_apache_mime4j_0_6.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_bitcoinj_bitcoinj_core_0_13_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_bitcoinj_orchid_1_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_bitlet_weupnp_0_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_jackson_jackson_core_asl_1_9_12.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_jackson_jackson_jaxrs_1_9_12.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_jackson_jackson_mapper_asl_1_9_12.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_codehaus_jackson_jackson_xc_1_9_12.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_easytesting_fest_assert_core_2_0M10.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_easytesting_fest_util_1_2_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_mylyn_github_org_eclipse_egit_github_core_2_1_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_eclipse_persistence_javax_persistence_2_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_javassist_javassist_3_20_0_GA.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_logging_jboss_logging_3_2_1_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_resteasy_async_http_servlet_3_0_3_0_18_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_resteasy_resteasy_cdi_3_0_18_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_resteasy_resteasy_client_3_0_18_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_resteasy_resteasy_jackson_provider_3_0_18_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_resteasy_resteasy_jaxb_provider_3_0_18_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_resteasy_resteasy_jaxrs_3_0_18_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_resteasy_resteasy_multipart_provider_3_0_18_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_resteasy_resteasy_undertow_3_0_18_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_spec_javax_annotation_jboss_annotations_api_1_2_spec_1_0_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_spec_javax_servlet_jboss_servlet_api_3_1_spec_1_0_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_spec_javax_websocket_jboss_websocket_api_1_1_spec_1_1_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_spec_javax_ws_rs_jboss_jaxrs_api_2_0_spec_1_0_0_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_xnio_xnio_api_3_3_7_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jboss_xnio_xnio_nio_3_3_7_Final.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jenkins_ci_annotation_indexer_1_4.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jsoup_jsoup_1_8_3.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_kohsuke_github_api_1_69.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_mockito_mockito_core_1_9_5.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_objenesis_objenesis_1_0.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_21.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_7.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_slf4j_slf4j_log4j12_1_7_21.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__xmlpull_xmlpull_1_1_3_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__xpp3_xpp3_min_1_1_4c.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/fermat-osa-addon-linux-device-location-bitdubai.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/fermat-osa-addon-linux-device-location-bitdubai_main.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/fermat-osa-addon-linux-device-location-bitdubai_test.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/fermat-osa-addon-linux-file-system-bitdubai.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/fermat-osa-addon-linux-file-system-bitdubai_main.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/fermat-osa-addon-linux-file-system-bitdubai_test.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-linux-core/fermat-linux-core.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-linux-core/fermat-linux-core_main.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-linux-core/fermat-linux-core_test.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/fermat-osa-addon-linux-device-location-bitdubai.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/fermat-osa-addon-linux-file-system-bitdubai.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/OSA/library/api/fermat-osa-api/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/OSA/library/api/fermat-osa-api/LICENSE.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/OSA/library/api/fermat-osa-api/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/OSA/settings.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fermat-linux-core/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fermat-linux-core/build.gradle" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fermat-linux-core/fermat-linux-core.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fermat-linux-core/src/main/java/com/bitdubai/linux/core/app/version_1/structure/context/FermatLinuxContext.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fermat-p2p-api/fermat-p2p-api.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/fermat-p2p-plugin-communication-network-node-bitdubai.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fermat-pip-api/fermat-pip-api.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/fermat.node.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/log/network_node.log" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/META-INF/MANIFEST.MF" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/META-INF/beans.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/log4j.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/css/angular-busy.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/css/angular-chart.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/css/bootstrap.min.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/css/cover.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/css/monitoring.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/fonts/glyphicons-halflings-regular.eot" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/fonts/glyphicons-halflings-regular.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/fonts/glyphicons-halflings-regular.ttf" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/fonts/glyphicons-halflings-regular.woff" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/fonts/glyphicons-halflings-regular.woff2" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/images/no_image_available.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/Chart.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/angular-busy.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/angular-chart.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/angular-route.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/angular.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/bootstrap.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/configurationController.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/dataBaseController.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/dataBaseDataController.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/identitiesController.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/ie-emulation-modes-warning.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/ie10-viewport-bug-workaround.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/jquery.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/monitoringController.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/ng-map.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/sha256.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/js/userController.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/private/configuration.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/private/data_bases.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/private/data_bases_data.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/private/identities.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/fermat-p2p-plugin-communication-network-node-bitdubai/web/private/monitoring.html" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/.gitignore" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-device-location-bitdubai/.gitignore" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/build.gradle" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-device-location-bitdubai/build.gradle" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/DeveloperBitDubai.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/DeveloperBitDubai.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/DeviceLocationSystemAddonRoot.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/DeviceLocationSystemAddonRoot.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/exceptions/CantAcquireLocationException.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/exceptions/CantAcquireLocationException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/model/DeviceLocation.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/model/DeviceLocation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/structure/DeviceLocationManager.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/structure/DeviceLocationManager.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/utils/LocationProvider.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-device-location-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/device_location/developer/bitdubai/version_1/utils/LocationProvider.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/.gitignore" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/.gitignore" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/build.gradle" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/build.gradle" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/PlatformFileSystemDeveloperBitDubai.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/PlatformFileSystemDeveloperBitDubai.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/PluginFileSystemDeveloperBitDubai.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/PluginFileSystemDeveloperBitDubai.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/PlatformFileSystemLinuxAddonRoot.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/PlatformFileSystemLinuxAddonRoot.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/PluginFileSystemLinuxAddonRoot.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/PluginFileSystemLinuxAddonRoot.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/exceptions/CantHashFileNameException.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/exceptions/CantHashFileNameException.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/EnvironmentVariables.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/EnvironmentVariables.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPlatformBinaryFile.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPlatformBinaryFile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPlatformFileSystem.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPlatformFileSystem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPlatformTextFile.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPlatformTextFile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPluginBinaryFile.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPluginBinaryFile.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPluginFileSystem.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPluginFileSystem.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/OSA/addon/linux/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPluginTextFile.java" afterPath="$PROJECT_DIR$/fermat-osa-addon-linux-file-system-bitdubai/src/main/java/com/bitdubai/fermat_osa_addon/layer/linux/file_system/developer/bitdubai/version_1/structure/LinuxPluginTextFile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/NetworkNodePluginRoot.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/NetworkNodePluginRoot.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/FermatEmbeddedNodeServer$InternalHandler.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/FermatEmbeddedNodeServer$InternalHandler.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/FermatEmbeddedNodeServer.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/FermatEmbeddedNodeServer.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/catalog_propagation/PropagateCatalogAgent.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/catalog_propagation/PropagateCatalogAgent.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/catalog_propagation/actors/PropagateActorsCatalogTask.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/catalog_propagation/actors/PropagateActorsCatalogTask.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/catalog_propagation/nodes/PropagateNodesCatalogTask.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/catalog_propagation/nodes/PropagateNodesCatalogTask.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/NodesPackageProcessorFactory$1.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/NodesPackageProcessorFactory$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/ActorCallRequestProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/ActorCallRequestProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/CheckInClientRequestProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/CheckInClientRequestProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/MessageTransmitProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/MessageTransmitProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/MessageTransmitSyncProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/MessageTransmitSyncProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/UpdateActorProfileIntoCatalogProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/UpdateActorProfileIntoCatalogProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/UpdateProfileLocationIntoCatalogProcessor$1.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/UpdateProfileLocationIntoCatalogProcessor$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/UpdateProfileLocationIntoCatalogProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/clients/UpdateProfileLocationIntoCatalogProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/request/AddNodeToCatalogRequestProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/request/AddNodeToCatalogRequestProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/request/GetActorCatalogRequestProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/request/GetActorCatalogRequestProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/request/GetNodeCatalogRequestProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/request/GetNodeCatalogRequestProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/request/UpdateNodeInCatalogRequestProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/request/UpdateNodeInCatalogRequestProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/response/NodesCatalogToPropagateResponseProcessor.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/channels/processors/nodes/response/NodesCatalogToPropagateResponseProcessor.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/database/jpa/daos/ActorCatalogDao.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/database/jpa/daos/ActorCatalogDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/database/jpa/daos/NodeCatalogDao.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/database/jpa/daos/NodeCatalogDao.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/rest/services/Monitoring.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/rest/services/Monitoring.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/util/PackageDecoder.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/util/PackageDecoder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/util/PackageEncoder.class" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build/classes/main/com/bitdubai/fermat_p2p_plugin/layer/communications/network/node/developer/bitdubai/version_1/structure/util/PackageEncoder.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/fermat-api/fermat-api.iml" afterPath="$PROJECT_DIR$/.idea/modules/fermat-api/fermat-api.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/fermat-api/fermat-api_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/fermat-api/fermat-api_main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/fermat-api/fermat-api_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/fermat-api/fermat-api_test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-api/fermat-p2p-api_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/fermat-p2p-api/fermat-p2p-api_main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-api/fermat-p2p-api_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/fermat-p2p-api/fermat-p2p-api_test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-plugin-communication-network-node-bitdubai/fermat-p2p-plugin-communication-network-node-bitdubai_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/fermat-p2p-plugin-communication-network-node-bitdubai/fermat-p2p-plugin-communication-network-node-bitdubai_main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-plugin-communication-network-node-bitdubai/fermat-p2p-plugin-communication-network-node-bitdubai_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/fermat-p2p-plugin-communication-network-node-bitdubai/fermat-p2p-plugin-communication-network-node-bitdubai_test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/fermat-pip-api/fermat-pip-api_main.iml" afterPath="$PROJECT_DIR$/.idea/modules/fermat-pip-api/fermat-pip-api_main.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/fermat-pip-api/fermat-pip-api_test.iml" afterPath="$PROJECT_DIR$/.idea/modules/fermat-pip-api/fermat-pip-api_test.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-api/.gitignore" afterPath="$PROJECT_DIR$/fermat-api/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-api/build.gradle" afterPath="$PROJECT_DIR$/fermat-api/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-api/.gitignore" afterPath="$PROJECT_DIR$/fermat-p2p-api/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build.gradle" afterPath="$PROJECT_DIR$/fermat-p2p-plugin-communication-network-node-bitdubai/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat.node.ipr" afterPath="$PROJECT_DIR$/fermat.node.ipr" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-api/fermat-api.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-api/fermat-api_main.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-api/fermat-api_test.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-api/fermat-p2p-api.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-api/fermat-p2p-api_main.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-api/fermat-p2p-api_test.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-plugin-communication-network-node-bitdubai/fermat-p2p-plugin-communication-network-node-bitdubai.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-plugin-communication-network-node-bitdubai/fermat-p2p-plugin-communication-network-node-bitdubai_main.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-p2p-plugin-communication-network-node-bitdubai/fermat-p2p-plugin-communication-network-node-bitdubai_test.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-pip-api/fermat-pip-api.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-pip-api/fermat-pip-api_main.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat-pip-api/fermat-pip-api_test.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat.node.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat.node_main.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules/fermat.node_test.iml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fermat.node.iws" afterPath="$PROJECT_DIR$/fermat.node.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
     </list>
     <ignored path="fermat.node.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -2589,11 +2383,19 @@
       <option name="presentableId" value="Default" />
       <updated>1470818359724</updated>
     </task>
+    <task id="LOCAL-00001" summary="little changes, jar working again">
+      <created>1470820465939</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1470820465939</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26128018" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -2604,7 +2406,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948583" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959569" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2628,6 +2430,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="little changes, jar working again" />
+    <option name="LAST_COMMIT_MESSAGE" value="little changes, jar working again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -2659,8 +2465,8 @@
         <state relative-caret-position="203">
           <caret line="493" column="25" selection-start-line="493" selection-start-column="25" selection-end-line="493" selection-end-column="25" />
           <folding>
-            <element signature="e#20482#20483#0" expanded="true" />
-            <element signature="e#20542#20543#0" expanded="true" />
+            <element signature="e#20482#20483#0" expanded="false" />
+            <element signature="e#20542#20543#0" expanded="false" />
           </folding>
         </state>
       </provider>
