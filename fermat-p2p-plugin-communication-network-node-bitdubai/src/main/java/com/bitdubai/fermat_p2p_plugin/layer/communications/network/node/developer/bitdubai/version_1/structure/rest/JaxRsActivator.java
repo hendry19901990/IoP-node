@@ -15,7 +15,7 @@ import java.util.Set;
  * @version 1.0
  * @since Java JDK 1.7
  */
-@ApplicationPath("/rest/api/v1")
+//@ApplicationPath("/rest/api/v1")
 public class JaxRsActivator extends Application {
 
    /* @Inject

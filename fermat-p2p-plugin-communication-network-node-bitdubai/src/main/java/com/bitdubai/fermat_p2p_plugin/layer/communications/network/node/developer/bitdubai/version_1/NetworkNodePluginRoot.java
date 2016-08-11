@@ -174,6 +174,11 @@ public class NetworkNodePluginRoot extends AbstractPlugin implements NetworkNode
             generateNodeProfile();
 
             /*
+             * Add references to the node context
+             */
+            NodeContext.add(NodeContextItem.PLUGIN_ROOT, this);
+
+            /*
              * Create and start the internal server
              */
             /*
@@ -183,11 +188,6 @@ public class NetworkNodePluginRoot extends AbstractPlugin implements NetworkNode
             fermatEmbeddedNodeServer.start();
 
             LOG.info("Add references to the node context...");
-
-            /*
-             * Add references to the node context
-             */
-            NodeContext.add(NodeContextItem.PLUGIN_ROOT, this);
 
             /*
              * Process the node catalog
