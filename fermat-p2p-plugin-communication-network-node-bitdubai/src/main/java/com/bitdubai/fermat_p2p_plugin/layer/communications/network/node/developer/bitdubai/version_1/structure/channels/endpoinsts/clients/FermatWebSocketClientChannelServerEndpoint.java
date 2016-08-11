@@ -34,7 +34,7 @@ import java.util.List;
  * @since Java JDK 1.7
  */
 @ServerEndpoint(
-        value = "/client-channel",
+        value = "/ws/client-channel",
         configurator = ClientChannelConfigurator.class,
         encoders = {PackageEncoder.class},
         decoders = {PackageDecoder.class}

@@ -33,7 +33,7 @@ import java.util.List;
  * @since Java JDK 1.7
  */
 @ServerEndpoint(
-        value ="/node-channel",
+        value ="/ws/node-channel",
         configurator = NodeChannelConfigurator.class,
         encoders = {PackageEncoder.class},
         decoders = {PackageDecoder.class}
