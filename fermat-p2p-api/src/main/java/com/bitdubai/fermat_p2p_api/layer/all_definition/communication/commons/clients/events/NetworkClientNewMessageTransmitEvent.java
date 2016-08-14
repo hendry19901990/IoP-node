@@ -22,7 +22,7 @@ public class NetworkClientNewMessageTransmitEvent extends AbstractEvent<P2pEvent
     /**
      * Represent the content value
      */
-    private NetworkServiceMessage content;
+    private String content;
 
     /**
      * Represent the networkServiceTypeSource value
@@ -38,11 +38,11 @@ public class NetworkClientNewMessageTransmitEvent extends AbstractEvent<P2pEvent
         super(p2pEventType);
     }
 
-    public NetworkServiceMessage getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(NetworkServiceMessage content) {
+    public void setContent(String content) {
         this.content = content;
     }
 

@@ -49,7 +49,6 @@ public class GenericEventListener<Z extends FermatEvent, T extends FermatEventEn
             this.fermatEventHandler.handleEvent(fermatEvent);
 
         } catch (final Exception exception){
-
             fermatEventMonitor.handleEventException(exception, fermatEvent);
         }
     }

@@ -640,11 +640,11 @@ public abstract class AbstractNetworkService extends AbstractPlugin implements N
      * Notify the client when a incoming message is receive by the incomingTemplateNetworkServiceMessage
      * ant fire a new event
      *
-     * @param networkServiceMessage received
      */
-    public final void onMessageReceived(NetworkServiceMessage networkServiceMessage) {
+    public final void onMessageReceived(String incomingMessage) {
 
         try {
+            NetworkServiceMessage networkServiceMessage = NetworkServiceMessage.parseContent(incomingMessage);
 
             //TODO networkServiceMessage.setContent(AsymmetricCryptography.decryptMessagePrivateKey(networkServiceMessage.getContent(), this.identity.getPrivateKey()));
            /*
@@ -863,37 +863,37 @@ public abstract class AbstractNetworkService extends AbstractPlugin implements N
 
     }
 
-    /**
-     * Method tha send a new Message
-     */
-    public UUID onlineActorsDiscoveryQuery(final DiscoveryQueryParameters discoveryQueryParameters,
-                                           final String                   broadcastCode           ) throws CantRequestProfileListException {
-
-        try {
-
-            UUID queryId = getConnection().onlineActorsDiscoveryQuery(discoveryQueryParameters, getPublicKey());
-
-            /*
-             * Create the query
-             */
-            NetworkServiceQuery networkServiceQuery = new NetworkServiceQuery(
-                    queryId,
-                    broadcastCode      ,
-                    discoveryQueryParameters,
-                    System.currentTimeMillis(),
-                    QueryTypes.ACTOR_LIST,
-                    QueryStatus.REQUESTED
-            );
-
-            queriesDao.create(networkServiceQuery);
-
-            return queryId;
-
-        } catch (Exception e){
-
-            throw new CantRequestProfileListException(e, "discoveryQueryParameters: "+discoveryQueryParameters+" - broadcastCode: "+broadcastCode, "Unhandled error trying to send a query request.");
-        }
-    }
+//    /**
+//     * Method tha send a new Message
+//     */
+//    public UUID onlineActorsDiscoveryQuery(final DiscoveryQueryParameters discoveryQueryParameters,
+//                                           final String                   broadcastCode           ) throws CantRequestProfileListException {
+//
+//        try {
+//
+//            UUID queryId = getConnection().onlineActorsDiscoveryQuery(discoveryQueryParameters, getPublicKey());
+//
+//            /*
+//             * Create the query
+//             */
+//            NetworkServiceQuery networkServiceQuery = new NetworkServiceQuery(
+//                    queryId,
+//                    broadcastCode      ,
+//                    discoveryQueryParameters,
+//                    System.currentTimeMillis(),
+//                    QueryTypes.ACTOR_LIST,
+//                    QueryStatus.REQUESTED
+//            );
+//
+//            queriesDao.create(networkServiceQuery);
+//
+//            return queryId;
+//
+//        } catch (Exception e){
+//
+//            throw new CantRequestProfileListException(e, "discoveryQueryParameters: "+discoveryQueryParameters+" - broadcastCode: "+broadcastCode, "Unhandled error trying to send a query request.");
+//        }
+//    }
 
     /**
      * Method tha send a new Message
@@ -923,7 +923,7 @@ public abstract class AbstractNetworkService extends AbstractPlugin implements N
             /*
              * Ask the client to connect
              */
-            networkServiceConnectionManager.connectTo(destination);
+//            networkServiceConnectionManager.connectTo(destination);
 
         }catch (Exception e){
 

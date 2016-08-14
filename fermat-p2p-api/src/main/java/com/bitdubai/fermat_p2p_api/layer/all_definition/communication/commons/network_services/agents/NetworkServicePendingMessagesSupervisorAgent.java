@@ -98,7 +98,7 @@ public class NetworkServicePendingMessagesSupervisorAgent extends FermatAgent {
              * Read all pending message from database
              */
             Map<String, Boolean> receivers = networkServiceRoot.getNetworkServiceConnectionManager().getOutgoingMessagesDao().findByFailCount(countFail, countFailMax);
-
+            //todo: esta clase va en el layer, este no deberia saber si hay o no conexión.
             NetworkClientConnection networkClientConnection = networkServiceRoot.getConnection();
 
             /*
@@ -111,8 +111,8 @@ public class NetworkServicePendingMessagesSupervisorAgent extends FermatAgent {
                     if (receiver.getValue()) {
                         ActorProfile remoteParticipant = new ActorProfile();
                         remoteParticipant.setIdentityPublicKey(receiver.getKey());
-
-                        networkServiceRoot.getNetworkServiceConnectionManager().connectTo(remoteParticipant);
+                        //
+//                        networkServiceRoot.getNetworkServiceConnectionManager().connectTo(remoteParticipant);
                     } else {
 
                         NetworkServiceProfile remoteParticipant = new NetworkServiceProfile();

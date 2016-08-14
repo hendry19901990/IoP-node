@@ -27,6 +27,8 @@ public interface NetworkClientCall {
      */
     void sendPackageMessage(NetworkServiceMessage packageContent) throws CantSendMessageException;
 
+    Object sendSyncRequestPackageMessage(NetworkServiceMessage packageContent) throws CantSendMessageException;
+
     /**
      * Through the method <code>hangUp</code> we can hang up the call.
      */
@@ -41,6 +43,7 @@ public interface NetworkClientCall {
 
     /**
      * Through the method <code>getProfile</code> we can know to which profile is directed to.
+     * //todo esto está mal, la conexión debe ser entre dos cosas, acá hay una sola
      *
      * @return an instance of a profile.
      */
