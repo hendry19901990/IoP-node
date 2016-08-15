@@ -240,7 +240,7 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
          * Save into data base
          */
         actorCatalogDao.persist(actorCatalog);
-
+//System.out.println("Actor Persisted: "+actorCatalog);
         return actorCatalog;
     }
 
