@@ -209,6 +209,7 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
                 System.out.println("EndPoint onError: session open, cerrando");
                 session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, throwable.getMessage()));
             }else {
+                System.out.println("EndPoint onError: session not open");
                 LOG.error("The session already close, no try to close");
             }
             clientsSessionMemoryCache.remove(session);

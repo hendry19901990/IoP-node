@@ -49,24 +49,24 @@ public class ActorListRespondProcessor extends PackageProcessor {
         /*
          * Create a raise a new event whit the NETWORK_CLIENT_ACTOR_LIST_RECEIVED
          */
-//        FermatEvent actorListReceived = getEventManager().getNewEvent(P2pEventType.NETWORK_CLIENT_ACTOR_LIST_RECEIVED);
-//        actorListReceived.setSource(EventSource.NETWORK_CLIENT);
-//
-//        ((NetworkClientActorListReceivedEvent) actorListReceived).setActorList(actorListMsgRespond.getActors());
-//        ((NetworkClientActorListReceivedEvent) actorListReceived).setNetworkServicePublicKey(actorListMsgRespond.getNetworkServicePublicKey());
-//        ((NetworkClientActorListReceivedEvent) actorListReceived).setQueryID(actorListMsgRespond.getQueryId());
-//
-//        if(actorListMsgRespond.getStatus() == ActorListMsgRespond.STATUS.SUCCESS){
-//            ((NetworkClientActorListReceivedEvent) actorListReceived).setStatus(NetworkClientActorListReceivedEvent.STATUS.SUCCESS);
-//        }else{
-//            ((NetworkClientActorListReceivedEvent) actorListReceived).setStatus(NetworkClientActorListReceivedEvent.STATUS.FAILED);
-//        }
-//
-//        /*
-//         * Raise the event
-//         */
-//        System.out.println("ActorListRespondProcessor - Raised a event = P2pEventType.NETWORK_CLIENT_ACTOR_LIST_RECEIVED");
-//        getEventManager().raiseEvent(actorListReceived);
+        NetworkClientActorListReceivedEvent actorListReceived = getEventManager().getNewEventMati(P2pEventType.NETWORK_CLIENT_ACTOR_LIST_RECEIVED,NetworkClientActorListReceivedEvent.class);
+        actorListReceived.setSource(EventSource.NETWORK_CLIENT);
+
+        actorListReceived.setActorList(actorListMsgRespond.getActors());
+        actorListReceived.setNetworkServicePublicKey(actorListMsgRespond.getNetworkServicePublicKey());
+        actorListReceived.setQueryID(actorListMsgRespond.getQueryId());
+
+        if(actorListMsgRespond.getStatus() == ActorListMsgRespond.STATUS.SUCCESS){
+            actorListReceived.setStatus(NetworkClientActorListReceivedEvent.STATUS.SUCCESS);
+        }else{
+            actorListReceived.setStatus(NetworkClientActorListReceivedEvent.STATUS.FAILED);
+        }
+
+        /*
+         * Raise the event
+         */
+        System.out.println("ActorListRespondProcessor - Raised a event = P2pEventType.NETWORK_CLIENT_ACTOR_LIST_RECEIVED");
+        getEventManager().raiseEvent(actorListReceived);
 
     }
 

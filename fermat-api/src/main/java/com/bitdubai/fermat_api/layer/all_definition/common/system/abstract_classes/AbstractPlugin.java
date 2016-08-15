@@ -638,6 +638,7 @@ public abstract class AbstractPlugin implements AbstractPluginInterface {
         }
     }
 
-
-
+    public void setErrorManager(ErrorManager errorManager) {
+        this.errorManager = errorManager;
+    }
 }

@@ -7,6 +7,7 @@ import com.bitdubai.fermat_pip_addon.layer.platform_service.error_manager.develo
 import com.bitdubai.fermat_pip_addon.layer.platform_service.event_manager.developer.bitdubai.version_1.EventManagerPlatformServiceAddonRoot;
 import com.fermat_p2p_layer.version_1.P2PLayerPluginRoot;
 import org.iop.client.version_1.IoPClientPluginRoot;
+import org.iop.ns.chat.ChatNetworkServicePluginRoot;
 
 
 /**
@@ -34,21 +35,34 @@ public class ClientMain {
             System.out.println("");
             System.out.println("- Starting process ...");
 
-//
+
+            //file system
             PluginFileSystemLinuxAddonRoot pluginFileSystemLinuxAddonRoot = new PluginFileSystemLinuxAddonRoot();
             pluginFileSystemLinuxAddonRoot.start();
 
+            //error manager
             ErrorManagerPlatformServiceAddonRoot errorManagerPlatformServiceAddonRoot = new ErrorManagerPlatformServiceAddonRoot();
             errorManagerPlatformServiceAddonRoot.start();
 
+            //event manager
             EventManagerPlatformServiceAddonRoot eventManagerPlatformServiceAddonRoot = new EventManagerPlatformServiceAddonRoot();
             eventManagerPlatformServiceAddonRoot.setErrorManager((ErrorManager) errorManagerPlatformServiceAddonRoot.getManager());
             eventManagerPlatformServiceAddonRoot.start();
 
+            //layer
             P2PLayerPluginRoot p2PLayerPluginRoot = new P2PLayerPluginRoot();
             p2PLayerPluginRoot.setEventManager((EventManager) eventManagerPlatformServiceAddonRoot.getManager());
             p2PLayerPluginRoot.start();
 
+            //console ns
+            ChatNetworkServicePluginRoot chatNetworkServicePluginRoot = new ChatNetworkServicePluginRoot();
+            chatNetworkServicePluginRoot.setP2PLayerManager(p2PLayerPluginRoot);
+            chatNetworkServicePluginRoot.setEventManager((EventManager) eventManagerPlatformServiceAddonRoot.getManager());
+            chatNetworkServicePluginRoot.setPluginFileSystem((PluginFileSystem) pluginFileSystemLinuxAddonRoot.getManager());
+            chatNetworkServicePluginRoot.setErrorManager((ErrorManager) errorManagerPlatformServiceAddonRoot.getManager());
+
+
+            //node
             IoPClientPluginRoot ioPNodePluginRoot = new IoPClientPluginRoot();
             ioPNodePluginRoot.setPluginFileSystem((PluginFileSystem) pluginFileSystemLinuxAddonRoot.getManager());
             ioPNodePluginRoot.setEventManager((EventManager) eventManagerPlatformServiceAddonRoot.getManager());

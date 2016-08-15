@@ -26,6 +26,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.cl
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.NetworkClientManager;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.P2PLayerManager;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.PackageContent;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.iop.client.version_1.context.ClientContext;
 import org.iop.client.version_1.context.ClientContextItem;
 import org.iop.client.version_1.exceptions.CantInitializeNetworkClientP2PDatabaseException;
@@ -380,8 +381,8 @@ public class IoPClientPluginRoot extends AbstractPlugin implements NetworkClient
     }
 
     @Override
-    public UUID sendMessage(PackageContent packageContent, NetworkServiceType networkServiceType, String destinationPublicKey) throws CantSendMessageException {
-        return networkClientCommunicationConnection.sendPackageMessage(packageContent,networkServiceType,destinationPublicKey);
+    public UUID sendMessage(PackageContent packageContent, PackageType packageType, NetworkServiceType networkServiceType, String destinationPublicKey) throws CantSendMessageException {
+        return networkClientCommunicationConnection.sendPackageMessage(packageContent,packageType,networkServiceType,destinationPublicKey);
     }
 
     public void setPluginFileSystem(PluginFileSystem pluginFileSystem) {

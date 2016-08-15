@@ -3,6 +3,7 @@ package com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.c
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantSendMessageException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.PackageContent;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public interface NetworkChannel {
 
     boolean isConnected();
 
-    public UUID sendMessage(PackageContent packageContent, NetworkServiceType networkServiceType, String destinationPublicKey) throws CantSendMessageException;
+    public UUID sendMessage(PackageContent packageContent, PackageType packageType, NetworkServiceType networkServiceType, String destinationPublicKey) throws CantSendMessageException;
 
 
 }

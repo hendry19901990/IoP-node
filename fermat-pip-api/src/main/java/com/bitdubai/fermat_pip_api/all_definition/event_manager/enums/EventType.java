@@ -2,10 +2,12 @@ package com.bitdubai.fermat_pip_api.all_definition.event_manager.enums;
 
 import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
 import com.bitdubai.fermat_api.layer.all_definition.enums.interfaces.FermatEventEnum;
+import com.bitdubai.fermat_api.layer.all_definition.events.common.GenericEventListener;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEvent;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEventListener;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEventMonitor;
 import com.bitdubai.fermat_api.layer.all_definition.exceptions.InvalidParameterException;
+import com.bitdubai.fermat_pip_api.all_definition.event_manager.events.AbstractFermatPipEvent;
 import com.bitdubai.fermat_pip_api.all_definition.event_manager.events.MaxTimeOutNotificationReachedEvent;
 import com.bitdubai.fermat_pip_api.all_definition.event_manager.events.TimeOutReachedEvent;
 import com.bitdubai.fermat_pip_api.all_definition.event_manager.listeners.MaxTimeOutNotificationReachedEventListener;
@@ -34,6 +36,16 @@ public enum EventType implements FermatEventEnum {
 
         public FermatEvent getNewEvent() {
             return new MaxTimeOutNotificationReachedEvent();
+        }
+    },
+    INCOMING_MESSAGE("IM"){
+        @Override
+        public FermatEventListener getNewListener(FermatEventMonitor fermatEventMonitor) {
+            return new GenericEventListener(EventType.INCOMING_MESSAGE,fermatEventMonitor);
+        }
+        @Override
+        public FermatEvent getNewEvent() {
+            return new AbstractFermatPipEvent(EventType.INCOMING_MESSAGE);
         }
     };
 

@@ -237,7 +237,7 @@ public abstract class AbstractNetworkService extends AbstractPlugin implements N
              */
             onNetworkServiceStart();
 
-            p2PLayerManager.register(this);
+//            p2PLayerManager.register(this);
             /**
              * Register Elements after Start
              */

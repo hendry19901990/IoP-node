@@ -473,8 +473,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
         ActorListMsgRequest actorListMsgRequest = new ActorListMsgRequest(
                 queryId,
                 networkServicePublicKey,
-                discoveryQueryParameters,
-                clientIdentity.getPublicKey()
+                discoveryQueryParameters
         );
 
         actorListMsgRequest.setMessageContentType(MessageContentType.JSON);
@@ -504,6 +503,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
 
 
     public UUID sendPackageMessage(final PackageContent     packageContent              ,
+                                   final PackageType        packageType,
                                    final NetworkServiceType networkServiceType          ,
                                    final String             destinationIdentityPublicKey) throws CantSendMessageException {
         System.out.println("******* IS CONNECTED: " + isConnected() + " - TRYING NO SEND = " + packageContent.toJson());
@@ -515,7 +515,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
                 Package pack = Package.createInstance(
                         packageContent.toJson(),
                         networkServiceType,
-                        PackageType.MESSAGE_TRANSMIT,
+                        packageType,
                         clientIdentity.getPrivateKey(),
                         destinationIdentityPublicKey
                 );

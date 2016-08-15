@@ -4,7 +4,9 @@ import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.Networ
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantSendMessageException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.NetworkChannel;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.PackageContent;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.ActorListMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceMessage;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 
 import java.util.UUID;
 
@@ -22,6 +24,11 @@ public class MessageSender {
     }
 
     public void sendMessage(NetworkServiceMessage networkServiceMessage, NetworkServiceType networkServiceType, String destinationPublicKey) throws CantSendMessageException {
-        UUID packageId = client.sendMessage(networkServiceMessage,networkServiceType,destinationPublicKey);
+        UUID packageId = client.sendMessage(networkServiceMessage, PackageType.MESSAGE_TRANSMIT,networkServiceType,destinationPublicKey);
+    }
+
+    public void sendDiscoveryMessage(ActorListMsgRequest networkServiceMessage, NetworkServiceType networkServiceType, String destinationPublicKey) throws CantSendMessageException {
+        //todo: esto deberia ser para todos los discovery y no solo para el actorList
+        UUID packageId = client.sendMessage(networkServiceMessage,PackageType.ACTOR_LIST_REQUEST,networkServiceType,destinationPublicKey);
     }
 }

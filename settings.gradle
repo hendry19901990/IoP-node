@@ -7,5 +7,7 @@ include ':fermat-osa-addon-linux-device-location-bitdubai'
 //include ':fermat-p2p-plugin-communication-network-node-bitdubai'
 include ':fermat-p2p-layer'
 include 'IoP-node'
+include 'console-network-service'
+
 include 'IoPClient'
 

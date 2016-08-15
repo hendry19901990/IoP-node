@@ -47,7 +47,6 @@ public class ActorCatalogDao extends AbstractComponentsDao<ActorCatalog> {
     /**
      * This method returns a list of actors filtered by the discoveryQueryParameters
      * @param discoveryQueryParameters
-     * @param clientIdentityPublicKey
      * @param max
      * @param offset
      * @return
@@ -55,19 +54,15 @@ public class ActorCatalogDao extends AbstractComponentsDao<ActorCatalog> {
      */
     public List<ActorCatalog> findAll(
             final DiscoveryQueryParameters discoveryQueryParameters,
-            final String clientIdentityPublicKey,
             Integer max,
             Integer offset) throws CantReadRecordDataBaseException {
-        LOG.debug(new StringBuilder("Executing list(")
-                .append(discoveryQueryParameters)
-                .append(", ")
-                .append(clientIdentityPublicKey)
-                .append(", ")
-                .append(max)
-                .append(", ")
-                .append(offset)
-                .append(")")
-                .toString());
+        LOG.debug("Executing list(" +
+                discoveryQueryParameters +
+                ", " +
+                max +
+                ", " +
+                offset +
+                ")");
         EntityManager connection = getConnection();
         connection.setProperty("javax.persistence.cache.storeMode", CacheStoreMode.BYPASS);
 
@@ -88,20 +83,20 @@ public class ActorCatalogDao extends AbstractComponentsDao<ActorCatalog> {
                 if(filters.containsKey("location")){
 
                     //Getting GeoLocation from client
-                    GeoLocation clientGeoLocation =  connection.find(GeoLocation.class, clientIdentityPublicKey);
-
-                    //Calculate the BasicGeoRectangle
-                    double distance;
-                    try{
-                        distance = (double) filters.get("distance");
-                    } catch (ClassCastException cce){
-                        //In this case, we assume a minimum distance as 1Km
-                        distance = 1;
-                    }
-                    basicGeoRectangle = CoordinateCalculator
-                            .calculateCoordinate(
-                                    clientGeoLocation,
-                                    distance);
+//                    GeoLocation clientGeoLocation =  connection.find(GeoLocation.class, clientIdentityPublicKey);
+//
+//                    //Calculate the BasicGeoRectangle
+//                    double distance;
+//                    try{
+//                        distance = (double) filters.get("distance");
+//                    } catch (ClassCastException cce){
+//                        //In this case, we assume a minimum distance as 1Km
+//                        distance = 1;
+//                    }
+//                    basicGeoRectangle = CoordinateCalculator
+//                            .calculateCoordinate(
+//                                    clientGeoLocation,
+//                                    distance);
                 }
 
                 //Walk the key map that representing the attribute names
@@ -180,9 +175,9 @@ public class ActorCatalogDao extends AbstractComponentsDao<ActorCatalog> {
 
             //Filter the requester actor
             Path<Object> path = entities.get("clientIdentityPublicKey");
-            Predicate actorFilter = criteriaBuilder.notEqual(path, clientIdentityPublicKey);
+//            Predicate actorFilter = criteriaBuilder.notEqual(path, clientIdentityPublicKey);
             //System.out.println("I'm an actor filter: "+actorFilter.toString());
-            predicates.add(actorFilter);
+//            predicates.add(actorFilter);
             //System.out.println("I'm predicates: "+predicates);
             // Add the conditions of the where
             criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));

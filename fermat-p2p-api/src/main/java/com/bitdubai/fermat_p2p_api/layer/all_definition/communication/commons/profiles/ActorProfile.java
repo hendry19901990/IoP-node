@@ -190,7 +190,7 @@ public class ActorProfile extends Profile {
         this.clientIdentityPublicKey = clientIdentityPublicKey;
     }
 
-    public String getHomeNodeIdentifier() {
+    public String getHomeNodePublicKey() {
         return homeNodeIdentifier;
     }
 

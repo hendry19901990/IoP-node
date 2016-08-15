@@ -1,6 +1,7 @@
 package com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.events;
 
 import com.bitdubai.fermat_api.layer.all_definition.events.common.AbstractEvent;
+import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.P2pEventType;
 
@@ -34,6 +35,8 @@ public class NetworkClientActorListReceivedEvent extends AbstractEvent<P2pEventT
      * Represent the network service public key.
      */
     private String networkServicePublicKey;
+
+    private NetworkServiceType networkServiceType;
 
     /**
      * Represent the network service type.
@@ -84,6 +87,14 @@ public class NetworkClientActorListReceivedEvent extends AbstractEvent<P2pEventT
 
     public void setStatus(STATUS status) {
         this.status = status;
+    }
+
+    public NetworkServiceType getNetworkServiceType() {
+        return networkServiceType;
+    }
+
+    public void setNetworkServiceType(NetworkServiceType networkServiceType) {
+        this.networkServiceType = networkServiceType;
     }
 
     @Override

@@ -1,14 +1,18 @@
-package org.iop.version_1.structure.channels.processors.clients;
+package org.iop.version_1.structure.channels.processors.clients.checkin;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.CheckInProfileMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ACKRespond;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.checkin.ClientCheckInRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ClientProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.apache.commons.lang.ClassUtils;
+import org.iop.version_1.IoPNodePluginRoot;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
+import org.iop.version_1.structure.context.NodeContext;
+import org.iop.version_1.structure.context.NodeContextItem;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.Client;
 import org.jboss.logging.Logger;
@@ -47,6 +51,7 @@ public class CheckInClientRequestProcessor extends PackageProcessor {
     public Package processingPackage(Session session, Package packageReceived, FermatWebSocketChannelEndpoint channel) {
 
         LOG.info("Processing new package received: "+packageReceived.getPackageType());
+        System.out.println("CheckInProcessor");
         String destinationIdentityPublicKey = (String) session.getUserProperties().get(HeadersAttName.CPKI_ATT_HEADER_NAME);
         ClientProfile clientProfile;
 
@@ -74,12 +79,17 @@ public class CheckInClientRequestProcessor extends PackageProcessor {
             /*
              * If all ok, respond whit success message
              */
-            ACKRespond respondProfileCheckInMsj = new ACKRespond(ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString(), packageReceived.getPackageId());
+            ClientCheckInRespond respondProfileCheckInMsj = new ClientCheckInRespond(ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString());
+            IoPNodePluginRoot ioPNodePluginRoot = (IoPNodePluginRoot) NodeContext.get(NodeContextItem.PLUGIN_ROOT);
+            String uri = ioPNodePluginRoot.getNodeProfile().getIp()+":"+ioPNodePluginRoot.getNodeProfile().getDefaultPort();
+            //todo: ver esto de la pk
+            respondProfileCheckInMsj.setHomeNodePk(ioPNodePluginRoot.getIdentity().getPrivateKey());
+            respondProfileCheckInMsj.setNodeUri(uri);
 
             return Package.createInstance(
                     respondProfileCheckInMsj.toJson(),
                     packageReceived.getNetworkServiceTypeSource(),
-                    PackageType.ACK,
+                    PackageType.CHECK_IN_CLIENT_RESPOND,
                     channel.getChannelIdentity().getPrivateKey(),
                     destinationIdentityPublicKey
                 );
@@ -103,7 +113,7 @@ public class CheckInClientRequestProcessor extends PackageProcessor {
                 return Package.createInstance(
                         respondProfileCheckInMsj.toJson(),
                         packageReceived.getNetworkServiceTypeSource(),
-                        PackageType.ACK,
+                        PackageType.CHECK_IN_CLIENT_RESPOND,
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
                 );

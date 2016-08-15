@@ -75,7 +75,7 @@ public class ActorListRequestProcessor extends PackageProcessor {
             /*
              * Create the method call history
              */
-            List<ActorProfile> actorsList = filterActors(messageContent.getParameters(), messageContent.getClientPublicKey());
+            List<ActorProfile> actorsList = filterActors(messageContent.getParameters());
 
             /*
              * If all ok, respond whit success message
@@ -136,14 +136,12 @@ public class ActorListRequestProcessor extends PackageProcessor {
 
     /**
      * Filter all actor component profiles from database that match with the given parameters.
-     * We'll use the @clientIdentityPublicKey param to filter the actors who belongs to the client asking.
      *
      * @param discoveryQueryParameters parameters of the discovery done by the user.
      *
      * @return a list of actor profiles.
      */
-    private List<ActorProfile> filterActors(final DiscoveryQueryParameters discoveryQueryParameters,
-                                            final String                   clientIdentityPublicKey ) throws CantReadRecordDataBaseException {
+    private List<ActorProfile> filterActors(final DiscoveryQueryParameters discoveryQueryParameters) throws CantReadRecordDataBaseException {
 
         Map<String, ActorProfile> profileList = new HashMap<>();
 
@@ -158,7 +156,7 @@ public class ActorListRequestProcessor extends PackageProcessor {
         if (discoveryQueryParameters.getOffset() != null && discoveryQueryParameters.getOffset() >= 0)
             offset = discoveryQueryParameters.getOffset();
 
-        actorsList = JPADaoFactory.getActorCatalogDao().findAll(discoveryQueryParameters, clientIdentityPublicKey, max, offset);
+        actorsList = JPADaoFactory.getActorCatalogDao().findAll(discoveryQueryParameters, max, offset);
 
         if (discoveryQueryParameters.isOnline())
             for (ActorCatalog actorsCatalog : actorsList)

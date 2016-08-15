@@ -1,4 +1,4 @@
-package org.iop.version_1.structure.channels.processors.clients;
+package org.iop.version_1.structure.channels.processors.clients.checkin;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.CheckInProfileMsgRequest;
@@ -76,7 +76,7 @@ public class CheckInNetworkServiceRequestProcessor extends PackageProcessor {
             return Package.createInstance(
                     respondProfileCheckInMsj.toJson(),
                     packageReceived.getNetworkServiceTypeSource(),
-                    PackageType.ACK,
+                    PackageType.CHECK_IN_NETWORK_SERVICE_RESPOND,
                     channel.getChannelIdentity().getPrivateKey(),
                     destinationIdentityPublicKey
             );
@@ -96,7 +96,7 @@ public class CheckInNetworkServiceRequestProcessor extends PackageProcessor {
                 return Package.createInstance(
                         respondProfileCheckInMsj.toJson(),
                         packageReceived.getNetworkServiceTypeSource(),
-                        PackageType.ACK,
+                        PackageType.CHECK_IN_NETWORK_SERVICE_RESPOND,
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
                 );

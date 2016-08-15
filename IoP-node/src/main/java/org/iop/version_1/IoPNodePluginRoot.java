@@ -29,6 +29,7 @@ import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.NodeContextItem;
 import org.iop.version_1.structure.database.jpa.entities.GeoLocation;
 import org.iop.version_1.structure.util.ConfigurationManager;
+import org.iop.version_1.structure.util.UPNPService;
 
 import java.io.File;
 import java.io.IOException;
@@ -137,7 +138,7 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
             /*
              * Try to forwarding port
              */
-//            UPNPService.portForwarding(Integer.parseInt(ConfigurationManager.getValue(ConfigurationManager.PORT)), ConfigurationManager.getValue(ConfigurationManager.NODE_NAME));
+            UPNPService.portForwarding(15400, ConfigurationManager.getValue(ConfigurationManager.NODE_NAME));
 
         } catch (Exception exception) {
 

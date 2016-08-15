@@ -22,19 +22,20 @@ public class ActorListMsgRequest extends PackageContent {
     private UUID                     queryId                ;
     private String                   networkServicePublicKey;
     private DiscoveryQueryParameters parameters             ;
-    private String                   clientPublicKey        ;
+    //todo: porqué este pk acá?
+//    private String                   clientPublicKey        ;
 
     public ActorListMsgRequest(final UUID                     queryId                ,
                                final String                   networkServicePublicKey,
-                               final DiscoveryQueryParameters parameters             ,
-                               final String                   clientPublicKey        ) {
+                               final DiscoveryQueryParameters parameters             ){
+//                               final String                   clientPublicKey        ) {
 
         super(MessageContentType.JSON);
 
         this.queryId                 = queryId                ;
         this.networkServicePublicKey = networkServicePublicKey;
         this.parameters              = parameters             ;
-        this.clientPublicKey         = clientPublicKey        ;
+//        this.clientPublicKey         = clientPublicKey        ;
     }
 
     public UUID getQueryId() {
@@ -49,9 +50,9 @@ public class ActorListMsgRequest extends PackageContent {
         return parameters;
     }
 
-    public String getClientPublicKey() {
-        return clientPublicKey;
-    }
+//    public String getClientPublicKey() {
+//        return clientPublicKey;
+//    }
 
     /**
      * Generate the json representation
@@ -79,7 +80,7 @@ public class ActorListMsgRequest extends PackageContent {
                 "queryId=" + queryId +
                 ", networkServicePublicKey='" + networkServicePublicKey + '\'' +
                 ", parameters=" + parameters +
-                ", clientPublicKey='" + clientPublicKey + '\'' +
+//                ", clientPublicKey='" + clientPublicKey + '\'' +
                 '}';
     }
 }

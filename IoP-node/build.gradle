@@ -37,6 +37,8 @@ dependencies {
     compile project(':fermat-osa-addon-linux-device-location-bitdubai')
     compile project(':fermat-osa-addon-linux-file-system-bitdubai')
 
+    compile 'org.bitlet:weupnp:0.1.4'
+
 
 
 

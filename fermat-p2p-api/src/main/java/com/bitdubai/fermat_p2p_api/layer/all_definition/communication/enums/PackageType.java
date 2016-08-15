@@ -38,23 +38,7 @@ public enum PackageType {
 
     //todo: esto no creo que vaya
     SERVER_HANDSHAKE_RESPONSE, // the servers returns a message to the client when the client check in and the connection was successful
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    CHECK_IN_CLIENT_RESPOND,
 
 
     // Definition types Client channel
@@ -133,7 +117,7 @@ public enum PackageType {
 //    ACTOR_CATALOG_TO_PROPAGATE_RESPONSE, // the node responds to the counterpart if it needs or not the information sent by it
 
 
-    ;
+    CHECK_IN_NETWORK_SERVICE_RESPOND, CHECK_IN_ACTOR_RESPONSE;
 
 
 
