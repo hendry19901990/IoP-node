@@ -831,7 +831,7 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
          * Create the query
          */
         UUID uuid = UUID.randomUUID();
-        ActorListMsgRequest actorListMsgRequest = new ActorListMsgRequest(uuid,identity.getPublicKey(),discoveryQueryParameters);
+        ActorListMsgRequest actorListMsgRequest = new ActorListMsgRequest(uuid,networkServiceType.getCode(),discoveryQueryParameters);
 
         p2PLayerManager.sendDiscoveryMessage(actorListMsgRequest,networkServiceType,null);
 
