@@ -47,7 +47,7 @@ public class CheckInClientRespondProcessor extends PackageProcessor {
             /*
              * Raise the event
              */
-        System.out.println("MessageTransmitProcessor - Raised a event = P2pEventType.NETWORK_CLIENT_REGISTERED");
+        System.out.println("CheckInClientRespondProcessor - Raised a event = P2pEventType.NETWORK_CLIENT_REGISTERED");
         getEventManager().raiseEvent(event);
 
     }
