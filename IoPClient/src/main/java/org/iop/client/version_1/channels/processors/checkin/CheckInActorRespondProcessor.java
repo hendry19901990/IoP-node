@@ -22,7 +22,7 @@ public class CheckInActorRespondProcessor extends PackageProcessor {
      * @param channel
      */
     public CheckInActorRespondProcessor(NetworkClientCommunicationChannel channel) {
-        super(channel, PackageType.CHECK_IN_NETWORK_SERVICE_RESPOND);
+        super(channel, PackageType.CHECK_IN_ACTOR_RESPONSE);
     }
 
 
