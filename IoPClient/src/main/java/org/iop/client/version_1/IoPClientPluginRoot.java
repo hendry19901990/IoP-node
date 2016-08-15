@@ -182,10 +182,8 @@ public class IoPClientPluginRoot extends AbstractPlugin implements NetworkClient
                     null//p2PLayerManager
             );
 
-            networkClientCommunicationConnection.initializeAndConnect();
 
-
-            //p2PLayerManager.register(this);
+            p2PLayerManager.register(this);
 
 //            FermatEventListener networkClientConnected = eventManager.getNewListener(P2pEventType.NETWORK_CLIENT_CONNNECTED_TO_NODE);
 //            networkClientConnected.setEventHandler(new NetworkClientConnectedToNodeEventHandler(this));
