@@ -253,7 +253,6 @@ public class JettyEmbeddedAppServer {
 
         this.wsServerContainer = WebSocketServerContainerInitializer.configureContext(webAppContext);
 
-
         /*
 
          * Add WebSocket endpoint to javax.websocket layer
@@ -263,7 +262,6 @@ public class JettyEmbeddedAppServer {
 //        this.wsServerContainer.addEndpoint(FermatWebSocketNodeChannelServerEndpoint.class);
 
         this.wsServerContainer.addEndpoint(FermatWebSocketClientChannelServerEndpoint.class);
-
 
         this.server.dump(System.err);
 
@@ -292,7 +290,6 @@ public class JettyEmbeddedAppServer {
         LOG.info("Starting the internal server");
 
         this.server.start();
-
 
 
         LOG.info("Server URI = " + this.server.getURI());

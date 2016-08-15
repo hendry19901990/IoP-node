@@ -107,14 +107,6 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
              */
             generateNodeProfile();
 
-            /*
-             * Create and start the internal server
-             */
-            /*
-      Represent the fermatEmbeddedNodeServer instance
-     */
-            JettyEmbeddedAppServer fermatEmbeddedNodeServer = JettyEmbeddedAppServer.getInstance();
-            fermatEmbeddedNodeServer.start();
 
             LOG.info("Add references to the node context...");
 
@@ -139,6 +131,13 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
              * Try to forwarding port
              */
             UPNPService.portForwarding(15400, ConfigurationManager.getValue(ConfigurationManager.NODE_NAME));
+
+            /*
+             Represent the fermatEmbeddedNodeServer instance
+            */
+            JettyEmbeddedAppServer fermatEmbeddedNodeServer = JettyEmbeddedAppServer.getInstance();
+            fermatEmbeddedNodeServer.start();
+
 
         } catch (Exception exception) {
 
