@@ -288,24 +288,25 @@ public abstract class AbstractActorNetworkService extends AbstractNetworkService
 
         if (this.getConnection() != null && this.getConnection().isRegistered()) {
 
-            try {
-
-                this.getConnection().unregisterProfile(actorToUnregister);
-
-            } catch (CantUnregisterProfileException  exception) {
-
-                throw new CantUnregisterActorException(exception, "publicKey: "+publicKey, "There was an error trying to update a registered actor through the network service.");
-            }
+//            try {
+//
+//                this.getConnection().unregisterProfile(actorToUnregister);
+//
+//            } catch (CantUnregisterProfileException  exception) {
+//
+//                throw new CantUnregisterActorException(exception, "publicKey: "+publicKey, "There was an error trying to update a registered actor through the network service.");
+//            }
         }
     }
 
     @Override
     public boolean isActorOnline(final String publicKey) {
 
-        if (this.getConnection() != null)
-            return this.getConnection().isActorOnline(publicKey);
-        else
-            return false;
+//        if (this.getConnection() != null)
+//            return this.getConnection().isActorOnline(publicKey);
+//        else
+//            return false;
+        return false;
     }
 
     @Override

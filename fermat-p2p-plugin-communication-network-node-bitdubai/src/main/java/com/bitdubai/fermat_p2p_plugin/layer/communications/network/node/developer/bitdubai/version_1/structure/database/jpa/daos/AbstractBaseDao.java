@@ -71,10 +71,9 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
      */
     public E findById(Object id) throws CantReadRecordDataBaseException {
 
-        LOG.debug(new StringBuilder("Executing findById(")
-                .append(id)
-                .append(")")
-                .toString());
+        LOG.debug("Executing findById(" +
+                id +
+                ")");
 
         if (id == null){
             throw new IllegalArgumentException("The id can't be null");

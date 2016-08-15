@@ -51,24 +51,24 @@ public final class NetworkServiceConnectionManager {
 
     }
 
-    public void connectTo(ActorProfile remoteActor) throws CantEstablishConnectionException {
-
-        if (!poolConnectionsWaitingForResponse.containsKey(remoteActor.getIdentityPublicKey())) {
-
-            try {
-
-                networkServiceRoot.getConnection().callActor(networkServiceRoot.getProfile(), remoteActor);
-
-                poolConnectionsWaitingForResponse.put(remoteActor.getIdentityPublicKey(), remoteActor);
-
-            } catch (Exception e) {
-                networkServiceRoot.reportError(
-                        UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN,
-                        e
-                );
-            }
-        }
-    }
+//    public void connectTo(ActorProfile remoteActor) throws CantEstablishConnectionException {
+//
+//        if (!poolConnectionsWaitingForResponse.containsKey(remoteActor.getIdentityPublicKey())) {
+//
+//            try {
+//
+//                networkServiceRoot.getConnection().callActor(networkServiceRoot.getProfile(), remoteActor);
+//
+//                poolConnectionsWaitingForResponse.put(remoteActor.getIdentityPublicKey(), remoteActor);
+//
+//            } catch (Exception e) {
+//                networkServiceRoot.reportError(
+//                        UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN,
+//                        e
+//                );
+//            }
+//        }
+//    }
 
     /**
      * Notify to the agent that remove a specific connection

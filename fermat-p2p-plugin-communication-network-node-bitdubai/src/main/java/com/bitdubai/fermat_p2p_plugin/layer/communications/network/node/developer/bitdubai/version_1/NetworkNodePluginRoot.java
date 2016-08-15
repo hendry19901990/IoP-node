@@ -290,7 +290,7 @@ public class NetworkNodePluginRoot extends AbstractPlugin implements NetworkNode
 
             if (ConfigurationManager.getValue(ConfigurationManager.PUBLIC_IP).equals(FermatEmbeddedNodeServer.DEFAULT_IP)){
 
-                serverPublicIp = IPAddressHelper.getCurrentIPAddress();
+                serverPublicIp = IPAddressHelper.getCurrentPublicIPAddress();
                 LOG.info(">>>> Server public ip: " + serverPublicIp + " get by online service");
                 ConfigurationManager.updateValue(ConfigurationManager.PUBLIC_IP, serverPublicIp);
 

@@ -22,7 +22,7 @@ public final class IPAddressHelper {
 
     private static String ipAddress;
 
-    public static String getCurrentIPAddress() throws CantGetCurrentIPAddressException {
+    public static String getCurrentPublicIPAddress() throws CantGetCurrentIPAddressException {
 
         if (ipAddress != null)
             return ipAddress;

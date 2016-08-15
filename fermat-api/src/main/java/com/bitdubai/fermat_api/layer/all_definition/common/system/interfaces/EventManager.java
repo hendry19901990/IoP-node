@@ -7,6 +7,7 @@ import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEven
 /**
  * Created by ciencias on 23.01.15.
  * Modified by Leon Acosta - (laion.cj91@gmail.com) on 16/09/2015.
+ * Modified by furszy
  */
 public interface EventManager extends FermatManager {
 
@@ -25,6 +26,8 @@ public interface EventManager extends FermatManager {
      * @return a new event for this type of event.
      */
     FermatEvent getNewEvent(FermatEventEnum eventType);
+
+    <T extends FermatEvent> T getNewEventMati(FermatEventEnum eventEnum,Class<T> tClass);
 
     void addListener(FermatEventListener listener);
 

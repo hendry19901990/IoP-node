@@ -41,7 +41,7 @@ public class EncryptMessagePublicKeyTest extends AsymmetricCryptographyUnitTest{
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void EncryptMessagePublicKey_NullMessage_ThrowIllegalArgumentException() {
-		AsymmetricCryptography.encryptMessagePublicKey(null, testPublicKey);
+//		AsymmetricCryptography.encryptMessagePublicKey(null, testPublicKey);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

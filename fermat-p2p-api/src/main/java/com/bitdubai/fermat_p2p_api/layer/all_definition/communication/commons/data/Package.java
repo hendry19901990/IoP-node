@@ -6,6 +6,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.Pack
 
 import java.io.Serializable;
 import java.security.InvalidParameterException;
+import java.util.UUID;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package</code> wrap
@@ -18,6 +19,11 @@ import java.security.InvalidParameterException;
  * @since Java JDK 1.7
  */
 public class Package implements Serializable {
+
+    /**
+     * Represent the id
+     */
+    private UUID packageId;
 
     /**
      * Represent the content value
@@ -54,7 +60,9 @@ public class Package implements Serializable {
      *
      * @throws InvalidParameterException if the parameters are bad.
      */
-    protected Package(final String             content                 ,
+    protected Package(
+            final UUID packageId,
+            final String             content                 ,
                       final NetworkServiceType networkServiceTypeSource,
                       final PackageType        packageType             ,
                       final String             signature               ,
@@ -72,6 +80,7 @@ public class Package implements Serializable {
         if (signature == null)
             throw new InvalidParameterException("signature can't be null.");
 
+        this.packageId = packageId;
         this.content                  = content                 ;
         this.networkServiceTypeSource = networkServiceTypeSource;
         this.packageType              = packageType             ;
@@ -131,6 +140,14 @@ public class Package implements Serializable {
         return destinationPublicKey;
     }
 
+    public UUID getPackageId() {
+        return packageId;
+    }
+
+    public void setPackageId(UUID packageId) {
+        this.packageId = packageId;
+    }
+
     /**
      * Construct a package instance encrypted with the destination identity public key and signed
      * whit the private key passed as an argument
@@ -143,6 +160,7 @@ public class Package implements Serializable {
      *
      * @return Package signed instance
      */
+    //todo: re hacer esto pero con bloques de paquetes como estos
     public static Package createInstance(final String             content                     ,
                                          final NetworkServiceType networkServiceTypeSource    ,
                                          final PackageType        packageType                 ,
@@ -160,7 +178,9 @@ public class Package implements Serializable {
                 senderPrivateKey
         );
 
+
         return new Package(
+                UUID.randomUUID(),
                 content                     ,
                 networkServiceTypeSource    ,
                 packageType                 ,
@@ -168,4 +188,6 @@ public class Package implements Serializable {
                 destinationIdentityPublicKey
         );
     }
+
+
 }

@@ -42,13 +42,20 @@ public class ActorProfile extends Profile {
 
     /**
      * Represent the nsIdentityPublicKey
+     * //todo: sacar
      */
     private String nsIdentityPublicKey;
 
     /**
      * Represent the clientIdentityPublicKey
+     * //todo: sacar
      */
     private String clientIdentityPublicKey;
+
+    /**
+     * Home node identifier
+     */
+    private String homeNodeIdentifier;
 
     /**
      * Constructor
@@ -183,6 +190,14 @@ public class ActorProfile extends Profile {
         this.clientIdentityPublicKey = clientIdentityPublicKey;
     }
 
+    public String getHomeNodePublicKey() {
+        return homeNodeIdentifier;
+    }
+
+    public void setHomeNodeIdentifier(String homeNodeIdentifier) {
+        this.homeNodeIdentifier = homeNodeIdentifier;
+    }
+
     public static Profile deserialize(final JsonObject jsonObject) {
 
         ActorProfile actorProfile = new ActorProfile();
@@ -220,6 +235,9 @@ public class ActorProfile extends Profile {
         if (jsonObject.get("photo") != null)
             actorProfile.setPhoto(Base64.decode(jsonObject.get("photo").getAsString(), Base64.DEFAULT));
 
+        if (jsonObject.get("hni") != null)
+            actorProfile.setHomeNodeIdentifier(jsonObject.get("homeNodeIdentifier").getAsString());
+
         actorProfile.setLocation(latitude, longitude);
 
         return actorProfile;
@@ -250,6 +268,10 @@ public class ActorProfile extends Profile {
 
         if (photo != null)
             jsonObject.addProperty("photo", Base64.encodeToString(photo, Base64.DEFAULT));
+
+        if (homeNodeIdentifier!=null){
+            jsonObject.addProperty("hni", homeNodeIdentifier);
+        }
 
         return jsonObject;
     }
