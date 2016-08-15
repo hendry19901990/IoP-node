@@ -124,7 +124,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
 
         URI uri = null;
         try {
-            uri = new URI(HardcodeConstants.WS_PROTOCOL + nodeUrl + "/iop-node/ws/client-channel");
+            uri = new URI(HardcodeConstants.WS_PROTOCOL + "localhost:15400" + "/iop-node/ws/client-channel");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

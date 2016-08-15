@@ -18,7 +18,7 @@ import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.Client;
 import org.iop.version_1.structure.util.PackageDecoder;
 import org.iop.version_1.structure.util.PackageEncoder;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 import sun.java2d.pipe.hw.ContextCapabilities;
 
 import javax.websocket.*;
@@ -37,7 +37,7 @@ import java.util.Map;
  * @since Java JDK 1.7
  */
 @ServerEndpoint(
-        value = "/client-channel",
+        value = "/ws/client-channel",
         configurator = ClientChannelConfigurator.class,
         encoders = {PackageEncoder.class},
         decoders = {PackageDecoder.class}
@@ -223,4 +223,6 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
             LOG.error(e);
         }
     }
+
+
 }

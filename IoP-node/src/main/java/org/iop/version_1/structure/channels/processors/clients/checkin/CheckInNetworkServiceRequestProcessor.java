@@ -11,7 +11,7 @@ import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEnd
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.NetworkService;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javax.websocket.Session;
 
