@@ -17,7 +17,7 @@
 //import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.NetworkServiceSession;
 //import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.exceptions.CantReadRecordDataBaseException;
 //import org.apache.commons.lang.ClassUtils;
-//import org.jboss.logging.Logger;
+//import org.apache.log4j.Logger;
 //
 //import javax.websocket.Session;
 //import java.util.*;

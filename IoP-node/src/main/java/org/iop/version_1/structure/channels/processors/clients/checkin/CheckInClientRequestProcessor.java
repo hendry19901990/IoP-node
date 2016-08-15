@@ -8,6 +8,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.pr
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.IoPNodePluginRoot;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
@@ -15,7 +16,7 @@ import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.NodeContextItem;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.Client;
-import org.jboss.logging.Logger;
+
 
 import javax.websocket.Session;
 

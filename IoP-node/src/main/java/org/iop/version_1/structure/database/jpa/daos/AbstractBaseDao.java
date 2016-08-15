@@ -13,7 +13,7 @@ import com.google.gson.annotations.Expose;
 import org.apache.commons.lang.ClassUtils;
 import org.iop.version_1.structure.database.jpa.DatabaseManager;
 import org.iop.version_1.structure.database.jpa.entities.AbstractBaseEntity;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;

@@ -15,7 +15,7 @@ import org.iop.version_1.structure.database.jpa.entities.GeoLocation;
 import org.iop.version_1.structure.database.jpa.entities.NodeCatalog;
 import org.iop.version_1.structure.util.geolocation.BasicGeoRectangle;
 import org.iop.version_1.structure.util.geolocation.CoordinateCalculator;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 import javax.persistence.criteria.*;

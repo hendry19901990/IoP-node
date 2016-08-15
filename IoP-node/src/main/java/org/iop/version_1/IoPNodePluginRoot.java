@@ -23,7 +23,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.NetworkNod
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.NodeProfile;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang3.ClassUtils;
-import org.iop.version_1.structure.IoPEmbeddedNode;
+import org.iop.version_1.structure.JettyEmbeddedAppServer;
 import org.iop.version_1.structure.conf.EmbeddedNodeServerConf;
 import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.NodeContextItem;
@@ -113,7 +113,7 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
             /*
       Represent the fermatEmbeddedNodeServer instance
      */
-            IoPEmbeddedNode fermatEmbeddedNodeServer = new IoPEmbeddedNode();
+            JettyEmbeddedAppServer fermatEmbeddedNodeServer = JettyEmbeddedAppServer.getInstance();
             fermatEmbeddedNodeServer.start();
 
             LOG.info("Add references to the node context...");

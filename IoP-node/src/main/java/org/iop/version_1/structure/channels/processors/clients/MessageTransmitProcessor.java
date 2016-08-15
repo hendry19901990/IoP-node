@@ -12,7 +12,7 @@ import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.SessionManager;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javax.websocket.SendHandler;
 import javax.websocket.SendResult;

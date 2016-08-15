@@ -3,7 +3,7 @@ package org.iop.version_1.structure.database.jpa.daos;
 import org.iop.version_1.structure.database.jpa.entities.AbstractBaseEntity;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantUpdateRecordDataBaseException;
 import org.apache.commons.lang.ClassUtils;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
