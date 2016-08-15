@@ -9,9 +9,12 @@ import com.bitdubai.fermat_api.layer.all_definition.events.EventSource;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.exceptions.CantConfirmTransactionException;
 import com.bitdubai.fermat_api.layer.all_definition.util.Version;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantSendMessageException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.NetworkClientManager;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.DiscoveryQueryParameters;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.abstract_classes.AbstractNetworkService2;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceMessage;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceQuery;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.RecordNotFoundException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
 import com.google.gson.Gson;
@@ -25,6 +28,7 @@ import org.iop.ns.chat.structure.test.MessageReceiver;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Timer;
 import java.util.UUID;
 
@@ -48,6 +52,7 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
     Timer timer = new Timer();
 
     private long reprocessTimer = 300000; //five minutes
+    private List<ActorProfile> result;
 
     /**
      * Executor
@@ -379,5 +384,36 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
     //I need this method for testing
     public void setNetworkClientManager(NetworkClientManager networkClientManager){
         this.networkClientManager = networkClientManager;
+    }
+
+    public void requestActorProfilesList() {
+            try {
+                discoveryActorProfiles(new DiscoveryQueryParameters(
+                        null,
+                        NetworkServiceType.ACTOR_CHAT,
+                        Actors.CHAT.getCode(),
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        false,
+                        null,
+                        20,
+                        0,
+                        true
+                ));
+            } catch (CantSendMessageException e) {
+                e.printStackTrace();
+            }
+    }
+
+    @Override
+    public void onNetworkServiceActorListReceived(NetworkServiceQuery query, List<ActorProfile> actorProfiles) {
+        this.result = actorProfiles;
+    }
+
+    public List<ActorProfile> getResult() {
+        return result;
     }
 }

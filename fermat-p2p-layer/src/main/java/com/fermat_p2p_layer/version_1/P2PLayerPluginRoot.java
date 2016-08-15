@@ -69,7 +69,7 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
         networkServices = new ConcurrentHashMap<>();
         this.listenersAdded        = new CopyOnWriteArrayList<>();
 
-        messageSender = new MessageSender(client);
+        messageSender = new MessageSender(this);
 
         /**
          * Initialize event listeners
@@ -252,7 +252,8 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
 
                 AbstractNetworkService2 abstractNetworkService2 = networkServices.get(fermatEvent.getNetworkServiceType().getCode());
 
-                if (abstractNetworkService2.isStarted() && abstractNetworkService2.getProfile().getIdentityPublicKey().equals(fermatEvent.getNetworkServicePublicKey())) {
+                if (abstractNetworkService2.isStarted()) {
+                    System.out.println("P2PLayer discoveryList: "+ fermatEvent.getQueryID());
                     if (fermatEvent.getStatus() == NetworkClientActorListReceivedEvent.STATUS.SUCCESS)
                         abstractNetworkService2.handleNetworkClientActorListReceivedEvent(fermatEvent.getQueryID(), fermatEvent.getActorList());
                     else
@@ -465,5 +466,9 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
 
     public void setEventManager(EventManager eventManager) {
         this.eventManager = eventManager;
+    }
+
+    public NetworkChannel getNetworkClient() {
+        return client;
     }
 }

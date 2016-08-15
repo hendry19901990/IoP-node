@@ -105,6 +105,12 @@ public class ClientMain {
             chatNetworkServicePluginRoot.getConnection().registerProfile(profile);
 
 
+            chatNetworkServicePluginRoot.requestActorProfilesList();
+
+            while (chatNetworkServicePluginRoot.getResult()==null) {
+            }
+            chatNetworkServicePluginRoot.getResult().forEach(System.out::println);
+
             while (true){
 
             }

@@ -476,11 +476,11 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
                                                                 final List<ActorProfile> actorProfiles) throws CantReadRecordDataBaseException, RecordNotFoundException, CantUpdateRecordDataBaseException {
 
 
-        NetworkServiceQuery query = queriesDao.findById(queryId.toString());
+//        NetworkServiceQuery query = queriesDao.findById(queryId.toString());
+//
+//        queriesDao.markAsDone(query);
 
-        queriesDao.markAsDone(query);
-
-        onNetworkServiceActorListReceived(query, actorProfiles);
+        onNetworkServiceActorListReceived(null, actorProfiles);
 
     }
 
