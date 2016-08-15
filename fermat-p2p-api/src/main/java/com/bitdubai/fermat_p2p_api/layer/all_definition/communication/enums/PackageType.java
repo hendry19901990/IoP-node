@@ -92,29 +92,29 @@ public enum PackageType {
 //
 //    // Definition types NODE channel NODE-TO-NODE Processes
 //
-//    /*
-//     * Request packet types
-//     */
-//    ADD_NODE_TO_CATALOG_REQUEST, // request to the seed node to add the requesting node to the catalog list
-//    GET_NODE_CATALOG_REQUEST, // when a node starts for the first time ask for the catalog information to fill it
-//    UPDATE_NODE_IN_CATALOG_REQUEST, // request to the seed node to update the requesting node to the catalog list
-//    NODES_CATALOG_TO_PROPAGATE_REQUEST, // a node sends to the other the available information to propagate
-//    NODES_CATALOG_TO_ADD_OR_UPDATE_REQUEST, // a node sends to the other the information requested by it to update its catalog
-//
-//    GET_ACTOR_CATALOG_REQUEST, // when a node starts for the first time asks for the catalog information to fill it
-//    ACTOR_CATALOG_TO_PROPAGATE_REQUEST, // a node sends to the other the available information to propagate
-//    ACTOR_CATALOG_TO_ADD_OR_UPDATE_REQUEST,  // a node sends to the other the information requested by it to update its catalog
+    /*
+     * Request packet types
+     */
+    ADD_NODE_TO_CATALOG_REQUEST, // request to the seed node to add the requesting node to the catalog list
+    GET_NODE_CATALOG_REQUEST, // when a node starts for the first time ask for the catalog information to fill it
+    UPDATE_NODE_IN_CATALOG_REQUEST, // request to the seed node to update the requesting node to the catalog list
+    NODES_CATALOG_TO_PROPAGATE_REQUEST, // a node sends to the other the available information to propagate
+    NODES_CATALOG_TO_ADD_OR_UPDATE_REQUEST, // a node sends to the other the information requested by it to update its catalog
+
+    GET_ACTOR_CATALOG_REQUEST, // when a node starts for the first time asks for the catalog information to fill it
+    ACTOR_CATALOG_TO_PROPAGATE_REQUEST, // a node sends to the other the available information to propagate
+    ACTOR_CATALOG_TO_ADD_OR_UPDATE_REQUEST,  // a node sends to the other the information requested by it to update its catalog
 //
 //    /*
 //     * Respond packet types
 //     */
-//    ADD_NODE_TO_CATALOG_RESPONSE, // the seed node responds with success or not to the request of adding the node
-//    GET_NODE_CATALOG_RESPONSE, // the node returns the information requested that it contains in its catalog
-//    UPDATE_NODE_IN_CATALOG_RESPONSE, // the node indicates to its counterpart that the update was successful or not
-//    NODES_CATALOG_TO_PROPAGATE_RESPONSE, // the node responds to the counterpart if it needs or not the information sent by it
-//
-//    GET_ACTOR_CATALOG_RESPONSE, // the node returns the information requested that it contains in its catalog
-//    ACTOR_CATALOG_TO_PROPAGATE_RESPONSE, // the node responds to the counterpart if it needs or not the information sent by it
+    ADD_NODE_TO_CATALOG_RESPONSE, // the seed node responds with success or not to the request of adding the node
+    GET_NODE_CATALOG_RESPONSE, // the node returns the information requested that it contains in its catalog
+    UPDATE_NODE_IN_CATALOG_RESPONSE, // the node indicates to its counterpart that the update was successful or not
+    NODES_CATALOG_TO_PROPAGATE_RESPONSE, // the node responds to the counterpart if it needs or not the information sent by it
+
+    GET_ACTOR_CATALOG_RESPONSE, // the node returns the information requested that it contains in its catalog
+    ACTOR_CATALOG_TO_PROPAGATE_RESPONSE, // the node responds to the counterpart if it needs or not the information sent by it
 
 
     CHECK_IN_NETWORK_SERVICE_RESPOND, CHECK_IN_ACTOR_RESPONSE;
