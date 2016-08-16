@@ -784,7 +784,7 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
     /**
      * Method tha send a new Message
      */
-    public void sendNewMessage(final ActorProfile sender        ,
+    public UUID sendNewMessage(final ActorProfile sender        ,
                                final ActorProfile destination   ,
                                final String       messageContent) throws CantSendMessageException {
 
@@ -801,7 +801,7 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
                     MessageContentType.TEXT
             );
 
-            p2PLayerManager.sendMessage(networkServiceMessage,getNetworkServiceType(),destination.getHomeNodePublicKey());
+            return p2PLayerManager.sendMessage(networkServiceMessage,getNetworkServiceType(),destination.getHomeNodePublicKey());
 
             /*
              * Save to the data base table

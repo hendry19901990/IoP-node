@@ -10,6 +10,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.ne
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceMessage;
 
 import javax.annotation.Nullable;
+import java.util.UUID;
 
 /**
  * Created by Matias Furszyfer on 2016.07.06..
@@ -23,7 +24,7 @@ public interface P2PLayerManager {
     void setNetworkServicesRegisteredFalse();
 
     //todo: ver que poner en el destinationPublicKey, yo creo que ahí deberia ir el homeNode pero tengo que ver eso
-    void sendMessage(NetworkServiceMessage packageContent, NetworkServiceType networkServiceType,@Nullable  String nodeDestinationPublicKey) throws CantSendMessageException;
+    UUID sendMessage(NetworkServiceMessage packageContent, NetworkServiceType networkServiceType, @Nullable  String nodeDestinationPublicKey) throws CantSendMessageException;
 
     /**
      *
@@ -31,5 +32,5 @@ public interface P2PLayerManager {
      * @param networkServiceType
      * @param nodeDestinationKey if this is nul the default value is the homeNode
      */
-    void sendDiscoveryMessage(ActorListMsgRequest actorListMsgRequest, NetworkServiceType networkServiceType,@Nullable String nodeDestinationKey) throws CantSendMessageException;
+    UUID sendDiscoveryMessage(ActorListMsgRequest actorListMsgRequest, NetworkServiceType networkServiceType,@Nullable String nodeDestinationKey) throws CantSendMessageException;
 }

@@ -28,6 +28,7 @@ import org.iop.ns.chat.structure.test.MessageReceiver;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.UUID;
@@ -47,6 +48,8 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
      */
 
     private MessageReceiver messageReceiver;
+
+    private List<ActorProfile> myActorProfiles;
 
 
     Timer timer = new Timer();
@@ -96,6 +99,7 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
             //declare a schedule to process waiting request message
 //            this.startTimer();
 
+            myActorProfiles = new ArrayList<>();
 
         } catch (Exception e) {
             reportError(UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
@@ -408,12 +412,28 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
             }
     }
 
+    UUID testID;
+
     @Override
     public void onNetworkServiceActorListReceived(NetworkServiceQuery query, List<ActorProfile> actorProfiles) {
-        actorProfiles.forEach(System.out::println);
+        actorProfiles.forEach(a -> {
+            if (a.getName().equals("Mati")){
+                ActorProfile sender = myActorProfiles.get(0);
+                ActorProfile receiver = a;
+                try {
+                    testID = sendNewMessage(sender,receiver,"Holas");
+                } catch (com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.exceptions.CantSendMessageException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public List<ActorProfile> getResult() {
         return result;
+    }
+
+    public void registerActor(ActorProfile profile) {
+        this.myActorProfiles.add(profile);
     }
 }

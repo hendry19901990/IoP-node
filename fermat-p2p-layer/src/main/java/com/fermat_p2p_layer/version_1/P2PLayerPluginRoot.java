@@ -343,17 +343,17 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
 
 
     @Override
-    public void sendMessage(NetworkServiceMessage packageContent, NetworkServiceType networkServiceType,String nodeDestinationPublicKey) throws CantSendMessageException {
+    public UUID sendMessage(NetworkServiceMessage packageContent, NetworkServiceType networkServiceType,String nodeDestinationPublicKey) throws CantSendMessageException {
         System.out.println("***P2PLayer Method sendMessage..");
         //todo: me faltan cosas
-        messageSender.sendMessage(packageContent,networkServiceType,nodeDestinationPublicKey);
+        return messageSender.sendMessage(packageContent,networkServiceType,nodeDestinationPublicKey);
     }
 
     @Override
-    public void sendDiscoveryMessage(ActorListMsgRequest packageContent, NetworkServiceType networkServiceType,String nodeDestinationPublicKey) throws CantSendMessageException {
+    public UUID sendDiscoveryMessage(ActorListMsgRequest packageContent, NetworkServiceType networkServiceType,String nodeDestinationPublicKey) throws CantSendMessageException {
         System.out.println("***P2PLayer Method sendMessage..");
         //todo: me faltan cosas
-        messageSender.sendDiscoveryMessage(packageContent,networkServiceType,nodeDestinationPublicKey);
+        return messageSender.sendDiscoveryMessage(packageContent,networkServiceType,nodeDestinationPublicKey);
     }
 
     /**
