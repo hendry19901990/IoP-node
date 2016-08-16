@@ -110,6 +110,7 @@ public class Profiles implements RestFulServices {
              */
             List<ActorProfile> filteredLis = filterActors(discoveryQueryParameters, clientIdentityPublicKey);
 
+
             LOG.info("FilteredLis.size() =" + filteredLis != null ? filteredLis.size() : 0);
 
             /*
@@ -125,7 +126,7 @@ public class Profiles implements RestFulServices {
 
 
         } catch (Exception e){
-
+            e.printStackTrace();
             LOG.error("Requested list is not available.", e);
             jsonObjectRespond.addProperty("failure", "Requested list is not available");
         }
@@ -158,11 +159,9 @@ public class Profiles implements RestFulServices {
         if (discoveryQueryParameters.getOffset() != null && discoveryQueryParameters.getOffset() >= 0)
             offset = discoveryQueryParameters.getOffset();
 
-        List<ActorProfile> resultList = null;
         List<ActorCatalog> actorsList = JPADaoFactory.getActorCatalogDao().findAll(discoveryQueryParameters, clientIdentityPublicKey, max, offset);
-
+        List<ActorProfile> resultList = new ArrayList<>();
         if (actorsList != null && !actorsList.isEmpty()) {
-            resultList = new ArrayList<>();
             for (ActorCatalog actorCatalog: actorsList) {
                 resultList.add(buildActorProfileFromActorCatalogAndSetStatus(actorCatalog));
             }

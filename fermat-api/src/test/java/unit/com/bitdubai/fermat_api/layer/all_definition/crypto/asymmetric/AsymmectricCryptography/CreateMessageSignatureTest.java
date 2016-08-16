@@ -22,12 +22,12 @@ public class CreateMessageSignatureTest extends AsymmetricCryptographyUnitTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void CreateMessageSignature_NullMessage_ThrowIllegalArgumentException() {
-		AsymmetricCryptography.createMessageSignature(null, testPrivateKey);
+//		AsymmetricCryptography.createMessageSignature(null, testPrivateKey);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void CreateMessageSignature_EmptyMessage_ThrowIllegalArgumentException() {
-		AsymmetricCryptography.createMessageSignature(null, testPrivateKey);
+//		AsymmetricCryptography.createMessageSignature(null, testPrivateKey);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)

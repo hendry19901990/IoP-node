@@ -32,8 +32,13 @@ import org.jboss.logging.Logger;
 import org.jboss.resteasy.plugins.server.undertow.UndertowJaxrsServer;
 import org.jboss.resteasy.spi.ResteasyDeployment;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
+import org.xnio.OptionMap;
+import org.xnio.Options;
+import org.xnio.Xnio;
+import org.xnio.XnioWorker;
 
 import javax.servlet.DispatcherType;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.FermatEmbeddedNodeServer</code>
@@ -130,18 +135,22 @@ public class FermatEmbeddedNodeServer {
 
         /*
          * Create and configure the xnioWorker
-
+        */
         final Xnio xnio = Xnio.getInstance("nio", Undertow.class.getClassLoader());
         final XnioWorker xnioWorker = xnio.createWorker(OptionMap.builder()
 //                .set(Options.WORKER_IO_THREADS, Runtime.getRuntime().availableProcessors() * 4)
+                .set(Options.WORKER_IO_THREADS,20)
                 .set(Options.CONNECTION_HIGH_WATER, 1000000)
-                .set(Options.WORKER_TASK_KEEPALIVE, (int)TimeUnit.SECONDS.toMillis(90))
+                .set(Options.WORKER_TASK_KEEPALIVE, (int) TimeUnit.SECONDS.toMillis(90))
                 .set(Options.CONNECTION_LOW_WATER, 1000000)
                 .set(Options.WORKER_TASK_CORE_THREADS, 128)
                 .set(Options.WORKER_TASK_MAX_THREADS, 512)
                 .set(Options.TCP_NODELAY, true)
 //                .set(Options.CORK, true)
-                .getMap());*/
+                .getMap());
+
+
+
 
         /*
          * Create the App WebSocketDeploymentInfo and configure

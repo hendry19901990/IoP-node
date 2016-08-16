@@ -16,6 +16,16 @@ BigInteger message = new BigInteger(messageHash, 16);
 Signature signature = new AsymmetricSignature(privateKey, message, randomizer.generateRandom());*/
 		return "";
 	}
+	public static byte[] createMessageSignature(final byte[] messageHash, final String hexPrivateKey) throws IllegalArgumentException{
+/*checkStringArgument(messageHash);
+checkStringArgument(hexPrivateKey);
+PrivateKey privateKey = new AsymmetricPrivateKey(new BigInteger(hexPrivateKey,16));
+BigInteger message = new BigInteger(messageHash, 16);
+Signature signature = new AsymmetricSignature(privateKey, message, randomizer.generateRandom());*/
+		return "".getBytes();
+	}
+
+
 	public static boolean verifyMessageSignature(final String signature, final String encryptedMessage, final String hexPublicKey) throws IllegalArgumentException{
 /*checkStringArgument(signature);
 checkStringArgument(encryptedMessage);
@@ -33,6 +43,15 @@ AsymmetricPublicKey publicKey = new AsymmetricPublicKey(hexPublicKey);
 return cipher.encryptWithPublicKey(plainMessage, publicKey);*/
 		return plainMessage;
 	}
+
+	public static byte[] encryptMessagePublicKey(final byte[] content, final String hexPublicKey) throws IllegalArgumentException{
+/*checkStringArgument(plainMessage);
+checkStringArgument(hexPublicKey);
+AsymmetricPublicKey publicKey = new AsymmetricPublicKey(hexPublicKey);
+return cipher.encryptWithPublicKey(plainMessage, publicKey);*/
+		return content;
+	}
+
 	public static String decryptMessagePrivateKey(final String encryptedMessage, final String hexPrivateKey) throws IllegalArgumentException{
 /*checkStringArgument(encryptedMessage);
 checkStringArgument(hexPrivateKey);

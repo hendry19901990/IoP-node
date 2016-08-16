@@ -91,7 +91,7 @@ public class Monitoring {
 
                     Map<String, Object> filter = new HashMap<>();
                     filter.put("networkService.networkServiceType",networkServiceType.toString());
-                    networkServiceData.put(networkServiceType, (long) networkServiceSessionDao.count(filter));
+                    networkServiceData.put(networkServiceType, networkServiceSessionDao.count(filter));
                 }
 
             }
@@ -103,7 +103,7 @@ public class Monitoring {
             for (Actors actorsType : Actors.values()) {
                 Map<String, Object> filter = new HashMap<>();
                 filter.put("actor.actorType",actorsType.getCode());
-                otherComponentData.put(actorsType, (long)actorSessionDao.count(filter));
+                otherComponentData.put(actorsType, actorSessionDao.count(filter));
             }
 
             globalData.addProperty("registerActorsTotal", actorSessionDao.count());

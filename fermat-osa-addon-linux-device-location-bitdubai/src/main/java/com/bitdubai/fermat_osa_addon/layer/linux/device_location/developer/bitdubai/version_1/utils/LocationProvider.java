@@ -32,7 +32,7 @@ public final class LocationProvider {
 
         try {
 
-            String ipAddress = IPAddressHelper.getCurrentIPAddress();
+            String ipAddress = IPAddressHelper.getCurrentPublicIPAddress();
 
             return acquireLocationThroughIP(ipAddress);
 

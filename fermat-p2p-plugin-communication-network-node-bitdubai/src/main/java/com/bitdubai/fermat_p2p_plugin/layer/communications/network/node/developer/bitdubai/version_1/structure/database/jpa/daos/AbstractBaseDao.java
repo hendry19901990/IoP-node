@@ -71,10 +71,9 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
      */
     public E findById(Object id) throws CantReadRecordDataBaseException {
 
-        LOG.debug(new StringBuilder("Executing findById(")
-                .append(id)
-                .append(")")
-                .toString());
+        LOG.debug("Executing findById(" +
+                id +
+                ")");
 
         if (id == null){
             throw new IllegalArgumentException("The id can't be null");
@@ -1051,7 +1050,7 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
      *
      * @return int
      */
-    public int count() throws CantReadRecordDataBaseException {
+    public Long count() throws CantReadRecordDataBaseException {
 
         LOG.debug("Executing count()");
         EntityManager connection = getConnection();
@@ -1062,8 +1061,8 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
             Root<E> root = criteriaQuery.from(entityClass);
             criteriaQuery.select(connection.getCriteriaBuilder().count(root));
-            Query query = connection.createQuery(criteriaQuery);
-            return Integer.parseInt(query.getSingleResult().toString());
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
+            return query.getSingleResult();
 
         } catch (Exception e) {
             LOG.error(e);
@@ -1105,7 +1104,7 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
      * @return int
      * @throws CantReadRecordDataBaseException
      */
-    public int count(Map<String, Object> filters) throws CantReadRecordDataBaseException {
+    public Long count(Map<String, Object> filters) throws CantReadRecordDataBaseException {
 
         LOG.debug(new StringBuilder("Executing list(")
                 .append(filters)
@@ -1117,9 +1116,9 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
         try {
 
             CriteriaBuilder criteriaBuilder = connection.getCriteriaBuilder();
-            CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
             Root<E> entities = criteriaQuery.from(entityClass);
-            criteriaQuery.select(entities);
+            criteriaQuery.select(connection.getCriteriaBuilder().count(entities));
 
             //Verify that the filters are not empty
             if (filters != null && filters.size() > 0) {
@@ -1167,9 +1166,8 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
 
             }
 
-            criteriaQuery.orderBy(criteriaBuilder.asc(entities.get("id")));
-            TypedQuery<E> query = connection.createQuery(criteriaQuery);
-            return query.getResultList().size();
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
+            return query.getSingleResult();
 
         } catch (Exception e) {
             LOG.error(e);
@@ -1207,9 +1205,9 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             }
 
             criteriaQuery.where(attribute);
-            Query query = connection.createQuery(criteriaQuery);
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
 
-            if (Integer.parseInt(query.getSingleResult().toString()) > 0) {
+            if (query.getSingleResult() > 0) {
                 return Boolean.TRUE;
             } else {
                 return Boolean.FALSE;
@@ -1253,9 +1251,9 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             }
 
             criteriaQuery.where(attribute);
-            Query query = connection.createQuery(criteriaQuery);
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
 
-            if (((Long)query.getSingleResult()) > 0){
+            if ((query.getSingleResult()) > 0){
                 return Boolean.TRUE;
             } else {
                 return Boolean.FALSE;

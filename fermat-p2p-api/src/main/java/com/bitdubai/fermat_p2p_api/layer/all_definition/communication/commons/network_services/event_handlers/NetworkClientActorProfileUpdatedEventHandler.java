@@ -46,9 +46,9 @@ public class NetworkClientActorProfileUpdatedEventHandler implements FermatEvent
     @Override
     public void handleEvent(NetworkClientProfileRegisteredEvent fermatEvent) throws FermatException {
 
-        if (this.networkService.isStarted())
-            if (fermatEvent.getStatus() == NetworkClientProfileRegisteredEvent.STATUS.SUCCESS)
-                networkService.onActorUpdated(fermatEvent.getPublicKey());
+//        if (this.networkService.isStarted())
+//            if (fermatEvent.getStatus() == NetworkClientProfileRegisteredEvent.STATUS.SUCCESS)
+//                networkService.onActorUpdated(fermatEvent.getPublicKey());
 
     }
 }

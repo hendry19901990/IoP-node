@@ -25,7 +25,8 @@ public class NetworkServiceMessage extends PackageContent implements AbstractBas
 
     private static final long serialVersionUID = 1L;
 
-    private           UUID                     id                     ;
+    //esto está así porque en la layer voy a mapear id de mensaje con package id
+    private transient            UUID                     id                     ;
     private           String                   content                ;
     private transient NetworkServiceType       networkServiceType     ;
     private           String                   senderPublicKey        ;
@@ -37,7 +38,7 @@ public class NetworkServiceMessage extends PackageContent implements AbstractBas
     private transient Boolean                  isBetweenActors        ;
     private transient FermatMessagesStatus     fermatMessagesStatus   ;
 
-    private           String                   signature              ;
+    private transient           String                   signature              ;
 
     private transient int                      failCount              = 0;
 
