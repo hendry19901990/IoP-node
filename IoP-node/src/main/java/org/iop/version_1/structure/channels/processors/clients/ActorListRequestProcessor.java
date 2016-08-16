@@ -81,7 +81,7 @@ public class ActorListRequestProcessor extends PackageProcessor {
             /*
              * If all ok, respond whit success message
              */
-            ActorListMsgRespond actorListMsgRespond = new ActorListMsgRespond(ActorCallMsgRespond.STATUS.SUCCESS, ActorCallMsgRespond.STATUS.SUCCESS.toString(), actorsList, messageContent.getNetworkServiceType(), messageContent.getQueryId());
+            ActorListMsgRespond actorListMsgRespond = new ActorListMsgRespond(packageReceived.getPackageId(),ActorCallMsgRespond.STATUS.SUCCESS, ActorCallMsgRespond.STATUS.SUCCESS.toString(), actorsList, messageContent.getNetworkServiceType(), messageContent.getQueryId());
 
             if (session.isOpen()) {
 
@@ -109,6 +109,7 @@ public class ActorListRequestProcessor extends PackageProcessor {
                  * Respond whit fail message
                  */
                 ActorListMsgRespond actorListMsgRespond = new ActorListMsgRespond(
+                        packageReceived.getPackageId(),
                         ActorListMsgRespond.STATUS.FAIL,
                         exception.getLocalizedMessage(),
                         null,

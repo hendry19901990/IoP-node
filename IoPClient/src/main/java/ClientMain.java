@@ -107,10 +107,6 @@ public class ClientMain {
 
             chatNetworkServicePluginRoot.requestActorProfilesList();
 
-            while (chatNetworkServicePluginRoot.getResult()==null) {
-            }
-            chatNetworkServicePluginRoot.getResult().forEach(System.out::println);
-
             while (true){
 
             }

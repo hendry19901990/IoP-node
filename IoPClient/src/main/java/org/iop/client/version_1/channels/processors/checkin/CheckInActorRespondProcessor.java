@@ -3,6 +3,7 @@ package org.iop.client.version_1.channels.processors.checkin;
 import com.bitdubai.fermat_api.layer.all_definition.events.EventSource;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.events.NetworkClientProfileRegisteredEvent;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.checkin.ActorCheckInRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.checkin.NetworkServiceCheckInRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.P2pEventType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
@@ -35,14 +36,15 @@ public class CheckInActorRespondProcessor extends PackageProcessor {
 
         System.out.println("Processing new package received, packageType: " + packageReceived.getPackageType()+", content: "+packageReceived.getContent());
 
-        NetworkServiceCheckInRespond clientCheckInRespond = NetworkServiceCheckInRespond.parseContent(packageReceived.getContent());
+        ActorCheckInRespond actorCheckInRespond = ActorCheckInRespond.parseContent(packageReceived.getContent());
 
          /*
              * Create a raise a new event whit the platformComponentProfile registered
              */
         NetworkClientProfileRegisteredEvent event = getEventManager().getNewEventMati(P2pEventType.NETWORK_CLIENT_ACTOR_PROFILE_REGISTERED, NetworkClientProfileRegisteredEvent.class);
         event.setSource(EventSource.NETWORK_CLIENT);
-        event.setPublicKey(clientCheckInRespond.getPublicKey());
+        event.setPublicKey(actorCheckInRespond.getPublicKey());
+        event.setPackageId(actorCheckInRespond.getPackageId());
         event.setStatus(event.getStatus());
             /*
              * Raise the event

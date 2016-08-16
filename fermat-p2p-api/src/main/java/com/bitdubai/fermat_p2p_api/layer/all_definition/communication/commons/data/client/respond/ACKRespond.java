@@ -11,27 +11,16 @@ import java.util.UUID;
  */
 public class ACKRespond extends MsgRespond {
 
-    @Expose(serialize = true, deserialize = true)
-    private UUID packageId;
-
 
     /**
      * Constructor with parameters
      *
+     * @param packageId
      * @param status
      * @param details
      */
-    public ACKRespond(STATUS status, String details,UUID packageId) {
-        super(status, details);
-        this.packageId = packageId;
-    }
-
-    public UUID getPackageId() {
-        return packageId;
-    }
-
-    public void setPackageId(UUID packageId) {
-        this.packageId = packageId;
+    public ACKRespond(UUID packageId, STATUS status, String details) {
+        super(packageId, status, details);
     }
 
     /**
@@ -56,7 +45,7 @@ public class ACKRespond extends MsgRespond {
     @Override
     public String toString() {
         return "ACKRespond{" +
-                "packageId=" + packageId +
+                "packageId=" + getPackageId() +
                 '}';
     }
 }

@@ -77,15 +77,15 @@ public class MessageTransmitProcessor extends PackageProcessor {
                     try {
                         if (result.isOK()) {
 
-                            ACKRespond messageTransmitRespond = new ACKRespond(MsgRespond.STATUS.SUCCESS, MsgRespond.STATUS.SUCCESS.toString(), packageReceived.getPackageId());
+                            ACKRespond messageTransmitRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.SUCCESS, MsgRespond.STATUS.SUCCESS.toString());
 
                             channel.sendPackage(session, messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
                             LOG.info("Message transmit successfully");
                         } else {
                             ACKRespond messageTransmitRespond = new ACKRespond(
+                                    packageReceived.getPackageId(),
                                     MsgRespond.STATUS.FAIL,
-                                    (result.getException() != null ? result.getException().getMessage() : "destination not available"),
-                                    packageReceived.getPackageId());
+                                    (result.getException() != null ? result.getException().getMessage() : "destination not available"));
                             channel.sendPackage(session, messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
                             LOG.info("Message cannot be transmitted", result.getException());
                         }
@@ -100,7 +100,7 @@ public class MessageTransmitProcessor extends PackageProcessor {
                 /*
                  * Notify to de sender the message can not transmit
                  */
-                ACKRespond ackRespond = new ACKRespond(MsgRespond.STATUS.FAIL, "The destination is not more available", packageReceived.getPackageId());
+                ACKRespond ackRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.FAIL, "The destination is not more available");
 
                 LOG.info("The destination is not more available, Message not transmitted");
                 return Package.createInstance(
@@ -123,7 +123,7 @@ public class MessageTransmitProcessor extends PackageProcessor {
             
                 LOG.error(exception);
 
-                ACKRespond ackRespond = new ACKRespond(MsgRespond.STATUS.FAIL, exception.getMessage(), packageReceived.getPackageId());
+                ACKRespond ackRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.FAIL, exception.getMessage());
                 return Package.createInstance(
                         ackRespond.toJson(),
                         packageReceived.getNetworkServiceTypeSource(),

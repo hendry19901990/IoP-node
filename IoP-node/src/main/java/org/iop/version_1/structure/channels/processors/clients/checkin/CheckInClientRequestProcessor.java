@@ -80,7 +80,7 @@ public class CheckInClientRequestProcessor extends PackageProcessor {
             /*
              * If all ok, respond whit success message
              */
-            ClientCheckInRespond respondProfileCheckInMsj = new ClientCheckInRespond(ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString());
+            ClientCheckInRespond respondProfileCheckInMsj = new ClientCheckInRespond(packageReceived.getPackageId(),ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString());
             IoPNodePluginRoot ioPNodePluginRoot = (IoPNodePluginRoot) NodeContext.get(NodeContextItem.PLUGIN_ROOT);
             String uri = ioPNodePluginRoot.getNodeProfile().getIp()+":"+ioPNodePluginRoot.getNodeProfile().getDefaultPort();
             //todo: ver esto de la pk
@@ -106,9 +106,9 @@ public class CheckInClientRequestProcessor extends PackageProcessor {
                  * Respond whit fail message
                  */
                 ACKRespond respondProfileCheckInMsj = new ACKRespond(
+                        packageReceived.getPackageId(),
                         ACKRespond.STATUS.FAIL,
-                        exception.getLocalizedMessage(),
-                        packageReceived.getPackageId()
+                        exception.getLocalizedMessage()
                 );
 
                 return Package.createInstance(

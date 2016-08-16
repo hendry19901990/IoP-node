@@ -81,7 +81,7 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
             /*
              * If all ok, respond whit success message
              */
-            ACKRespond respondProfileCheckInMsj = new ACKRespond(ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString(), packageReceived.getPackageId());
+            ACKRespond respondProfileCheckInMsj = new ACKRespond(packageReceived.getPackageId(),ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString());
 
             return Package.createInstance(
                     respondProfileCheckInMsj.toJson()                      ,
@@ -104,7 +104,7 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
                 /*
                  * Respond whit fail message
                  */
-                ACKRespond respondProfileCheckInMsj = new ACKRespond(ACKRespond.STATUS.FAIL, exception.getLocalizedMessage(), packageReceived.getPackageId());
+                ACKRespond respondProfileCheckInMsj = new ACKRespond(packageReceived.getPackageId(),ACKRespond.STATUS.FAIL, exception.getLocalizedMessage());
 
                 return Package.createInstance(
                         respondProfileCheckInMsj.toJson()                      ,

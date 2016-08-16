@@ -45,11 +45,12 @@ public class MessageTransmitProcessor extends PackageProcessor {
               /*
              * Create a raise a new event whit the platformComponentProfile registered
              */
-            FermatEvent event = getEventManager().getNewEvent(P2pEventType.NETWORK_CLIENT_NEW_MESSAGE_TRANSMIT);
+            NetworkClientNewMessageTransmitEvent event = getEventManager().getNewEventMati(P2pEventType.NETWORK_CLIENT_NEW_MESSAGE_TRANSMIT,NetworkClientNewMessageTransmitEvent.class);
             event.setSource(EventSource.NETWORK_CLIENT);
 
-            ((NetworkClientNewMessageTransmitEvent) event).setContent(packageReceived.getContent());
-            ((NetworkClientNewMessageTransmitEvent) event).setNetworkServiceTypeSource(packageReceived.getNetworkServiceTypeSource());
+            event.setContent(packageReceived.getContent());
+            event.setNetworkServiceTypeSource(packageReceived.getNetworkServiceTypeSource());
+            event.setPackageId(packageReceived.getPackageId());
 
             /*
              * Raise the event

@@ -68,6 +68,8 @@ public class ActorListRespondProcessor extends PackageProcessor {
             actorListReceived.setStatus(NetworkClientActorListReceivedEvent.STATUS.FAILED);
         }
 
+        actorListReceived.setPackageId(packageReceived.getPackageId());
+
         /*
          * Raise the event
          */

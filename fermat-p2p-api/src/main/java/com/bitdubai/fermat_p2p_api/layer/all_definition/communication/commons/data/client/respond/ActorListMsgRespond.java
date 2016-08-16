@@ -37,13 +37,14 @@ public class ActorListMsgRespond extends MsgRespond {
      * @param profileList
      * @param networkServiceType
      */
-    public ActorListMsgRespond(final STATUS                  status                 ,
+    public ActorListMsgRespond(
+            UUID packageId,final STATUS                  status                 ,
                                final String                  details                ,
                                final List<ActorProfile> profileList            ,
                                final String                  networkServiceType,
                                final UUID                    queryId                ) {
 
-        super(
+        super(packageId,
                 status ,
                 details
         );

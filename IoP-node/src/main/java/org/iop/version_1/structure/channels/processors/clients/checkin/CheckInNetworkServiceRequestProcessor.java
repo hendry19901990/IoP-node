@@ -71,7 +71,7 @@ public class CheckInNetworkServiceRequestProcessor extends PackageProcessor {
             /*
              * If all ok, respond whit success message
              */
-            ACKRespond respondProfileCheckInMsj = new ACKRespond(ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString(), packageReceived.getPackageId());
+            ACKRespond respondProfileCheckInMsj = new ACKRespond(packageReceived.getPackageId(),ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString());
 
             return Package.createInstance(
                     respondProfileCheckInMsj.toJson(),
@@ -91,7 +91,7 @@ public class CheckInNetworkServiceRequestProcessor extends PackageProcessor {
                 /*
                  * Respond whit fail message
                  */
-                ACKRespond respondProfileCheckInMsj = new ACKRespond(ACKRespond.STATUS.FAIL, exception.getMessage(), packageReceived.getPackageId());
+                ACKRespond respondProfileCheckInMsj = new ACKRespond(packageReceived.getPackageId(),ACKRespond.STATUS.FAIL, exception.getMessage());
 
                 return Package.createInstance(
                         respondProfileCheckInMsj.toJson(),

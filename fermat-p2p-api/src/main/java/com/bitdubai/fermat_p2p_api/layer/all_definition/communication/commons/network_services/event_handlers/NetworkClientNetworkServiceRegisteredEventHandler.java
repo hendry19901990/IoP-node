@@ -3,6 +3,7 @@ package com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.n
 import com.bitdubai.fermat_api.FermatException;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEvent;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEventHandler;
+import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.events.NetworkClientProfileRegisteredEvent;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.abstract_classes.AbstractNetworkService;
 
@@ -47,7 +48,7 @@ public class NetworkClientNetworkServiceRegisteredEventHandler implements Fermat
     public void handleEvent(NetworkClientProfileRegisteredEvent fermatEvent) throws FermatException {
 
         if (this.networkService.isStarted())
-            if (this.networkService.getProfile().getIdentityPublicKey().equals(fermatEvent.getPublicKey()))
+            if (this.networkService.getProfile().getIdentityPublicKey().equals(NetworkServiceType.getByCode(fermatEvent.getPublicKey())))
                 this.networkService.handleNetworkServiceRegisteredEvent();
 
     }

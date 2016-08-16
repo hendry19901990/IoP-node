@@ -31,6 +31,7 @@ public class NetworkClientActorListReceivedEvent extends AbstractEvent<P2pEventT
      */
     private UUID queryID;
 
+    private UUID packageId;
     /**
      * Represent the network service public key.
      */
@@ -95,6 +96,14 @@ public class NetworkClientActorListReceivedEvent extends AbstractEvent<P2pEventT
 
     public void setNetworkServiceType(NetworkServiceType networkServiceType) {
         this.networkServiceType = networkServiceType;
+    }
+
+    public UUID getPackageId() {
+        return packageId;
+    }
+
+    public void setPackageId(UUID packageId) {
+        this.packageId = packageId;
     }
 
     @Override

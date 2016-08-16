@@ -9,10 +9,7 @@ import com.bitdubai.fermat_api.layer.all_definition.common.system.interfaces.Eve
 import com.bitdubai.fermat_api.layer.all_definition.common.system.interfaces.error_manager.enums.UnexpectedPluginExceptionSeverity;
 import com.bitdubai.fermat_api.layer.all_definition.common.system.utils.PluginVersionReference;
 import com.bitdubai.fermat_api.layer.all_definition.crypto.asymmetric.ECCKeyPair;
-import com.bitdubai.fermat_api.layer.all_definition.enums.Addons;
-import com.bitdubai.fermat_api.layer.all_definition.enums.Layers;
-import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
-import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
+import com.bitdubai.fermat_api.layer.all_definition.enums.*;
 import com.bitdubai.fermat_api.layer.all_definition.events.EventSource;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEventListener;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
@@ -221,10 +218,8 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
             onNetworkServiceStart();
 
             p2PLayerManager.register(this);
-            /**
-             * Register Elements after Start
-             */
-            handleNetworkServiceRegisteredEvent();
+
+            this.serviceStatus = ServiceStatus.STARTED;
 
         } catch (Exception exception) {
 

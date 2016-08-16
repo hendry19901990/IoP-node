@@ -103,30 +103,15 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
             public void handleEvent(FermatEvent fermatEvent) throws FermatException {
 
                 if (client.isConnected()) {
-                    System.out.println("NETWORK SERVICES STARTED:" + networkServices.size());
-                    final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(networkServices.size());
-                    try {
-                        scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-                            @Override
-                            public void run() {
-                                int registered = 0;
-                                for (final AbstractNetworkService2 abstractNetworkService : networkServices.values()) {
-                                    try {
-                                        System.out.println(abstractNetworkService.getProfile().getNetworkServiceType() + ": se está por registrar..." + abstractNetworkService.isRegistered());
-                                        if (!abstractNetworkService.isRegistered())
-                                            abstractNetworkService.startConnection();
-                                        else
-                                            registered++;
-                                        if (registered == networkServices.size())
-                                            scheduledExecutorService.shutdown();
-                                    } catch (FermatException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
-                        }, 30, 60, TimeUnit.SECONDS);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    for (final AbstractNetworkService2 abstractNetworkService : networkServices.values()) {
+                        try {
+                            System.out.println(abstractNetworkService.getProfile().getNetworkServiceType() + ": se está por registrar..." + abstractNetworkService.isRegistered());
+                            if (!abstractNetworkService.isRegistered())
+                                abstractNetworkService.startConnection();
+                            else System.out.println("Ns: "+abstractNetworkService.getNetworkServiceType()+", already registered..");
+                        } catch (FermatException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }else{
                     System.out.println("algo feo pasó");
@@ -140,20 +125,16 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
          * 2. Listen and handle Network Client Network Service Registered Event
          */
         FermatEventListener networkCLientProfileRegistered = eventManager.getNewListener(P2pEventType.NETWORK_CLIENT_NETWORK_SERVICE_PROFILE_REGISTERED);
-        networkCLientProfileRegistered.setEventHandler(new FermatEventHandler() {
+        networkCLientProfileRegistered.setEventHandler(new FermatEventHandler<NetworkClientProfileRegisteredEvent>() {
             @Override
-            public void handleEvent(FermatEvent fermatEvent) throws FermatException {
+            public void handleEvent(NetworkClientProfileRegisteredEvent fermatEvent) throws FermatException {
                 System.out.println("NETWORK SERVICES STARTED:" + networkServices.size());
-                for (final AbstractNetworkService2 abstractNetworkService : networkServices.values()) {
-                    try {
-                        if (abstractNetworkService.getProfile().getIdentityPublicKey().equals(((NetworkClientProfileRegisteredEvent) fermatEvent).getPublicKey())){
-                            System.out.println(abstractNetworkService.getProfile().getNetworkServiceType() + ": se registró...");
-                            abstractNetworkService.handleNetworkServiceRegisteredEvent();
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                String networkServiceType = messageSender.packageAck(fermatEvent.getPackageId());
+                AbstractNetworkService2 abstractNetworkService2 = networkServices.get(networkServiceType);
+                if (abstractNetworkService2.isStarted()){
+                    abstractNetworkService2.handleNetworkServiceRegisteredEvent();
+                }else{
+                    System.out.println("NetworkClientProfileRegisteredEvent Ns: "+abstractNetworkService2.getNetworkServiceType()+" is not started");
                 }
             }
         });
@@ -249,9 +230,9 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
         actorListReceivedListener.setEventHandler(new FermatEventHandler<NetworkClientActorListReceivedEvent>() {
             @Override
             public void handleEvent(NetworkClientActorListReceivedEvent fermatEvent) throws FermatException {
-
+                String networkServiceType = messageSender.packageAck(fermatEvent.getPackageId());
+                //todo: no hace falta pasar el type del ns acá..
                 AbstractNetworkService2 abstractNetworkService2 = networkServices.get(fermatEvent.getNetworkServiceType().getCode());
-
                 if (abstractNetworkService2.isStarted()) {
                     System.out.println("P2PLayer discoveryList: "+ fermatEvent.getQueryID());
                     if (fermatEvent.getStatus() == NetworkClientActorListReceivedEvent.STATUS.SUCCESS)
@@ -259,7 +240,6 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
                     else
                         System.out.println("ERROR IN THE QUERY WITH ID: "+ fermatEvent.getQueryID());
                 }
-
             }
         });
         eventManager.addListener(actorListReceivedListener);

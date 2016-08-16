@@ -410,7 +410,7 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
 
     @Override
     public void onNetworkServiceActorListReceived(NetworkServiceQuery query, List<ActorProfile> actorProfiles) {
-        this.result = actorProfiles;
+        actorProfiles.forEach(System.out::println);
     }
 
     public List<ActorProfile> getResult() {
