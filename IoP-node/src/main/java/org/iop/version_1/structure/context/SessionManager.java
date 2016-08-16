@@ -76,10 +76,10 @@ public class SessionManager {
          * remove the session of this client
          */
         try {
+
             if (getInstance().clientSessionsById.containsKey(session.getId())) {
                 System.out.println("removing session");
-                getInstance().clientSessionsById.remove(session.getId());
-                return null;
+                return getInstance().clientSessionsById.remove(session.getId()).getId();
             }
 
         }catch (Exception e){
