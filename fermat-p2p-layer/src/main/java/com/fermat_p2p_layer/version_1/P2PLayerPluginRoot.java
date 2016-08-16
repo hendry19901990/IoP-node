@@ -310,14 +310,7 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
 
     @Override
     public void register(ActorProfile profile) {
-
-        if (client.isConnected()) {
-            try {
-                client.registerProfile(profile);
-            } catch (FermatException e) {
-                e.printStackTrace();
-            }
-        }
+        messageSender.registerActorProfile(profile);
     }
 
 

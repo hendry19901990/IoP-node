@@ -1,10 +1,12 @@
 package com.fermat_p2p_layer.version_1.structure;
 
+import com.bitdubai.fermat_api.FermatException;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantRegisterProfileException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantSendMessageException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.ActorListMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceMessage;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.NetworkServiceProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import com.fermat_p2p_layer.version_1.P2PLayerPluginRoot;
@@ -64,5 +66,17 @@ public class MessageSender {
      */
     public NetworkServiceType packageAck(UUID packageId){
         return messagesSentWaitingForAck.remove(packageId);
+    }
+
+    public UUID registerActorProfile(ActorProfile profile) {
+        //todo: hay que dejar este memtodo como los otros, tiene que hacerse el send o crease el paquete acá.
+        if (p2PLayerPluginRoot.getNetworkClient().isConnected()) {
+            try {
+                p2PLayerPluginRoot.getNetworkClient().registerProfile(profile);
+            } catch (FermatException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
