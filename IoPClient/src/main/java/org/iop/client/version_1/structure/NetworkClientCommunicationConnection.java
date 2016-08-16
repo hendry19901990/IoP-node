@@ -340,7 +340,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
      *  Proceso de regitro
      */
     @Override
-    public void registerProfile(final Profile profile) throws CantRegisterProfileException {
+    public UUID registerProfile(final Profile profile) throws CantRegisterProfileException {
 
         CheckInProfileMsgRequest profileCheckInMsgRequest = new CheckInProfileMsgRequest(profile);
         profileCheckInMsgRequest.setMessageContentType(MessageContentType.JSON);
@@ -371,7 +371,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
 
         try {
 
-            sendPackage(profileCheckInMsgRequest, packageType);
+            return sendPackage(profileCheckInMsgRequest, packageType);
 
         } catch (CantSendPackageException cantSendPackageException) {
 
@@ -586,22 +586,26 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
         return false;
     }
 
-    private void sendPackage(final PackageContent packageContent,
+    private UUID sendPackage(final PackageContent packageContent,
                              final PackageType    packageType   ) throws CantSendPackageException {
 
         if (isConnected()){
 
             try {
 
-                networkClientCommunicationChannel.getClientConnection().getAsyncRemote().sendObject(
-                        Package.createInstance(
-                                packageContent.toJson(),
-                                NetworkServiceType.UNDEFINED,
-                                packageType,
-                                clientIdentity.getPrivateKey(),
-                                serverIdentity
-                        )
+                Package packagea = Package.createInstance(
+                        packageContent.toJson(),
+                        NetworkServiceType.UNDEFINED,
+                        packageType,
+                        clientIdentity.getPrivateKey(),
+                        serverIdentity
                 );
+
+                networkClientCommunicationChannel.getClientConnection().getAsyncRemote().sendObject(
+                        packagea
+                );
+
+                return packagea.getPackageId();
 
             } catch (Exception exception) {
 

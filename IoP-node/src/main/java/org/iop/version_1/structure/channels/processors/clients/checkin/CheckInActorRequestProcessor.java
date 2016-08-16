@@ -70,12 +70,10 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
 
             ActorCatalogDao actorCatalogDao = JPADaoFactory.getActorCatalogDao();
 
-            ActorCatalog actorCatalog;
-
             if (actorCatalogDao.exist(actorProfile.getIdentityPublicKey())) {
-                actorCatalog = checkUpdatesAndCheckIn(actorProfile, actorCatalogDao,session.getId());
+                checkUpdatesAndCheckIn(actorProfile, actorCatalogDao,session.getId());
             } else {
-                actorCatalog = createAndCheckIn(actorProfile, actorCatalogDao,session.getId());
+                createAndCheckIn(actorProfile, actorCatalogDao,session.getId());
             }
             LOG.info("Registered new Actor = "+actorProfile.getName());
             /*
@@ -90,10 +88,6 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
                     channel.getChannelIdentity().getPrivateKey(),
                     destinationIdentityPublicKey
             );
-
-//            channel.sendPackage(session, respondProfileCheckInMsj.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
-
-
 
         }catch (Exception exception){
 
@@ -150,7 +144,7 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
             hasChanges = true;
         }
 
-        if (!actorProfile.getLocation().equals(actorsCatalogToUpdate.getLocation())) {
+        if (actorProfile.getLocation() != null && actorsCatalogToUpdate.getLocation() != null && !actorProfile.getLocation().equals(actorsCatalogToUpdate.getLocation())) {
             actorsCatalogToUpdate.setLocation(actorProfile.getLocation().getLatitude(), actorProfile.getLocation().getLongitude());
             hasChanges = true;
         }
@@ -165,9 +159,11 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
             actorsCatalogToUpdate.setSession(sessionId);
             actorsCatalogToUpdate.setLastConnection(currentMillis);
             actorsCatalogToUpdate.setLastUpdateTime(currentMillis);
-//            actorsCatalogToUpdate.setLastUpdateType(ActorCatalogUpdateTypes.UPDATE);
-            actorsCatalogToUpdate.setVersion(actorsCatalogToUpdate.getVersion() + 1);
-            actorsCatalogToUpdate.setTriedToPropagateTimes(0);
+//
+            if (hasChanges) {
+                actorsCatalogToUpdate.setVersion(actorsCatalogToUpdate.getVersion() + 1);
+                actorsCatalogToUpdate.setTriedToPropagateTimes(0);
+            }
 //            actorsCatalogToUpdate.setPendingPropagations(ActorsCatalogPropagationConfiguration.DESIRED_PROPAGATIONS);
 
             actorCatalogDao.update(actorsCatalogToUpdate);
@@ -177,38 +173,6 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
         }
 
         return actorsCatalogToUpdate;
-    }
-
-    private ActorCatalog create(ActorProfile actorProfile, ActorCatalogDao actorCatalogDao) throws IOException, CantInsertRecordDataBaseException, CantReadRecordDataBaseException {
-
-        /*
-         * Generate a thumbnail for the image
-         */
-        byte[] thumbnail = null;
-        if (actorProfile.getPhoto() != null && actorProfile.getPhoto().length > 0) {
-            thumbnail = ThumbnailUtil.generateThumbnail(actorProfile.getPhoto());
-        }
-
-        /*
-         * Create the actor catalog
-         */
-        ActorCatalog actorCatalog = new ActorCatalog(actorProfile, thumbnail, JPADaoFactory.getNodeCatalogDao().findById(getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey()), "");
-
-        Timestamp currentMillis = new Timestamp(System.currentTimeMillis());
-
-        actorCatalog.setLastConnection(currentMillis);
-        actorCatalog.setLastUpdateTime(currentMillis);
-//        actorCatalog.setLastUpdateType(ActorCatalogUpdateTypes.ADD);
-        actorCatalog.setVersion(0);
-        actorCatalog.setTriedToPropagateTimes(0);
-//        actorCatalog.setPendingPropagations(ActorsCatalogPropagationConfiguration.DESIRED_PROPAGATIONS);
-
-        /*
-         * Save into data base
-         */
-        actorCatalogDao.persist(actorCatalog);
-
-        return actorCatalog;
     }
 
     private ActorCatalog createAndCheckIn(ActorProfile actorProfile, ActorCatalogDao actorCatalogDao,String sessionId) throws IOException, CantInsertRecordDataBaseException, CantReadRecordDataBaseException {
@@ -221,10 +185,12 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
             thumbnail = ThumbnailUtil.generateThumbnail(actorProfile.getPhoto());
         }
 
+
+        System.out.println("YO SOY LA PUBLIC KEY DEL NODO=!!!=!!=! "+getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey());
         /*
          * Create the actor catalog
          */
-        ActorCatalog actorCatalog = new ActorCatalog(actorProfile, thumbnail, JPADaoFactory.getNodeCatalogDao().findById(getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey()), "");
+        ActorCatalog actorCatalog = new ActorCatalog(actorProfile, thumbnail, getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey(), "");
 
         Timestamp currentMillis = new Timestamp(System.currentTimeMillis());
 

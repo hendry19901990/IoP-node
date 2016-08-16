@@ -35,7 +35,7 @@ public interface NetworkClientConnection {
      *
      * @throws CantRegisterProfileException      if something goes wrong.
      */
-    void registerProfile(Profile profile) throws CantRegisterProfileException;
+    UUID registerProfile(Profile profile) throws CantRegisterProfileException;
 
     /**
      * Through the method <code>updateRegisteredProfile</code> we can update registered profile

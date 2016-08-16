@@ -12,7 +12,7 @@ import com.bitdubai.fermat_api.layer.all_definition.util.Version;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantSendMessageException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.NetworkClientManager;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.DiscoveryQueryParameters;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.abstract_classes.AbstractNetworkService2;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.abstract_classes.AbstractActorNetworkService2;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceMessage;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceQuery;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.RecordNotFoundException;
@@ -36,7 +36,7 @@ import java.util.UUID;
 /**
  * Created by Gabriel Araujo 15/02/16.
  */
-public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
+public class ChatNetworkServicePluginRoot extends AbstractActorNetworkService2 {
 
     /**
      * Represent the intraActorDataBase
@@ -76,7 +76,7 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
 
 
     @Override
-    protected void onNetworkServiceStart() {
+    protected void onActorNetworkServiceStart() {
 
         try {
         /*
@@ -375,7 +375,7 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
 
 
     @Override
-    protected void onNetworkServiceRegistered() {
+    protected void onActorNetworkServiceRegistered() {
 
         System.out.println("method onNetworkServiceRegistered: chatNS");
 
@@ -416,10 +416,9 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
 
     @Override
     public void onNetworkServiceActorListReceived(NetworkServiceQuery query, List<ActorProfile> actorProfiles) {
-        actorProfiles.forEach(a -> {
-            if (a.getName().equals("Mati")){
+        actorProfiles.forEach(receiver -> {
+            if (receiver.getName().equals("Mati")){
                 ActorProfile sender = myActorProfiles.get(0);
-                ActorProfile receiver = a;
                 try {
                     testID = sendNewMessage(sender,receiver,"Holas");
                 } catch (com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.exceptions.CantSendMessageException e) {
@@ -433,7 +432,4 @@ public class ChatNetworkServicePluginRoot extends AbstractNetworkService2 {
         return result;
     }
 
-    public void registerActor(ActorProfile profile) {
-        this.myActorProfiles.add(profile);
-    }
 }

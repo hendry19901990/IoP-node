@@ -18,25 +18,20 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.cl
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantSendMessageException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.NetworkChannel;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.P2PLayerManager;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.PackageContent;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.ActorListMsgRequest;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.abstract_classes.AbstractNetworkService;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.UpdateTypes;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.abstract_classes.AbstractNetworkService2;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceMessage;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.event_handlers.*;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.P2pEventType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.events.*;
 import com.fermat_p2p_layer.version_1.structure.MessageSender;
 
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Matias Furszyfer on 2016.07.06..
@@ -47,7 +42,7 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
     private EventManager eventManager;
 
 
-    private ConcurrentHashMap<String,AbstractNetworkService2> networkServices;
+    private ConcurrentHashMap<NetworkServiceType, AbstractNetworkService2> networkServices;
     private NetworkChannel client;
 
     private MessageSender messageSender;
@@ -107,7 +102,7 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
                         try {
                             System.out.println(abstractNetworkService.getProfile().getNetworkServiceType() + ": se está por registrar..." + abstractNetworkService.isRegistered());
                             if (!abstractNetworkService.isRegistered())
-                                abstractNetworkService.startConnection();
+                                messageSender.registerNetworkServiceProfile(abstractNetworkService.getProfile());
                             else System.out.println("Ns: "+abstractNetworkService.getNetworkServiceType()+", already registered..");
                         } catch (FermatException e) {
                             e.printStackTrace();
@@ -129,7 +124,8 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
             @Override
             public void handleEvent(NetworkClientProfileRegisteredEvent fermatEvent) throws FermatException {
                 System.out.println("NETWORK SERVICES STARTED:" + networkServices.size());
-                String networkServiceType = messageSender.packageAck(fermatEvent.getPackageId());
+                NetworkServiceType networkServiceType = messageSender.packageAck(fermatEvent.getPackageId());
+                System.out.println("NETWORK SERVICE TYPE ? "+networkServiceType);
                 AbstractNetworkService2 abstractNetworkService2 = networkServices.get(networkServiceType);
                 if (abstractNetworkService2.isStarted()){
                     abstractNetworkService2.handleNetworkServiceRegisteredEvent();
@@ -196,7 +192,7 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
             @Override
             public void handleEvent(NetworkClientNewMessageTransmitEvent fermatEvent) throws FermatException {
 
-                AbstractNetworkService2 abstractNetworkService2 = networkServices.get(fermatEvent.getNetworkServiceTypeSource().getCode());
+                AbstractNetworkService2 abstractNetworkService2 = networkServices.get(fermatEvent.getNetworkServiceTypeSource());
 
                 if (abstractNetworkService2.isStarted())
                     abstractNetworkService2.onMessageReceived(fermatEvent.getContent());
@@ -230,9 +226,9 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
         actorListReceivedListener.setEventHandler(new FermatEventHandler<NetworkClientActorListReceivedEvent>() {
             @Override
             public void handleEvent(NetworkClientActorListReceivedEvent fermatEvent) throws FermatException {
-                String networkServiceType = messageSender.packageAck(fermatEvent.getPackageId());
+                NetworkServiceType networkServiceType = messageSender.packageAck(fermatEvent.getPackageId());
                 //todo: no hace falta pasar el type del ns acá..
-                AbstractNetworkService2 abstractNetworkService2 = networkServices.get(fermatEvent.getNetworkServiceType().getCode());
+                AbstractNetworkService2 abstractNetworkService2 = networkServices.get(fermatEvent.getNetworkServiceType());
                 if (abstractNetworkService2.isStarted()) {
                     System.out.println("P2PLayer discoveryList: "+ fermatEvent.getQueryID());
                     if (fermatEvent.getStatus() == NetworkClientActorListReceivedEvent.STATUS.SUCCESS)
@@ -253,7 +249,7 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
             @Override
             public void handleEvent(NetworkClientNewMessageFailedEvent fermatEvent) throws FermatException {
                 System.out.println("P2P Layer: FAILED MESSAGE EVENT");
-                AbstractNetworkService2 abstractNetworkService2 = networkServices.get(fermatEvent.getNetworkServiceTypeSource().getCode());
+                AbstractNetworkService2 abstractNetworkService2 = networkServices.get(fermatEvent.getNetworkServiceTypeSource());
                 if (abstractNetworkService2.isStarted()) {
                     //todo: ver esto: tengo que ver si voy a buscarlo a la db de la layer o si lo mando directo al ns con el id del mensaje que falló
 //                    abstractNetworkService2.onNetworkServiceFailedMessage(fermatEvent.getId());
@@ -287,7 +283,7 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
 
 
 
-    private void distributeMessage(String networkType,NetworkClientNewMessageTransmitEvent fermatEvent){
+    private void distributeMessage(NetworkServiceType networkType,NetworkClientNewMessageTransmitEvent fermatEvent){
         if(networkServices.containsKey(networkType)){
             networkServices.get(networkType).onMessageReceived(fermatEvent.getContent());
         }
@@ -297,12 +293,12 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
     public synchronized void register(AbstractNetworkService2 abstractNetworkService) {
         if (client.isConnected()) {
             try {
-                abstractNetworkService.startConnection();
+                messageSender.registerNetworkServiceProfile(abstractNetworkService.getProfile());
             } catch (FermatException e) {
                 e.printStackTrace();
             }
         }
-        networkServices.putIfAbsent(abstractNetworkService.getNetworkServiceType().getCode(), abstractNetworkService);
+        networkServices.putIfAbsent(abstractNetworkService.getNetworkServiceType(), abstractNetworkService);
     }
 
     @Override
@@ -310,6 +306,31 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
         if(client!=null) throw new IllegalArgumentException("Client already registered");
         client = NetworkChannel;
         client.connect();
+    }
+
+    @Override
+    public void register(ActorProfile profile) {
+
+        if (client.isConnected()) {
+            try {
+                client.registerProfile(profile);
+            } catch (FermatException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    @Override
+    public void update(ActorProfile profile, UpdateTypes type) {
+
+        if (client.isConnected()) {
+            try {
+                client.updateProfile(profile, type);
+            } catch (FermatException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

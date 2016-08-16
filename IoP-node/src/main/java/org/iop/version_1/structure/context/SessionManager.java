@@ -1,8 +1,5 @@
 package org.iop.version_1.structure.context;
 
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.collections4.Predicate;
-
 import javax.websocket.Session;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -39,15 +36,15 @@ public class SessionManager {
     /**
      * Get the session client
      *
-     * @param clientIdentity the client identity
+     * @param sessionId the client identity
      * @return the session of the client
      */
-    public Session get(String clientIdentity){
+    public Session get(String sessionId){
 
         /*
          * Return the session of this client
          */
-        return getInstance().clientSessionsById.get(clientIdentity);
+        return getInstance().clientSessionsById.get(sessionId);
     }
 
     /**
@@ -55,12 +52,12 @@ public class SessionManager {
      *
      * @param session the client session
      */
-    public void add(String clientIdentity,final Session session){
+    public void add(final Session session){
 
         /*
          * Add to the cache
          */
-        getInstance().clientSessionsById.put(clientIdentity, session);
+        getInstance().clientSessionsById.put(session.getId(), session);
     }
 
     /**
@@ -75,10 +72,9 @@ public class SessionManager {
          * remove the session of this client
          */
         try {
-            if (getInstance().clientSessionsById.containsValue(session)) {
-                //todo: esto está mal, lo hago solo por ahora
+            if (getInstance().clientSessionsById.containsKey(session.getId())) {
                 System.out.println("removing session");
-                getInstance().clientSessionsById.values().remove(session);
+                getInstance().clientSessionsById.remove(session.getId());
                 return null;
             }
 
@@ -92,12 +88,13 @@ public class SessionManager {
     /**
      * Verify is exist a session for a session id
      *
-     * @param clientIdentity the session id
+     * @param sessionId the session id
+     *
      * @return (TRUE or FALSE)
      */
-    public boolean exist(String clientIdentity){
+    public boolean exist(String sessionId){
 
-        return getInstance().clientSessionsById.containsKey(clientIdentity);
+        return getInstance().clientSessionsById.containsKey(sessionId);
     }
 
 }

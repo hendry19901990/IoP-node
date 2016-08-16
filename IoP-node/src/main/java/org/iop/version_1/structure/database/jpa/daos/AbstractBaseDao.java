@@ -1283,7 +1283,7 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             criteriaQuery.where(attribute);
             TypedQuery<Long> query = connection.createQuery(criteriaQuery);
 
-            if ((query.getSingleResult()) > 0){
+            if (query.getSingleResult() > 0){
                 return Boolean.TRUE;
             } else {
                 return Boolean.FALSE;

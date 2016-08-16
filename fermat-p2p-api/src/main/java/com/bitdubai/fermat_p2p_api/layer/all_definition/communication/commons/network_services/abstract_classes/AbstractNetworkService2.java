@@ -418,13 +418,6 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
         queriesDao.deleteAll();
     }
 
-    public synchronized final void handleNetworkClientRegisteredEvent(final CommunicationChannels communicationChannel) throws FermatException {
-
-        if (this.getConnection().isConnected() && this.getConnection().isRegistered())
-            this.getConnection().registerProfile(this.getProfile());
-
-    }
-
     public final void handleNetworkClientCallConnected(NetworkClientCall networkClientCall) {
 
         try {
@@ -529,6 +522,7 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
     public final void onMessageReceived(String incomingMessage) {
 
         try {
+
             NetworkServiceMessage networkServiceMessage = NetworkServiceMessage.parseContent(incomingMessage);
 
             //TODO networkServiceMessage.setContent(AsymmetricCryptography.decryptMessagePrivateKey(networkServiceMessage.getContent(), this.identity.getPrivateKey()));
@@ -566,15 +560,15 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
 
         this.registered = Boolean.TRUE;
 
-        try {
+//        try {
 //            if (networkServicePendingMessagesSupervisorAgent == null)
 //                this.networkServicePendingMessagesSupervisorAgent = new NetworkServicePendingMessagesSupervisorAgent(this);
 //
 //            this.networkServicePendingMessagesSupervisorAgent.start();
 
-        } catch (Exception ex) {
+    /*    } catch (Exception ex) {
             this.reportError(UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, ex);
-        }
+        }*/
 
         onNetworkServiceRegistered();
     }
@@ -952,24 +946,14 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
         return profile;
     }
 
-    public final NetworkClientConnection getConnection() {
+    public final P2PLayerManager getConnection() {
 
-        return networkClientManager.getConnection();
-    }
-
-    public final NetworkClientConnection getConnection(String uriToNode) {
-
-        return networkClientManager.getConnection(uriToNode);
+        return p2PLayerManager;
     }
 
     public NetworkServiceType getNetworkServiceType() {
         return networkServiceType;
     }
-
-    public void startConnection() throws CantRegisterProfileException {
-        getConnection().registerProfile(getProfile());
-    }
-
 
     public void setEventManager(EventManager eventManager) {
         this.eventManager = eventManager;
