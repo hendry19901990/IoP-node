@@ -485,4 +485,35 @@ public class ActorCatalogDao extends AbstractComponentsDao<ActorCatalog> {
 
     }
 
+    /**
+     * Set the session of actor tu null in database
+     * @param actorId
+     * @throws CantUpdateRecordDataBaseException
+     */
+    public void setSessionToNull(String actorId) throws CantUpdateRecordDataBaseException {
+
+        LOG.debug("Executing setSessionToNull("+actorId+")");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            Query query = connection.createQuery("UPDATE ActorCatalog a SET a.sessionId = null WHERE a.id = :id");
+            query.setParameter("id", actorId);
+            int result = query.executeUpdate();
+            LOG.debug("Set to null session = "+result);
+            connection.flush();
+            transaction.commit();
+
+        }catch (Exception e){
+            LOG.error(e);
+            throw new CantUpdateRecordDataBaseException(CantUpdateRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        }finally {
+            connection.close();
+        }
+
+    }
+
 }
