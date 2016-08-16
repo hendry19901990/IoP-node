@@ -544,11 +544,14 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
                     System.out.println("***************** ID DUPLICATED. GENERATING A NEW ONE *****************");
                     networkServiceMessage.setId(UUID.randomUUID());
                 }
-            }catch(CantReadRecordDataBaseException | RecordNotFoundException e){
+                //TODO: I'll include NullPointerException because at this point we don't have a database implementation (Manuel)
+            }catch(CantReadRecordDataBaseException | RecordNotFoundException  e){
                 e.printStackTrace();
+            } catch (NullPointerException e){
+                System.out.println("Tha database plugin is not implemented in "+this.getClass());
             }
-
-            networkServiceConnectionManager.getIncomingMessagesDao().create(networkServiceMessage);
+            //TODO We don't have database right now
+            //networkServiceConnectionManager.getIncomingMessagesDao().create(networkServiceMessage);
             onNewMessageReceived(networkServiceMessage);
 
         } catch (Exception e) {

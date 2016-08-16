@@ -506,7 +506,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
                                    final PackageType        packageType,
                                    final NetworkServiceType networkServiceType          ,
                                    final String             destinationIdentityPublicKey) throws CantSendMessageException {
-        System.out.println("******* IS CONNECTED: " + isConnected() + " - TRYING NO SEND = " + packageContent.toJson());
+        System.out.println("******* IS CONNECTED: " + isConnected() + " - TRYING TO SEND = " + packageContent.toJson());
         if (isConnected()){
 
             try {
@@ -545,7 +545,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
                                    final NetworkServiceType networkServiceType          ,
                                    final String             destinationIdentityPublicKey,
                                        UUID messageId) throws CantSendMessageException {
-        System.out.println("******* IS CONNECTED: "+ isConnected() + " - TRYING NO SEND = "+ packageContent.toJson());
+        System.out.println("******* IS CONNECTED: "+ isConnected() + " - TRYING TO SEND = "+ packageContent.toJson());
         if (isConnected()){
 
             try {
@@ -560,7 +560,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
                 );
 
                 //lock and wait
-                System.out.println("******* wainting for the sync object");
+                System.out.println("******* waiting for the sync object");
                 return (boolean) waiterObjectsBuffer.getBufferObject(messageId.toString());
 
 
