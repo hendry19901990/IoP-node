@@ -5,10 +5,15 @@ import com.bitdubai.fermat_api.layer.all_definition.common.system.interfaces.err
 import com.bitdubai.fermat_api.layer.all_definition.common.system.utils.PluginVersionReference;
 import com.bitdubai.fermat_api.layer.all_definition.components.enums.PlatformComponentType;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Actors;
+import com.bitdubai.fermat_api.layer.all_definition.enums.Developers;
+import com.bitdubai.fermat_api.layer.all_definition.enums.Layers;
+import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
+import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
 import com.bitdubai.fermat_api.layer.all_definition.events.EventSource;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.exceptions.CantConfirmTransactionException;
 import com.bitdubai.fermat_api.layer.all_definition.util.Version;
+import com.bitdubai.fermat_api.layer.core.PluginInfo;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantSendMessageException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.NetworkClientManager;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.DiscoveryQueryParameters;
@@ -36,6 +41,7 @@ import java.util.UUID;
 /**
  * Created by Gabriel Araujo 15/02/16.
  */
+@PluginInfo(createdBy = "Gabo", developer = Developers.BITDUBAI, difficulty = PluginInfo.Dificulty.HIGH, layer = Layers.NETWORK_SERVICE, maintainerMail = "GaboMail",platform = Platforms.CHAT_PLATFORM, plugin = Plugins.CHAT_NETWORK_SERVICE)
 public class ChatNetworkServicePluginRoot extends AbstractActorNetworkService2 {
 
     /**
@@ -179,7 +185,9 @@ public class ChatNetworkServicePluginRoot extends AbstractActorNetworkService2 {
 //            }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Wrong Json parsing for ChatNS");
+            System.out.println("Message received successfully: "+newFermatMessageReceive);
             reportError(UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
 
         }
