@@ -5,24 +5,17 @@ import com.bitdubai.fermat_api.layer.all_definition.common.system.interfaces.err
 import com.bitdubai.fermat_api.layer.all_definition.common.system.utils.PluginVersionReference;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Actors;
 import com.bitdubai.fermat_api.layer.all_definition.events.EventSource;
-import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEventListener;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_api.layer.all_definition.util.ImageUtil;
 import com.bitdubai.fermat_api.layer.osa_android.location_system.Location;
 import com.bitdubai.fermat_api.layer.osa_android.location_system.exceptions.CantGetDeviceLocationException;
 import com.bitdubai.fermat_api.layer.osa_android.location_system.utils.LocationUtils;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantRegisterProfileException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantRequestActorFullPhotoException;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantUpdateRegisteredProfileException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.UpdateTypes;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.agents.NetworkServiceActorLocationUpdaterAgent;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.event_handlers.NetworkClientActorProfileRegisteredEventHandler;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.event_handlers.NetworkClientActorProfileUpdatedEventHandler;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.exceptions.*;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.interfaces.ActorNetworkService;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.utils.RefreshParameters;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.P2pEventType;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -149,7 +142,7 @@ public abstract class AbstractActorNetworkService2 extends AbstractNetworkServic
 
         if (getConnection() != null ) {
 
-            this.getConnection().register(actorToRegister);
+            this.getConnection().register(actorToRegister, this.getNetworkServiceType());
             registeredActors.get(actorToRegister).setLastExecution(System.currentTimeMillis());
 
         } else {
@@ -179,7 +172,7 @@ public abstract class AbstractActorNetworkService2 extends AbstractNetworkServic
                 )
         );
 
-        this.getConnection().register(actorToRegister);
+        this.getConnection().register(actorToRegister, this.getNetworkServiceType());
         registeredActors.get(actorToRegister).setLastExecution(System.currentTimeMillis());
 
         System.out.println("******************* REGISTERING ACTOR: " + actorToRegister.getName() + " - type: " + actorToRegister.getActorType() + "  GO OUT METHOD");
@@ -291,7 +284,7 @@ public abstract class AbstractActorNetworkService2 extends AbstractNetworkServic
 
                     actorToRegister.getKey().setLocation(location);
 
-                    this.getConnection().register(actorToRegister.getKey());
+                    this.getConnection().register(actorToRegister.getKey(), this.getNetworkServiceType());
                 }
             }
       //  }

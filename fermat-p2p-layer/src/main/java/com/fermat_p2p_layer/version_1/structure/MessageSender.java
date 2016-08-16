@@ -68,15 +68,11 @@ public class MessageSender {
         return messagesSentWaitingForAck.remove(packageId);
     }
 
-    public UUID registerActorProfile(ActorProfile profile) {
-        //todo: hay que dejar este memtodo como los otros, tiene que hacerse el send o crease el paquete acá.
-        if (p2PLayerPluginRoot.getNetworkClient().isConnected()) {
-            try {
-                p2PLayerPluginRoot.getNetworkClient().registerProfile(profile);
-            } catch (FermatException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
+    public UUID registerActorProfile(ActorProfile profile, NetworkServiceType type) throws CantRegisterProfileException {
+
+        UUID packageId = p2PLayerPluginRoot.getNetworkClient().registerProfile(profile);
+        if (packageId != null)
+            messagesSentWaitingForAck.put(packageId,type);
+        return packageId;
     }
 }

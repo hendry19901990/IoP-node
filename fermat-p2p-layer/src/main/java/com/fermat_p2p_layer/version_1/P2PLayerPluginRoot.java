@@ -20,6 +20,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.cl
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.P2PLayerManager;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.ActorListMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.UpdateTypes;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.abstract_classes.AbstractActorNetworkService2;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.abstract_classes.AbstractNetworkService2;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceMessage;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
@@ -203,6 +204,26 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
         eventManager.addListener(newMessageTransmitListener);
         listenersAdded.add(newMessageTransmitListener);
 
+
+        FermatEventListener actorRegistered = eventManager.getNewListener(P2pEventType.NETWORK_CLIENT_ACTOR_PROFILE_REGISTERED);
+        actorRegistered.setEventHandler(new FermatEventHandler<NetworkClientProfileRegisteredEvent>() {
+            @Override
+            public void handleEvent(NetworkClientProfileRegisteredEvent fermatEvent) throws FermatException {
+
+                System.out.println("NETWORK SERVICES STARTED:" + networkServices.size());
+                NetworkServiceType networkServiceType = messageSender.packageAck(fermatEvent.getPackageId());
+                System.out.println("ACTOR REGISTERING NETWORK SERVICE TYPE ? "+networkServiceType);
+                AbstractNetworkService2 abstractNetworkService2 = networkServices.get(networkServiceType);
+                if (abstractNetworkService2.isStarted()){
+                    ((AbstractActorNetworkService2)abstractNetworkService2).onActorRegistered(fermatEvent.getPublicKey());
+                }else{
+                    System.out.println("NetworkClientProfileRegisteredEvent Ns: "+abstractNetworkService2.getNetworkServiceType()+" is not started");
+                }
+            }
+        });
+        eventManager.addListener(actorRegistered);
+        listenersAdded.add(actorRegistered);
+
         /*
          * 8. Listen and handle Network Client Sent Message Delivered Event
          */
@@ -309,8 +330,13 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
     }
 
     @Override
-    public void register(ActorProfile profile) {
-        messageSender.registerActorProfile(profile);
+    public void register(ActorProfile profile, NetworkServiceType type) {
+
+        try {
+            messageSender.registerActorProfile(profile, type);
+        } catch (FermatException e) {
+            e.printStackTrace();
+        }
     }
 
 
