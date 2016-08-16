@@ -61,21 +61,16 @@ public class MessageTransmitProcessor extends PackageProcessor {
         LOG.info("Package destinationIdentityPublicKey =  "+destinationIdentityPublicKey);
 
         try {
+
             /*
              * Get the connection to the destination
              */
             String actorSessionId = JPADaoFactory.getActorCatalogDao().findValueById(destinationIdentityPublicKey,String.class,"sessionId");
 
-            new ActorCatalogDao().list().forEach(System.out::println);
+            LOG.info("ACTOR SESSION ID = "+actorSessionId);
+            Session clientDestination = clientsSessionMemoryCache.get(actorSessionId);
 
-            System.out.println("MESSAGE SENDING = destinationIdentityPublicKey = "+destinationIdentityPublicKey);
-
-            System.out.println("MESSAGE SENDING = ACTOR SESSION ID = "+actorSessionId);
-            Session clientDestination = null;
-            if (actorSessionId != null )
-                clientDestination = clientsSessionMemoryCache.get(actorSessionId);
-
-            System.out.println("MESSAGE SENDING = CLIENT DESTINATION = "+clientDestination);
+            LOG.info("CLIENT DESTINATION = "+(clientDestination != null ? clientDestination.getId() : null));
 
             if (clientDestination != null) {
 
@@ -106,6 +101,13 @@ public class MessageTransmitProcessor extends PackageProcessor {
             } else {
 
                 /*
+                 * Remove old session
+                 */
+                if ((actorSessionId != null && !actorSessionId.isEmpty()) && clientDestination == null){
+                    JPADaoFactory.getActorCatalogDao().setSessionToNull(destinationIdentityPublicKey);
+                }
+
+                /*
                  * Notify to de sender the message can not transmit
                  */
                 ACKRespond ackRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.FAIL, "The destination is not more available");
@@ -119,8 +121,6 @@ public class MessageTransmitProcessor extends PackageProcessor {
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
                 );
-//                channel.sendPackage(session, messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
-
 
             }
 
@@ -141,7 +141,6 @@ public class MessageTransmitProcessor extends PackageProcessor {
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
                 );
-//                channel.sendPackage(session, messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
 
             } catch (Exception e) {
                 e.printStackTrace();
