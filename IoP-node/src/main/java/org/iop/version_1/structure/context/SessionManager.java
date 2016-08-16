@@ -41,10 +41,14 @@ public class SessionManager {
      */
     public Session get(String sessionId){
 
-        /*
-         * Return the session of this client
-         */
-        return getInstance().clientSessionsById.get(sessionId);
+        if (sessionId != null && !sessionId.isEmpty()){
+            /*
+             * Return the session of this client
+             */
+            return getInstance().clientSessionsById.get(sessionId);
+        }else {
+            return null;
+        }
     }
 
     /**
