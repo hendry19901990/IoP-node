@@ -210,14 +210,14 @@ public class P2PLayerPluginRoot extends AbstractPlugin implements P2PLayerManage
             @Override
             public void handleEvent(NetworkClientProfileRegisteredEvent fermatEvent) throws FermatException {
 
-                System.out.println("NETWORK SERVICES STARTED:" + networkServices.size());
+                System.out.println("NETWORK_CLIENT_ACTOR_PROFILE_REGISTERED -> NETWORK SERVICES STARTED:" + networkServices.size());
                 NetworkServiceType networkServiceType = messageSender.packageAck(fermatEvent.getPackageId());
-                System.out.println("ACTOR REGISTERING NETWORK SERVICE TYPE ? "+networkServiceType);
+                System.out.println("NETWORK_CLIENT_ACTOR_PROFILE_REGISTERED -> ACTOR REGISTERING NETWORK SERVICE TYPE ? "+networkServiceType);
                 AbstractNetworkService2 abstractNetworkService2 = networkServices.get(networkServiceType);
                 if (abstractNetworkService2.isStarted()){
                     ((AbstractActorNetworkService2)abstractNetworkService2).onActorRegistered(fermatEvent.getPublicKey());
                 }else{
-                    System.out.println("NetworkClientProfileRegisteredEvent Ns: "+abstractNetworkService2.getNetworkServiceType()+" is not started");
+                    System.out.println("NETWORK_CLIENT_ACTOR_PROFILE_REGISTERED -> NetworkClientProfileRegisteredEvent Ns: "+abstractNetworkService2.getNetworkServiceType()+" is not started");
                 }
             }
         });
