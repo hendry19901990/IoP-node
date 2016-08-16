@@ -42,12 +42,12 @@ public class CheckInNetworkServiceRespondProcessor extends PackageProcessor {
              */
         NetworkClientProfileRegisteredEvent event = getEventManager().getNewEventMati(P2pEventType.NETWORK_CLIENT_NETWORK_SERVICE_PROFILE_REGISTERED, NetworkClientProfileRegisteredEvent.class);
         event.setSource(EventSource.NETWORK_CLIENT);
-        event.setPublicKey(clientCheckInRespond.getPublicKey());
+        event.setPackageId(clientCheckInRespond.getPackageId());
         event.setStatus(event.getStatus());
             /*
              * Raise the event
              */
-        System.out.println("MessageTransmitProcessor - Raised a event = P2pEventType.NETWORK_CLIENT_REGISTERED");
+        System.out.println("CheckInClientRespondProcessor - Raised a event = P2pEventType.NETWORK_CLIENT_NETWORK_SERVICE_PROFILE_REGISTERED");
         getEventManager().raiseEvent(event);
 
     }

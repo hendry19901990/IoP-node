@@ -2,7 +2,7 @@ package org.iop.version_1.structure.database.jpa.daos;
 
 import org.apache.commons.lang.ClassUtils;
 import org.iop.version_1.structure.database.jpa.entities.GeoLocation;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 
 /**
  * Created by Manuel Perez (darkpriestrelative@gmail.com) on 03/08/16.

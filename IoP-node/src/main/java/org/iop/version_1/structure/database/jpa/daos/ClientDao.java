@@ -6,9 +6,8 @@ package org.iop.version_1.structure.database.jpa.daos;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantDeleteRecordDataBaseException;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.structure.database.jpa.entities.Client;
-import org.jboss.logging.Logger;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;

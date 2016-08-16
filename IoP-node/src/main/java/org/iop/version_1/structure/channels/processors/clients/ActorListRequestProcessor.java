@@ -1,5 +1,6 @@
 package org.iop.version_1.structure.channels.processors.clients;
 import com.bitdubai.fermat_api.layer.all_definition.common.system.abstract_classes.AbstractPlugin;
+import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.DiscoveryQueryParameters;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.ActorListMsgRequest;
@@ -13,6 +14,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.Head
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import com.google.gson.JsonObject;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.IoPNodePluginRoot;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
@@ -20,7 +22,6 @@ import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.NodeContextItem;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.ActorCatalog;
-import org.jboss.logging.Logger;
 
 import javax.websocket.Session;
 import java.io.BufferedReader;
@@ -80,7 +81,7 @@ public class ActorListRequestProcessor extends PackageProcessor {
             /*
              * If all ok, respond whit success message
              */
-            ActorListMsgRespond actorListMsgRespond = new ActorListMsgRespond(ActorCallMsgRespond.STATUS.SUCCESS, ActorCallMsgRespond.STATUS.SUCCESS.toString(), actorsList, messageContent.getNetworkServicePublicKey(), messageContent.getQueryId());
+            ActorListMsgRespond actorListMsgRespond = new ActorListMsgRespond(packageReceived.getPackageId(),ActorCallMsgRespond.STATUS.SUCCESS, ActorCallMsgRespond.STATUS.SUCCESS.toString(), actorsList, messageContent.getNetworkServiceType(), messageContent.getQueryId());
 
             if (session.isOpen()) {
 
@@ -108,6 +109,7 @@ public class ActorListRequestProcessor extends PackageProcessor {
                  * Respond whit fail message
                  */
                 ActorListMsgRespond actorListMsgRespond = new ActorListMsgRespond(
+                        packageReceived.getPackageId(),
                         ActorListMsgRespond.STATUS.FAIL,
                         exception.getLocalizedMessage(),
                         null,
@@ -202,59 +204,22 @@ public class ActorListRequestProcessor extends PackageProcessor {
 
         try {
 
-            if(actorsCatalog.getId().equals(getNetworkNodePluginRoot().getIdentity().getPublicKey())) {
+            if(actorsCatalog.getHomeNode().getId().equals(getNetworkNodePluginRoot().getIdentity().getPublicKey())) {
                 //todo: buscar la session
-//                if (actorsCatalog.getSession() != null)
-//                    return ProfileStatus.ONLINE;
-//                else
-//                    return ProfileStatus.OFFLINE;
-                return null;
+                if (actorsCatalog.getSessionId() != null)
+                    return ProfileStatus.ONLINE;
+                else
+                    return ProfileStatus.OFFLINE;
 
-            } else {
-
-                return isActorOnlineInOtherNode(actorsCatalog);
             }
         } catch (Exception e) {
             e.printStackTrace();
             return ProfileStatus.UNKNOWN;
         }
+        return ProfileStatus.OFFLINE;
     }
 
-    /**
-     * Through this method we're going to determine a status for the actor profile calling another node.
-     *
-     * @param actorsCatalog  the record of the profile from the actors catalog table.
-     *
-     * @return an element of the ProfileStatus enum.
-     */
-    private ProfileStatus isActorOnlineInOtherNode(final ActorCatalog actorsCatalog) {
 
-        try {
-
-            String nodeUrl = actorsCatalog.getHomeNode().getIp()+":"+actorsCatalog.getHomeNode().getDefaultPort();
-
-            URL url = new URL("http://" + nodeUrl + "/fermat/rest/api/v1/online/component/actor/" + actorsCatalog.getId());
-
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setRequestProperty("Accept", "application/json");
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String respond = reader.readLine();
-
-            if (conn.getResponseCode() == 200 && respond != null && respond.contains("success")) {
-                JsonObject respondJsonObject = (JsonObject) GsonProvider.getJsonParser().parse(respond.trim());
-                return respondJsonObject.get("isOnline").getAsBoolean() ? ProfileStatus.ONLINE : ProfileStatus.OFFLINE;
-
-            } else {
-                return ProfileStatus.UNKNOWN;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ProfileStatus.UNKNOWN;
-        }
-    }
 
     private IoPNodePluginRoot pluginRoot;
 

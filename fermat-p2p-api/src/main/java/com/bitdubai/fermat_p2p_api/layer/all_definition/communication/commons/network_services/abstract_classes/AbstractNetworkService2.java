@@ -9,10 +9,7 @@ import com.bitdubai.fermat_api.layer.all_definition.common.system.interfaces.Eve
 import com.bitdubai.fermat_api.layer.all_definition.common.system.interfaces.error_manager.enums.UnexpectedPluginExceptionSeverity;
 import com.bitdubai.fermat_api.layer.all_definition.common.system.utils.PluginVersionReference;
 import com.bitdubai.fermat_api.layer.all_definition.crypto.asymmetric.ECCKeyPair;
-import com.bitdubai.fermat_api.layer.all_definition.enums.Addons;
-import com.bitdubai.fermat_api.layer.all_definition.enums.Layers;
-import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
-import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
+import com.bitdubai.fermat_api.layer.all_definition.enums.*;
 import com.bitdubai.fermat_api.layer.all_definition.events.EventSource;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEventListener;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
@@ -221,10 +218,8 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
             onNetworkServiceStart();
 
             p2PLayerManager.register(this);
-            /**
-             * Register Elements after Start
-             */
-            handleNetworkServiceRegisteredEvent();
+
+            this.serviceStatus = ServiceStatus.STARTED;
 
         } catch (Exception exception) {
 
@@ -423,13 +418,6 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
         queriesDao.deleteAll();
     }
 
-    public synchronized final void handleNetworkClientRegisteredEvent(final CommunicationChannels communicationChannel) throws FermatException {
-
-        if (this.getConnection().isConnected() && this.getConnection().isRegistered())
-            this.getConnection().registerProfile(this.getProfile());
-
-    }
-
     public final void handleNetworkClientCallConnected(NetworkClientCall networkClientCall) {
 
         try {
@@ -476,11 +464,11 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
                                                                 final List<ActorProfile> actorProfiles) throws CantReadRecordDataBaseException, RecordNotFoundException, CantUpdateRecordDataBaseException {
 
 
-        NetworkServiceQuery query = queriesDao.findById(queryId.toString());
+//        NetworkServiceQuery query = queriesDao.findById(queryId.toString());
+//
+//        queriesDao.markAsDone(query);
 
-        queriesDao.markAsDone(query);
-
-        onNetworkServiceActorListReceived(query, actorProfiles);
+        onNetworkServiceActorListReceived(null, actorProfiles);
 
     }
 
@@ -534,6 +522,7 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
     public final void onMessageReceived(String incomingMessage) {
 
         try {
+
             NetworkServiceMessage networkServiceMessage = NetworkServiceMessage.parseContent(incomingMessage);
 
             //TODO networkServiceMessage.setContent(AsymmetricCryptography.decryptMessagePrivateKey(networkServiceMessage.getContent(), this.identity.getPrivateKey()));
@@ -571,15 +560,15 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
 
         this.registered = Boolean.TRUE;
 
-        try {
+//        try {
 //            if (networkServicePendingMessagesSupervisorAgent == null)
 //                this.networkServicePendingMessagesSupervisorAgent = new NetworkServicePendingMessagesSupervisorAgent(this);
 //
 //            this.networkServicePendingMessagesSupervisorAgent.start();
 
-        } catch (Exception ex) {
+    /*    } catch (Exception ex) {
             this.reportError(UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, ex);
-        }
+        }*/
 
         onNetworkServiceRegistered();
     }
@@ -789,7 +778,7 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
     /**
      * Method tha send a new Message
      */
-    public void sendNewMessage(final ActorProfile sender        ,
+    public UUID sendNewMessage(final ActorProfile sender        ,
                                final ActorProfile destination   ,
                                final String       messageContent) throws CantSendMessageException {
 
@@ -806,7 +795,7 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
                     MessageContentType.TEXT
             );
 
-            p2PLayerManager.sendMessage(networkServiceMessage,getNetworkServiceType(),destination.getHomeNodePublicKey());
+            return p2PLayerManager.sendMessage(networkServiceMessage,getNetworkServiceType(),destination.getHomeNodePublicKey());
 
             /*
              * Save to the data base table
@@ -831,7 +820,7 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
          * Create the query
          */
         UUID uuid = UUID.randomUUID();
-        ActorListMsgRequest actorListMsgRequest = new ActorListMsgRequest(uuid,identity.getPublicKey(),discoveryQueryParameters);
+        ActorListMsgRequest actorListMsgRequest = new ActorListMsgRequest(uuid,networkServiceType.getCode(),discoveryQueryParameters);
 
         p2PLayerManager.sendDiscoveryMessage(actorListMsgRequest,networkServiceType,null);
 
@@ -957,24 +946,14 @@ public abstract class AbstractNetworkService2 extends AbstractPlugin implements 
         return profile;
     }
 
-    public final NetworkClientConnection getConnection() {
+    public final P2PLayerManager getConnection() {
 
-        return networkClientManager.getConnection();
-    }
-
-    public final NetworkClientConnection getConnection(String uriToNode) {
-
-        return networkClientManager.getConnection(uriToNode);
+        return p2PLayerManager;
     }
 
     public NetworkServiceType getNetworkServiceType() {
         return networkServiceType;
     }
-
-    public void startConnection() throws CantRegisterProfileException {
-        getConnection().registerProfile(getProfile());
-    }
-
 
     public void setEventManager(EventManager eventManager) {
         this.eventManager = eventManager;

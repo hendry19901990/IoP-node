@@ -9,13 +9,11 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.ne
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantReadRecordDataBaseException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantUpdateRecordDataBaseException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.JPANamedQuery;
-import com.google.gson.annotations.Expose;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.structure.database.jpa.DatabaseManager;
 import org.iop.version_1.structure.database.jpa.entities.AbstractBaseEntity;
-import org.jboss.logging.Logger;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.persistence.criteria.*;
 import javax.persistence.metamodel.Attribute;
@@ -24,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.AbstractBaseDao</code> is
@@ -187,7 +184,7 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             }
             if(isUpdate) {
                 entityTransaction.begin();
-                int affectedRows = query.executeUpdate();
+                query.executeUpdate();
                 entityTransaction.commit();
             }
             else
@@ -234,7 +231,8 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
 
                 } catch (Exception e){
                     LOG.error(e);
-                    transaction.rollback();
+                    if(transaction.isActive())
+                        transaction.rollback();
                     throw new CantUpdateRecordDataBaseException(CantUpdateRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
                 }
 
@@ -249,7 +247,8 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
 
                 }catch (Exception e){
                     LOG.error(e);
-                    transaction.rollback();
+                    if(transaction.isActive())
+                        transaction.rollback();
                     throw new CantInsertRecordDataBaseException(CantInsertRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
                 }
 
@@ -1081,7 +1080,7 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
      *
      * @return int
      */
-    public int count() throws CantReadRecordDataBaseException {
+    public Long count() throws CantReadRecordDataBaseException {
 
         LOG.debug("Executing count()");
         EntityManager connection = getConnection();
@@ -1092,8 +1091,8 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
             Root<E> root = criteriaQuery.from(entityClass);
             criteriaQuery.select(connection.getCriteriaBuilder().count(root));
-            Query query = connection.createQuery(criteriaQuery);
-            return Integer.parseInt(query.getSingleResult().toString());
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
+            return query.getSingleResult();
 
         } catch (Exception e) {
             LOG.error(e);
@@ -1135,7 +1134,7 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
      * @return int
      * @throws CantReadRecordDataBaseException
      */
-    public int count(Map<String, Object> filters) throws CantReadRecordDataBaseException {
+    public Long count(Map<String, Object> filters) throws CantReadRecordDataBaseException {
 
         LOG.debug(new StringBuilder("Executing list(")
                 .append(filters)
@@ -1147,9 +1146,9 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
         try {
 
             CriteriaBuilder criteriaBuilder = connection.getCriteriaBuilder();
-            CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
             Root<E> entities = criteriaQuery.from(entityClass);
-            criteriaQuery.select(entities);
+            criteriaQuery.select(connection.getCriteriaBuilder().count(entities));
 
             //Verify that the filters are not empty
             if (filters != null && filters.size() > 0) {
@@ -1197,9 +1196,8 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
 
             }
 
-            criteriaQuery.orderBy(criteriaBuilder.asc(entities.get("id")));
-            TypedQuery<E> query = connection.createQuery(criteriaQuery);
-            return query.getResultList().size();
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
+            return query.getSingleResult();
 
         } catch (Exception e) {
             LOG.error(e);
@@ -1237,9 +1235,9 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             }
 
             criteriaQuery.where(attribute);
-            Query query = connection.createQuery(criteriaQuery);
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
 
-            if (Integer.parseInt(query.getSingleResult().toString()) > 0) {
+            if (query.getSingleResult() > 0) {
                 return Boolean.TRUE;
             } else {
                 return Boolean.FALSE;
@@ -1283,9 +1281,9 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             }
 
             criteriaQuery.where(attribute);
-            Query query = connection.createQuery(criteriaQuery);
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
 
-            if (((Long)query.getSingleResult()) > 0){
+            if (query.getSingleResult() > 0){
                 return Boolean.TRUE;
             } else {
                 return Boolean.FALSE;

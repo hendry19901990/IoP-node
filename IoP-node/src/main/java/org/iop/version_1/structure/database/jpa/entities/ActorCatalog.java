@@ -171,10 +171,10 @@ public class ActorCatalog extends AbstractBaseEntity<String>{
      * Constructor with parameters
      * @param actorProfile
      * @param thumbnail
-     * @param homeNode
+     * @param homeNodePublicKey
      * @param signature
      */
-    public ActorCatalog(final ActorProfile actorProfile, final byte[] thumbnail, final NodeCatalog homeNode, final String signature) {
+    public ActorCatalog(final ActorProfile actorProfile, final byte[] thumbnail, final String homeNodePublicKey, final String signature) {
         super();
         this.id = actorProfile.getIdentityPublicKey();
         this.name = actorProfile.getName();
@@ -186,7 +186,7 @@ public class ActorCatalog extends AbstractBaseEntity<String>{
         this.lastUpdateTime = new Timestamp(System.currentTimeMillis());
         this.lastConnection = new Timestamp(System.currentTimeMillis());
         this.thumbnail = thumbnail;
-        this.homeNode = homeNode;
+        this.homeNode = new NodeCatalog(homeNodePublicKey);
         this.sessionId = null;
         this.signature = signature;
         this.clientIdentityPublicKey = actorProfile.getClientIdentityPublicKey();

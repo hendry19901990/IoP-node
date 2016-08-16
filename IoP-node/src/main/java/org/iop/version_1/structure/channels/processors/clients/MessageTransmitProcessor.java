@@ -7,12 +7,13 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.ne
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.SessionManager;
+import org.iop.version_1.structure.database.jpa.daos.ActorCatalogDao;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
-import org.jboss.logging.Logger;
 
 import javax.websocket.SendHandler;
 import javax.websocket.SendResult;
@@ -55,8 +56,6 @@ public class MessageTransmitProcessor extends PackageProcessor {
     public Package processingPackage(final Session session, final Package packageReceived, final FermatWebSocketChannelEndpoint channel) {
 
         LOG.info("Processing new package received "+packageReceived.getPackageType());
-        String senderIdentityPublicKey = (String) session.getUserProperties().get(HeadersAttName.CPKI_ATT_HEADER_NAME);
-        final NetworkServiceMessage messageContent = NetworkServiceMessage.parseContent(packageReceived.getContent());
 
         final String destinationIdentityPublicKey = packageReceived.getDestinationPublicKey();
         LOG.info("Package destinationIdentityPublicKey =  "+destinationIdentityPublicKey);
@@ -66,7 +65,17 @@ public class MessageTransmitProcessor extends PackageProcessor {
              * Get the connection to the destination
              */
             String actorSessionId = JPADaoFactory.getActorCatalogDao().findValueById(destinationIdentityPublicKey,String.class,"sessionId");
-            Session clientDestination = clientsSessionMemoryCache.get(actorSessionId);
+
+            new ActorCatalogDao().list().forEach(System.out::println);
+
+            System.out.println("MESSAGE SENDING = destinationIdentityPublicKey = "+destinationIdentityPublicKey);
+
+            System.out.println("MESSAGE SENDING = ACTOR SESSION ID = "+actorSessionId);
+            Session clientDestination = null;
+            if (actorSessionId != null )
+                clientDestination = clientsSessionMemoryCache.get(actorSessionId);
+
+            System.out.println("MESSAGE SENDING = CLIENT DESTINATION = "+clientDestination);
 
             if (clientDestination != null) {
 
@@ -77,16 +86,15 @@ public class MessageTransmitProcessor extends PackageProcessor {
                     try {
                         if (result.isOK()) {
 
-                            ACKRespond messageTransmitRespond = new ACKRespond(MsgRespond.STATUS.SUCCESS, MsgRespond.STATUS.SUCCESS.toString(), packageReceived.getPackageId());
-
-                            channel.sendPackage(session, messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
+                            ACKRespond messageTransmitRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.SUCCESS, MsgRespond.STATUS.SUCCESS.toString());
+                            channel.sendPackage(session,packageReceived.getPackageId(), messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
                             LOG.info("Message transmit successfully");
                         } else {
                             ACKRespond messageTransmitRespond = new ACKRespond(
+                                    packageReceived.getPackageId(),
                                     MsgRespond.STATUS.FAIL,
-                                    (result.getException() != null ? result.getException().getMessage() : "destination not available"),
-                                    packageReceived.getPackageId());
-                            channel.sendPackage(session, messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
+                                    (result.getException() != null ? result.getException().getMessage() : "destination not available"));
+                            channel.sendPackage(session,packageReceived.getPackageId(), messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
                             LOG.info("Message cannot be transmitted", result.getException());
                         }
                     } catch (Exception ex) {
@@ -100,10 +108,11 @@ public class MessageTransmitProcessor extends PackageProcessor {
                 /*
                  * Notify to de sender the message can not transmit
                  */
-                ACKRespond ackRespond = new ACKRespond(MsgRespond.STATUS.FAIL, "The destination is not more available", packageReceived.getPackageId());
+                ACKRespond ackRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.FAIL, "The destination is not more available");
 
                 LOG.info("The destination is not more available, Message not transmitted");
                 return Package.createInstance(
+                        packageReceived.getPackageId(),
                         ackRespond.toJson(),
                         packageReceived.getNetworkServiceTypeSource(),
                         PackageType.ACK,
@@ -120,11 +129,12 @@ public class MessageTransmitProcessor extends PackageProcessor {
         } catch (Exception exception){
 
             try {
-            
+                exception.printStackTrace();
                 LOG.error(exception);
 
-                ACKRespond ackRespond = new ACKRespond(MsgRespond.STATUS.FAIL, exception.getMessage(), packageReceived.getPackageId());
+                ACKRespond ackRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.FAIL, exception.getMessage());
                 return Package.createInstance(
+                        packageReceived.getPackageId(),
                         ackRespond.toJson(),
                         packageReceived.getNetworkServiceTypeSource(),
                         PackageType.ACK,

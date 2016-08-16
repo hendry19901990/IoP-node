@@ -8,6 +8,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.Head
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.exception.PackageTypeNotSupportedException;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.endpoinsts.clients.conf.ClientChannelConfigurator;
 import org.iop.version_1.structure.channels.processors.NodesPackageProcessorFactory;
@@ -18,13 +19,10 @@ import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.Client;
 import org.iop.version_1.structure.util.PackageDecoder;
 import org.iop.version_1.structure.util.PackageEncoder;
-import org.jboss.logging.Logger;
-import sun.java2d.pipe.hw.ContextCapabilities;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +35,7 @@ import java.util.Map;
  * @since Java JDK 1.7
  */
 @ServerEndpoint(
-        value = "/client-channel",
+        value = "/ws/client-channel",
         configurator = ClientChannelConfigurator.class,
         encoders = {PackageEncoder.class},
         decoders = {PackageDecoder.class}
@@ -104,8 +102,8 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
 
             if (client != null ) {
                 //todo: esto está mal
-                if (clientsSessionMemoryCache.exist(client.getId())){
-                    Session previousSession = clientsSessionMemoryCache.get(client.getClientProfile().getIdentityPublicKey());
+                if (clientsSessionMemoryCache.exist(client.getSession())){
+                    Session previousSession = clientsSessionMemoryCache.get(client.getSession());
                     if (previousSession.isOpen()) {
                         previousSession.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Closing a Previous Session"));
                     }
@@ -115,12 +113,13 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
                 JPADaoFactory.getClientDao().save(client);
             }
 
-            clientsSessionMemoryCache.add(client.getClientProfile().getIdentityPublicKey(),session);
+            clientsSessionMemoryCache.add(session);
 
             /*
              * Construct packet SERVER_HANDSHAKE_RESPONSE
+             * the only respond with packageId null is this one
              */
-            ServerHandshakeRespond serverHandshakeRespond = new ServerHandshakeRespond(ServerHandshakeRespond.STATUS.SUCCESS, ServerHandshakeRespond.STATUS.SUCCESS.toString(), cpki);
+            ServerHandshakeRespond serverHandshakeRespond = new ServerHandshakeRespond(null,ServerHandshakeRespond.STATUS.SUCCESS, ServerHandshakeRespond.STATUS.SUCCESS.toString(), cpki);
             Package packageRespond = Package.createInstance(serverHandshakeRespond.toJson(), NetworkServiceType.UNDEFINED, PackageType.SERVER_HANDSHAKE_RESPONSE, getChannelIdentity().getPrivateKey(), cpki);
 
             /*
@@ -223,4 +222,6 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
             LOG.error(e);
         }
     }
+
+
 }

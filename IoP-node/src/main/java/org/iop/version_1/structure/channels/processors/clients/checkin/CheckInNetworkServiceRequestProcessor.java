@@ -11,7 +11,7 @@ import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEnd
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.NetworkService;
-import org.jboss.logging.Logger;
+import org.apache.log4j.Logger;
 
 import javax.websocket.Session;
 
@@ -71,7 +71,7 @@ public class CheckInNetworkServiceRequestProcessor extends PackageProcessor {
             /*
              * If all ok, respond whit success message
              */
-            ACKRespond respondProfileCheckInMsj = new ACKRespond(ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString(), packageReceived.getPackageId());
+            ACKRespond respondProfileCheckInMsj = new ACKRespond(packageReceived.getPackageId(),ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString());
 
             return Package.createInstance(
                     respondProfileCheckInMsj.toJson(),
@@ -91,7 +91,7 @@ public class CheckInNetworkServiceRequestProcessor extends PackageProcessor {
                 /*
                  * Respond whit fail message
                  */
-                ACKRespond respondProfileCheckInMsj = new ACKRespond(ACKRespond.STATUS.FAIL, exception.getMessage(), packageReceived.getPackageId());
+                ACKRespond respondProfileCheckInMsj = new ACKRespond(packageReceived.getPackageId(),ACKRespond.STATUS.FAIL, exception.getMessage());
 
                 return Package.createInstance(
                         respondProfileCheckInMsj.toJson(),

@@ -1,14 +1,18 @@
 package com.fermat_p2p_layer.version_1.structure;
 
+import com.bitdubai.fermat_api.FermatException;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantRegisterProfileException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.exceptions.CantSendMessageException;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.interfaces.NetworkChannel;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.PackageContent;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.ActorListMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceMessage;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.NetworkServiceProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
+import com.fermat_p2p_layer.version_1.P2PLayerPluginRoot;
 
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by mati on 14/08/16.
@@ -17,18 +21,62 @@ import java.util.UUID;
 public class MessageSender {
 
 
-    private final NetworkChannel client;
+    private final P2PLayerPluginRoot p2PLayerPluginRoot;
 
-    public MessageSender(NetworkChannel client) {
-        this.client = client;
+    /**
+     * PackageId + NetworkServiceType
+     */
+    private ConcurrentHashMap<UUID,NetworkServiceType> messagesSentWaitingForAck;
+
+
+    public MessageSender(P2PLayerPluginRoot p2PLayerPluginRoot) {
+        this.p2PLayerPluginRoot = p2PLayerPluginRoot;
+        messagesSentWaitingForAck = new ConcurrentHashMap<>();
     }
 
-    public void sendMessage(NetworkServiceMessage networkServiceMessage, NetworkServiceType networkServiceType, String destinationPublicKey) throws CantSendMessageException {
-        UUID packageId = client.sendMessage(networkServiceMessage, PackageType.MESSAGE_TRANSMIT,networkServiceType,destinationPublicKey);
+    public UUID registerNetworkServiceProfile(NetworkServiceProfile profile) throws CantRegisterProfileException {
+        //todo: ver porqué el ultimo parametro del metodo sendMessage es el destination del actor,ns o lo que sea. ver si agrego el nodo ahí o que hago
+        UUID packageId = p2PLayerPluginRoot.getNetworkClient().registerProfile(profile);
+        if (packageId != null)
+            messagesSentWaitingForAck.put(packageId,profile.getNetworkServiceType());
+        return packageId;
     }
 
-    public void sendDiscoveryMessage(ActorListMsgRequest networkServiceMessage, NetworkServiceType networkServiceType, String destinationPublicKey) throws CantSendMessageException {
+    public UUID sendMessage(NetworkServiceMessage networkServiceMessage, NetworkServiceType networkServiceType, String nodeDestinationPublicKey) throws CantSendMessageException {
+        //todo: ver porqué el ultimo parametro del metodo sendMessage es el destination del actor,ns o lo que sea. ver si agrego el nodo ahí o que hago
+        UUID packageId = p2PLayerPluginRoot.getNetworkClient().sendMessage(networkServiceMessage, PackageType.MESSAGE_TRANSMIT,networkServiceType,networkServiceMessage.getReceiverPublicKey());
+
+        if (packageId != null)
+            messagesSentWaitingForAck.put(packageId,networkServiceType);
+        return packageId;
+    }
+
+    public UUID sendDiscoveryMessage(ActorListMsgRequest networkServiceMessage, NetworkServiceType networkServiceType, String nodeDestinationPublicKey) throws CantSendMessageException {
         //todo: esto deberia ser para todos los discovery y no solo para el actorList
-        UUID packageId = client.sendMessage(networkServiceMessage,PackageType.ACTOR_LIST_REQUEST,networkServiceType,destinationPublicKey);
+        UUID packageId = p2PLayerPluginRoot.getNetworkClient().sendMessage(networkServiceMessage,PackageType.ACTOR_LIST_REQUEST,networkServiceType,nodeDestinationPublicKey);
+        if (packageId != null)
+            messagesSentWaitingForAck.put(packageId,networkServiceType);
+        return packageId;
+    }
+
+    /**
+     *
+     * @param packageId
+     * @return network service type
+     */
+    public NetworkServiceType packageAck(UUID packageId){
+        return messagesSentWaitingForAck.remove(packageId);
+    }
+
+    public UUID registerActorProfile(ActorProfile profile) {
+        //todo: hay que dejar este memtodo como los otros, tiene que hacerse el send o crease el paquete acá.
+        if (p2PLayerPluginRoot.getNetworkClient().isConnected()) {
+            try {
+                p2PLayerPluginRoot.getNetworkClient().registerProfile(profile);
+            } catch (FermatException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

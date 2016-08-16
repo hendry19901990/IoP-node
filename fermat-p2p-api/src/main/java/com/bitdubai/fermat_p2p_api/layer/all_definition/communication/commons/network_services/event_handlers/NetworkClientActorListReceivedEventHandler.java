@@ -48,7 +48,7 @@ public class NetworkClientActorListReceivedEventHandler implements FermatEventHa
     public void handleEvent(NetworkClientActorListReceivedEvent fermatEvent) throws FermatException {
 
         if (this.networkService.isStarted() &&
-                this.networkService.getProfile().getIdentityPublicKey().equals(fermatEvent.getNetworkServicePublicKey())) {
+                this.networkService.getProfile().getNetworkServiceType().equals(fermatEvent.getNetworkServiceType())) {
 
             if (fermatEvent.getStatus() == NetworkClientActorListReceivedEvent.STATUS.SUCCESS)
                 this.networkService.handleNetworkClientActorListReceivedEvent(fermatEvent.getQueryID(), fermatEvent.getActorList());

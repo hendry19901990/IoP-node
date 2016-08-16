@@ -22,6 +22,7 @@ public class Package implements Serializable {
 
     /**
      * Represent the id
+     * si es un ack el package id es el id del paquete enviado
      */
     private UUID packageId;
 
@@ -181,6 +182,35 @@ public class Package implements Serializable {
 
         return new Package(
                 UUID.randomUUID(),
+                content                     ,
+                networkServiceTypeSource    ,
+                packageType                 ,
+                signature                   ,
+                destinationIdentityPublicKey
+        );
+    }
+
+    public static Package createInstance(final UUID packageId,
+                                         final String             content                     ,
+                                         final NetworkServiceType networkServiceTypeSource    ,
+                                         final PackageType        packageType                 ,
+                                         final String             senderPrivateKey            ,
+                                         final String             destinationIdentityPublicKey) {
+
+
+        String messageHash = AsymmetricCryptography.encryptMessagePublicKey(
+                content,
+                destinationIdentityPublicKey
+        );
+
+        String signature   = AsymmetricCryptography.createMessageSignature(
+                messageHash,
+                senderPrivateKey
+        );
+
+
+        return new Package(
+                packageId,
                 content                     ,
                 networkServiceTypeSource    ,
                 packageType                 ,

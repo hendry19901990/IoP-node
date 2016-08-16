@@ -2,6 +2,8 @@ package org.iop.client.version_1.channels.processors;
 
 import com.bitdubai.fermat_api.layer.all_definition.events.EventSource;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEvent;
+import com.bitdubai.fermat_api.layer.all_definition.exceptions.InvalidParameterException;
+import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.clients.events.NetworkClientActorListReceivedEvent;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ActorListMsgRespond;
@@ -53,7 +55,11 @@ public class ActorListRespondProcessor extends PackageProcessor {
         actorListReceived.setSource(EventSource.NETWORK_CLIENT);
 
         actorListReceived.setActorList(actorListMsgRespond.getActors());
-        actorListReceived.setNetworkServicePublicKey(actorListMsgRespond.getNetworkServicePublicKey());
+        try {
+            actorListReceived.setNetworkServiceType(NetworkServiceType.getByCode(actorListMsgRespond.getNetworkServiceType()));
+        } catch (InvalidParameterException e) {
+            e.printStackTrace();
+        }
         actorListReceived.setQueryID(actorListMsgRespond.getQueryId());
 
         if(actorListMsgRespond.getStatus() == ActorListMsgRespond.STATUS.SUCCESS){
@@ -61,6 +67,8 @@ public class ActorListRespondProcessor extends PackageProcessor {
         }else{
             actorListReceived.setStatus(NetworkClientActorListReceivedEvent.STATUS.FAILED);
         }
+
+        actorListReceived.setPackageId(packageReceived.getPackageId());
 
         /*
          * Raise the event

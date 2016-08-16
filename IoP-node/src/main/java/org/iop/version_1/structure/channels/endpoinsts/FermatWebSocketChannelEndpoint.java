@@ -15,6 +15,7 @@ import javax.websocket.Session;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint</code>
@@ -124,6 +125,23 @@ public abstract class FermatWebSocketChannelEndpoint {
         }
     }
 
+    public void sendPackage(Session session, UUID packageId, String packageContent, NetworkServiceType networkServiceType, PackageType packageType, String destinationIdentityPublicKey) throws IOException, EncodeException {
+        if (session.isOpen()) {
+            Package packageRespond = Package.createInstance(
+                    packageId,
+                    packageContent                      ,
+                    networkServiceType                  ,
+                    packageType                         ,
+                    getChannelIdentity().getPrivateKey(),
+                    destinationIdentityPublicKey
+            );
+
+            session.getBasicRemote().sendObject(packageRespond);
+        } else {
+            throw new IOException("connection is not opened.");
+        }
+    }
+
     public synchronized final void sendPackage(final Session            session           ,
                                                final byte[]             packageContent    ,
                                                final NetworkServiceType networkServiceType,
@@ -146,11 +164,14 @@ public abstract class FermatWebSocketChannelEndpoint {
         }
     }
 
+
+
     /**
      * Gets the value of packageProcessors and returns
      *
      * @return packageProcessors
      */
     protected abstract Map<String,PackageProcessor> getPackageProcessors();
+
 
 }
