@@ -1104,7 +1104,7 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
      * @return int
      * @throws CantReadRecordDataBaseException
      */
-    public int count(Map<String, Object> filters) throws CantReadRecordDataBaseException {
+    public Long count(Map<String, Object> filters) throws CantReadRecordDataBaseException {
 
         LOG.debug(new StringBuilder("Executing list(")
                 .append(filters)
@@ -1116,9 +1116,9 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
         try {
 
             CriteriaBuilder criteriaBuilder = connection.getCriteriaBuilder();
-            CriteriaQuery<E> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
             Root<E> entities = criteriaQuery.from(entityClass);
-            criteriaQuery.select(entities);
+            criteriaQuery.select(connection.getCriteriaBuilder().count(entities));
 
             //Verify that the filters are not empty
             if (filters != null && filters.size() > 0) {
@@ -1166,9 +1166,8 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
 
             }
 
-            criteriaQuery.orderBy(criteriaBuilder.asc(entities.get("id")));
-            TypedQuery<E> query = connection.createQuery(criteriaQuery);
-            return query.getResultList().size();
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
+            return query.getSingleResult();
 
         } catch (Exception e) {
             LOG.error(e);

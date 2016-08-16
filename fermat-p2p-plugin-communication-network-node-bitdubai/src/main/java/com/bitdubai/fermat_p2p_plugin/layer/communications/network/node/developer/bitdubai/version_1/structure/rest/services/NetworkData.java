@@ -260,7 +260,7 @@ public class NetworkData {
                 try {
                     Map<String, Object> filter = new HashMap<>();
                     filter.put("networkService.networkServiceType", networkServiceType.toString());
-                    Long count = (long) networkServiceSessionDao.count(filter);
+                    Long count = networkServiceSessionDao.count(filter);
 
                     listNetworkServicesCount.put(networkServiceType, count);
                 } catch (CantReadRecordDataBaseException e) {
