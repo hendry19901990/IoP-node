@@ -97,20 +97,18 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
              * Configure the session and mach the session with the client public key identity
              */
             session.setMaxTextMessageBufferSize(FermatWebSocketChannelEndpoint.MAX_MESSAGE_SIZE);
+            session.setMaxIdleTimeout(FermatWebSocketChannelEndpoint.MAX_IDLE_TIMEOUT);
 
-            Client client = JPADaoFactory.getClientDao().findById(cpki);
+            String oldSessionId = JPADaoFactory.getClientDao().getSessionId(cpki);
 
-            if (client != null ) {
-                //todo: esto está mal
-                if (clientsSessionMemoryCache.exist(client.getSession())){
-                    Session previousSession = clientsSessionMemoryCache.get(client.getSession());
+            if (oldSessionId != null && !oldSessionId.isEmpty()) {
+
+                if (clientsSessionMemoryCache.exist(oldSessionId)){
+                    Session previousSession = clientsSessionMemoryCache.get(oldSessionId);
                     if (previousSession.isOpen()) {
                         previousSession.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Closing a Previous Session"));
                     }
                 }
-            }else {
-                client = new Client(cpki);
-                JPADaoFactory.getClientDao().save(client);
             }
 
             clientsSessionMemoryCache.add(session);
