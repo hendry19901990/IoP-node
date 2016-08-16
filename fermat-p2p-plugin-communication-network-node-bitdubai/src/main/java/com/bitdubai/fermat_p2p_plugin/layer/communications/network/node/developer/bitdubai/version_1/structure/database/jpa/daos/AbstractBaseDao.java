@@ -1050,7 +1050,7 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
      *
      * @return int
      */
-    public int count() throws CantReadRecordDataBaseException {
+    public Long count() throws CantReadRecordDataBaseException {
 
         LOG.debug("Executing count()");
         EntityManager connection = getConnection();
@@ -1061,8 +1061,8 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             CriteriaQuery<Long> criteriaQuery = criteriaBuilder.createQuery(Long.class);
             Root<E> root = criteriaQuery.from(entityClass);
             criteriaQuery.select(connection.getCriteriaBuilder().count(root));
-            Query query = connection.createQuery(criteriaQuery);
-            return Integer.parseInt(query.getSingleResult().toString());
+            TypedQuery<Long> query = connection.createQuery(criteriaQuery);
+            return query.getSingleResult();
 
         } catch (Exception e) {
             LOG.error(e);
