@@ -90,8 +90,8 @@ public class ClientMain {
             profile.setIdentityPublicKey(UUID.randomUUID().toString());
             System.out.println("I will try to register an actor with pk "+profile.getIdentityPublicKey());
             profile.setActorType(Actors.CHAT.getCode());
-            profile.setName("Juan");
-            profile.setAlias("Alias chat");
+            profile.setName("Carlitos");
+            profile.setAlias("Carlitos");
             //This represents a valid image
             profile.setPhoto(null);
             profile.setNsIdentityPublicKey(chatNetworkServicePluginRoot.getNetWorkServicePublicKey());
