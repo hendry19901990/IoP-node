@@ -2,6 +2,8 @@ package org.iop.version_1.structure.channels.processors.clients;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.IsActorOnlineMsgRequest;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.IsActorOnlineMsgRespond;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.MsgRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.ProfileStatus;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
@@ -25,12 +27,12 @@ public class IsActorOnlineRequestProcessor extends PackageProcessor {
     /**
      * Represent the LOG
      */
-    private final Logger LOG = Logger.getLogger(ClassUtils.getShortClassName(isActorOnlineRequestProcessor.class));
+    private final Logger LOG = Logger.getLogger(ClassUtils.getShortClassName(IsActorOnlineRequestProcessor.class));
 
     /**
      * Default constructor
      */
-    public isActorOnlineRequestProcessor() {
+    public IsActorOnlineRequestProcessor() {
         super(PackageType.IS_ACTOR_ONLINE);
     }
 
@@ -66,21 +68,70 @@ public class IsActorOnlineRequestProcessor extends PackageProcessor {
             //Get the profile from node database
             ActorCatalogDao actorCatalogDao = JPADaoFactory.getActorCatalogDao();
             ActorCatalog actorCatalog = actorCatalogDao.findById(actorProfile.getIdentityPublicKey());
+            ProfileStatus profileStatus;
             if(actorCatalog==null){
-                //TODO: respond with status unknown
+                profileStatus = ProfileStatus.UNKNOWN;
             } else{
                 //Checking the session, if the session is null the actor is offline
-                ProfileStatus profileStatus;
                 if(actorCatalog.getSessionId()!=null){
                     profileStatus = ProfileStatus.ONLINE;
                 } else {
                     profileStatus = ProfileStatus.OFFLINE;
                 }
-                //TODO: respond with the status from database
+
+            }
+            //Respond the request
+            IsActorOnlineMsgRespond isActorOnlineMsgRespond = new IsActorOnlineMsgRespond(
+                    packageReceived.getPackageId(),
+                    IsActorOnlineMsgRespond.STATUS.SUCCESS,
+                    IsActorOnlineMsgRespond.STATUS.SUCCESS.toString(),
+                    actorProfile, profileStatus,
+                    isActorOnlineMsgRequest.getQueryId());
+
+            //Create instance
+            if (session.isOpen()) {
+
+                return Package.createInstance(
+                        isActorOnlineMsgRespond.toJson()                      ,
+                        packageReceived.getNetworkServiceTypeSource()                  ,
+                        PackageType.IS_ACTOR_ONLINE                         ,
+                        channel.getChannelIdentity().getPrivateKey(),
+                        destinationIdentityPublicKey
+                );
+
+            } else {
+                throw new IOException("connection is not opened.");
             }
 
-        } catch(Exception e){
-            //Todo: catch properly this
+        } catch(Exception exception){
+            try {
+                exception.printStackTrace();
+                LOG.error(exception.getMessage());
+                /*
+                 * Respond whit fail message
+                 */
+                IsActorOnlineMsgRespond actorListMsgRespond = new IsActorOnlineMsgRespond(
+                        packageReceived.getPackageId(),
+                        IsActorOnlineMsgRespond.STATUS.FAIL,
+                        exception.getLocalizedMessage(),
+                        null,
+                        null,
+                        (isActorOnlineMsgRequest == null ? null : isActorOnlineMsgRequest.getQueryId())
+                );
+
+                return Package.createInstance(
+                        actorListMsgRespond.toJson()                      ,
+                        packageReceived.getNetworkServiceTypeSource()                  ,
+                        PackageType.IS_ACTOR_ONLINE                         ,
+                        channel.getChannelIdentity().getPrivateKey(),
+                        destinationIdentityPublicKey
+                );
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                LOG.error(e);
+                return null;
+            }
         }
     }
 }

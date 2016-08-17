@@ -92,4 +92,13 @@ public class IsActorOnlineMsgRespond extends MsgRespond {
     public static IsActorOnlineMsgRespond parseContent(String content) {
         return GsonProvider.getGson().fromJson(content, IsActorOnlineMsgRespond.class);
     }
+
+    @Override
+    public String toString() {
+        return "IsActorOnlineMsgRespond{" +
+                "queryId=" + queryId +
+                ", requestedProfile=" + requestedProfile +
+                ", profileStatus=" + profileStatus +
+                '}';
+    }
 }

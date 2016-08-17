@@ -3,6 +3,9 @@ package com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.d
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.PackageContent;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.Profile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.util.GsonProvider;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.MessageContentType;
+
+import java.util.UUID;
 
 /**
  * This class represents the the message to request if an actor is online.
@@ -11,16 +14,25 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.ut
 public class IsActorOnlineMsgRequest extends PackageContent {
 
     /**
+     * Represents the query Id
+     */
+    private UUID queryId;
+
+    /**
      * Represents the requested profile
      */
     private Profile requestedProfile;
 
     /**
-     * Default construc with parameters
+     * Default constructor with parameters
      * @param requestedProfile
      */
-    public IsActorOnlineMsgRequest(Profile requestedProfile) {
+    public IsActorOnlineMsgRequest(
+            UUID queryId,
+            Profile requestedProfile) {
 
+        super(MessageContentType.JSON);
+        this.queryId = queryId;
         this.requestedProfile = requestedProfile;
     }
 
@@ -32,6 +44,10 @@ public class IsActorOnlineMsgRequest extends PackageContent {
     public Profile getRequestedProfile() {
 
         return requestedProfile;
+    }
+
+    public UUID getQueryId(){
+        return queryId;
     }
 
     /**
@@ -51,5 +67,13 @@ public class IsActorOnlineMsgRequest extends PackageContent {
      */
     public static IsActorOnlineMsgRequest parseContent(String content) {
         return GsonProvider.getGson().fromJson(content, IsActorOnlineMsgRequest.class);
+    }
+
+    @Override
+    public String toString() {
+        return "IsActorOnlineMsgRequest{" +
+                "queryId=" + queryId +
+                ", requestedProfile=" + requestedProfile +
+                '}';
     }
 }
