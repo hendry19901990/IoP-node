@@ -145,7 +145,7 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
     @OnMessage
     public Package newPackageReceived(Package packageReceived, Session session) {
 
-        LOG.info("New package received (" + packageReceived.getPackageType().name() + ")");
+        LOG.info("Thread id: "+Thread.currentThread().getId()+"New package received (" + packageReceived.getPackageType().name() + ")");
         try {
 
             /*
