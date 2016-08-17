@@ -28,7 +28,7 @@ import java.util.*;
  * @version 1.0
  * @since Java JDK 1.7
  */
-public class ActorCatalogDao extends AbstractComponentsDao<ActorCatalog> {
+public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
 
     /**
      * Represent the LOG
@@ -542,5 +542,42 @@ public class ActorCatalogDao extends AbstractComponentsDao<ActorCatalog> {
         }
 
     }
+
+    /**
+     * Delete a client from data base whit have
+     * the sessionId
+     *
+     * @param sessionId
+     * @throws CantUpdateRecordDataBaseException
+     */
+    public void checkOut(String sessionId) throws CantUpdateRecordDataBaseException {
+
+        LOG.debug("Executing delete("+sessionId+")");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            Query deleteQuery = connection.createQuery("UPDATE ActorCatalog a SET a.sessionId = null WHERE a.sessionId = :id");
+            deleteQuery.setParameter("id", sessionId);
+            int result = deleteQuery.executeUpdate();
+
+            LOG.debug("Update row = "+result+"");
+
+            transaction.commit();
+            connection.flush();
+
+        } catch (Exception e) {
+            LOG.error(e);
+            transaction.rollback();
+            throw new CantUpdateRecordDataBaseException(CantUpdateRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
+        }
+
+    }
+
 
 }
