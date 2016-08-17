@@ -5,8 +5,9 @@
 package org.iop.version_1.structure.database.jpa;
 
 import org.apache.commons.lang.ClassUtils;
-import org.iop.version_1.structure.util.ProviderResourcesFilesPath;
 import org.apache.log4j.Logger;
+import org.iop.version_1.structure.database.jpa.entities.*;
+import org.iop.version_1.structure.util.ProviderResourcesFilesPath;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -66,7 +67,14 @@ public class DatabaseManager {
         LOG.info("Open a database connection (create a new database if it doesn't exist yet)");
         entityManagerFactory = Persistence.createEntityManagerFactory(path.concat(DATA_BASE_NAME), properties);
 
-
+        /*
+         * Create tables at start up
+         */
+        entityManagerFactory.createEntityManager().getMetamodel().entity(ActorCatalog.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(Client.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(GeoLocation.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(NetworkService.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(NodeCatalog.class);
     }
 
 

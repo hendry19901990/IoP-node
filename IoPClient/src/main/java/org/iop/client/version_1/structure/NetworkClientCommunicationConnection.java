@@ -42,6 +42,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Future;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.client.developer.bitdubai.version_1.structure.NetworkClientCommunicationConnection</code>
@@ -520,7 +521,12 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
                         destinationIdentityPublicKey
                 );
 
-                networkClientCommunicationChannel.getClientConnection().getAsyncRemote().sendObject(pack).get();
+
+                Future<?> result = networkClientCommunicationChannel.getClientConnection().getAsyncRemote().sendObject(pack);
+                result.get();
+                System.out.println("******* result " + result.isDone());
+
+
 
                 return pack.getPackageId();
             } catch (Exception exception) {

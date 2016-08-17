@@ -22,6 +22,7 @@ public class ActorListMsgRequest extends PackageContent {
 
     private UUID                     queryId                ;
     private String networkServiceType;
+    
     private DiscoveryQueryParameters parameters             ;
     //todo: porqué este pk acá?
 //    private String                   clientPublicKey        ;

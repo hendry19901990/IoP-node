@@ -49,13 +49,4 @@ public final class NodeContext {
         return references.remove(key);
     }
 
-    /**
-     *
-     * @return
-     */
-
-    public static SessionManager getSessionManager(){
-        return SessionManager.getInstance();
-    }
-
 }
