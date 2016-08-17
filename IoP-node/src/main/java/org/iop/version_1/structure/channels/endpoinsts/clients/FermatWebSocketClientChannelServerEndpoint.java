@@ -48,16 +48,10 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
     private final Logger LOG = Logger.getLogger(ClassUtils.getShortClassName(FermatWebSocketClientChannelServerEndpoint.class));
 
     /**
-     * Represent the clientsSessionMemoryCache instance
-     */
-    private final SessionManager clientsSessionMemoryCache;
-
-    /**
      * Constructor
      */
     public FermatWebSocketClientChannelServerEndpoint(){
         super();
-        this.clientsSessionMemoryCache = NodeContext.getSessionManager();
     }
 
     /**
@@ -103,15 +97,17 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
 
             if (oldSessionId != null && !oldSessionId.isEmpty()) {
 
-                if (clientsSessionMemoryCache.exist(oldSessionId)){
-                    Session previousSession = clientsSessionMemoryCache.get(oldSessionId);
+                LOG.warn("oldSessionId found: = " + oldSessionId);
+
+                if (SessionManager.exist(oldSessionId)){
+                    Session previousSession = SessionManager.get(oldSessionId);
                     if (previousSession.isOpen()) {
                         previousSession.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Closing a Previous Session"));
                     }
                 }
             }
 
-            clientsSessionMemoryCache.add(session);
+            SessionManager.add(session);
 
             /*
              * Construct packet SERVER_HANDSHAKE_RESPONSE
@@ -179,7 +175,7 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
         try {
 
 
-            clientsSessionMemoryCache.remove(session);
+            SessionManager.remove(session);
 //            JPADaoFactory.getClientSessionDao().checkOut(session);
 
         } catch (Exception exception) {
@@ -209,9 +205,8 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
                 System.out.println("EndPoint onError: session not open");
                 LOG.error("The session already close, no try to close");
             }
-            clientsSessionMemoryCache.remove(session);
 
-
+            SessionManager.remove(session);
 
         } catch (Exception e) {
             //I'll try to print the stacktrace to determinate this exception

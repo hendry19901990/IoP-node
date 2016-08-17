@@ -36,16 +36,10 @@ public class MessageTransmitProcessor extends PackageProcessor {
     private final Logger LOG = Logger.getLogger(ClassUtils.getShortClassName(MessageTransmitProcessor.class));
 
     /**
-     * Represent the clientsSessionMemoryCache instance
-     */
-    private final SessionManager clientsSessionMemoryCache;
-
-    /**
      * Constructor
      */
     public MessageTransmitProcessor() {
         super(PackageType.MESSAGE_TRANSMIT);
-        this.clientsSessionMemoryCache = NodeContext.getSessionManager();
     }
 
     /**
@@ -68,34 +62,35 @@ public class MessageTransmitProcessor extends PackageProcessor {
             String actorSessionId = JPADaoFactory.getActorCatalogDao().findValueById(destinationIdentityPublicKey,String.class,"sessionId");
 
             LOG.info("ACTOR SESSION ID = "+actorSessionId);
-            Session clientDestination = clientsSessionMemoryCache.get(actorSessionId);
+            Session clientDestination = SessionManager.get(actorSessionId);
 
             LOG.info("CLIENT DESTINATION = "+(clientDestination != null ? clientDestination.getId() : null));
 
             if (clientDestination != null) {
 
-                clientDestination.getAsyncRemote().sendObject(packageReceived, new SendHandler() {
-                    @Override
-                    public void onResult(SendResult result) {
+                clientDestination.getAsyncRemote().sendObject(packageReceived, result -> {
 
                     try {
+
                         if (result.isOK()) {
 
                             ACKRespond messageTransmitRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.SUCCESS, MsgRespond.STATUS.SUCCESS.toString());
                             channel.sendPackage(session,packageReceived.getPackageId(), messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
                             LOG.info("Message transmit successfully");
+
                         } else {
-                            ACKRespond messageTransmitRespond = new ACKRespond(
-                                    packageReceived.getPackageId(),
-                                    MsgRespond.STATUS.FAIL,
-                                    (result.getException() != null ? result.getException().getMessage() : "destination not available"));
+
+                            ACKRespond messageTransmitRespond = new ACKRespond(packageReceived.getPackageId(), MsgRespond.STATUS.FAIL, (result.getException() != null ? result.getException().getMessage() : "destination not available"));
                             channel.sendPackage(session,packageReceived.getPackageId(), messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
                             LOG.info("Message cannot be transmitted", result.getException());
+
                         }
+
                     } catch (Exception ex) {
+                        ex.printStackTrace();
                         LOG.error("Cannot send message to counter part.", ex);
                     }
-                    }
+
                 });
 
             } else {
