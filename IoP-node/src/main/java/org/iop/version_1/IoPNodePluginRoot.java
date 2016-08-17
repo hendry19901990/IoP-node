@@ -322,6 +322,7 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
             LOG.info("Deleting older session and his associate entities");
 
             JPADaoFactory.getClientDao().delete();
+            JPADaoFactory.getClientDao().deleteAllClientGeolocation();
             JPADaoFactory.getNetworkServiceDao().delete();
             JPADaoFactory.getActorCatalogDao().setSessionsToNull();
 
