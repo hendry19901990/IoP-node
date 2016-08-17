@@ -23,18 +23,20 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.NetworkNod
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.NodeProfile;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.structure.JettyEmbeddedAppServer;
 import org.iop.version_1.structure.conf.EmbeddedNodeServerConf;
 import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.NodeContextItem;
+import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.GeoLocation;
 import org.iop.version_1.structure.util.ConfigurationManager;
 import org.iop.version_1.structure.util.UPNPService;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
-import java.util.logging.Logger;
+
+
 
 /**
  * Created by mati on 11/08/16.
@@ -86,6 +88,11 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
 //        validateInjectedResources();
 
         try {
+
+            /*
+             * Clean tables at start
+             */
+            cleanTables();
 
             /*
              * Initialize the identity of the node
@@ -267,9 +274,9 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
             }
         }catch (Exception e){
 
-            LOG.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            LOG.warning("! Could not get the external ip with the online service, it must be configured manually in the configuration file !");
-            LOG.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            LOG.warn("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            LOG.warn("! Could not get the external ip with the online service, it must be configured manually in the configuration file !");
+            LOG.warn("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             publicIp = ConfigurationManager.getValue(ConfigurationManager.PUBLIC_IP);
         }
         return publicIp;
@@ -293,12 +300,35 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
                 location = new GeoLocation(nodeProfile.getIdentityPublicKey(), new Double(ConfigurationManager.getValue(ConfigurationManager.LATITUDE)), new Double(ConfigurationManager.getValue(ConfigurationManager.LONGITUDE)));
             }
         }catch (Exception e){
-            LOG.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            LOG.warning("! Could not get the location with the online service, it must be configured manually in the configuration file !");
-            LOG.warning("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            LOG.warn("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            LOG.warn("! Could not get the location with the online service, it must be configured manually in the configuration file !");
+            LOG.warn("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             location = new GeoLocation(nodeProfile.getIdentityPublicKey(), new Double(ConfigurationManager.getValue(ConfigurationManager.LATITUDE)), new Double(ConfigurationManager.getValue(ConfigurationManager.LONGITUDE)));
         }
         return location;
+    }
+
+
+    /**
+     * This method clean all data from de check in tables.
+     *  - CLIENT
+     *  - NETWORK_SERVICE
+     */
+    private void cleanTables() {
+
+        try {
+
+            LOG.info("Deleting older session and his associate entities");
+
+            JPADaoFactory.getClientDao().delete();
+            JPADaoFactory.getClientDao().deleteAllClientGeolocation();
+            JPADaoFactory.getNetworkServiceDao().delete();
+            JPADaoFactory.getActorCatalogDao().setSessionsToNull();
+
+        }catch (Exception e){
+            LOG.error("Can't Deleting older session and his associate entities, maybe is first time to run the node and the tables no exist: "+e.getMessage());
+        }
+
     }
 
 

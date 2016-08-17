@@ -1,5 +1,6 @@
 package com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.channels.processors.clients;
 
+import com.bitdubai.fermat_api.layer.osa_android.location_system.Location;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.CheckInProfileMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.CheckInProfileMsjRespond;
@@ -140,7 +141,7 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
             hasChanges = true;
         }
 
-        if (!actorProfile.getLocation().equals(actorsCatalogToUpdate.getLocation())) {
+        if (!isLocationEqual(actorProfile.getLocation(), actorsCatalogToUpdate.getLocation())) {
             actorsCatalogToUpdate.setLocation(actorProfile.getLocation().getLatitude(), actorProfile.getLocation().getLongitude());
             hasChanges = true;
         }
@@ -164,6 +165,14 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
         }
 
         return actorsCatalogToUpdate;
+    }
+
+    private boolean isLocationEqual(Location loc1, Location loc2) {
+
+        if (loc1 != null && loc2 != null) {
+            return loc1.getLatitude().equals(loc2.getLatitude()) && loc1.getLongitude().equals(loc2.getLongitude());
+        } else
+            return loc1 == null && loc2 == null;
     }
 
     private ActorCatalog create(ActorProfile actorProfile, ActorCatalogDao actorCatalogDao) throws IOException, CantInsertRecordDataBaseException, CantReadRecordDataBaseException {
