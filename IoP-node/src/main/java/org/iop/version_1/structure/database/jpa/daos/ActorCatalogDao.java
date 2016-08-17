@@ -564,7 +564,7 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
             deleteQuery.setParameter("id", sessionId);
             int result = deleteQuery.executeUpdate();
 
-            LOG.debug("Update row = "+result+"");
+            LOG.info("Update rows = "+result+"");
 
             transaction.commit();
             connection.flush();
