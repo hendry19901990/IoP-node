@@ -83,7 +83,7 @@ public class ClientDao extends AbstractComponentsDao<Client>{
 
         try {
 
-            TypedQuery<String> query = connection.createQuery("SELECT c.sessionId FROM Client c WHERE c.id = :id ORDER BY c.session.timestamp DESC", String.class);
+            TypedQuery<String> query = connection.createQuery("SELECT c.sessionId FROM Client c WHERE c.id = :id", String.class);
             query.setParameter("id", clientId);
             query.setMaxResults(1);
 
