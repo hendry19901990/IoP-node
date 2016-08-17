@@ -14,12 +14,10 @@ import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainer
 import org.iop.version_1.structure.channels.endpoinsts.clients.FermatWebSocketClientChannelServerEndpoint;
 import org.iop.version_1.structure.util.ConfigurationManager;
 
-import javax.servlet.DispatcherType;
 import javax.servlet.ServletException;
 import javax.websocket.DeploymentException;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.EnumSet;
 
 /**
 

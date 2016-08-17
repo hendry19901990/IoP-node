@@ -23,6 +23,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.NetworkNod
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.NodeProfile;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang3.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.structure.JettyEmbeddedAppServer;
 import org.iop.version_1.structure.conf.EmbeddedNodeServerConf;
 import org.iop.version_1.structure.context.NodeContext;
@@ -32,10 +33,8 @@ import org.iop.version_1.structure.database.jpa.entities.GeoLocation;
 import org.iop.version_1.structure.util.ConfigurationManager;
 import org.iop.version_1.structure.util.UPNPService;
 
-
 import java.io.IOException;
 import java.util.UUID;
-import org.apache.log4j.Logger;
 
 
 

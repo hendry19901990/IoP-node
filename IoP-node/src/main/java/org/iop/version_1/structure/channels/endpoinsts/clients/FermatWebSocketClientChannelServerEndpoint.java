@@ -13,10 +13,8 @@ import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEnd
 import org.iop.version_1.structure.channels.endpoinsts.clients.conf.ClientChannelConfigurator;
 import org.iop.version_1.structure.channels.processors.NodesPackageProcessorFactory;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
-import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.SessionManager;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
-import org.iop.version_1.structure.database.jpa.entities.Client;
 import org.iop.version_1.structure.util.PackageDecoder;
 import org.iop.version_1.structure.util.PackageEncoder;
 

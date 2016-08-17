@@ -1,7 +1,8 @@
 package org.iop.version_1.structure.channels.processors;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
-import org.iop.version_1.structure.channels.processors.clients.*;
+import org.iop.version_1.structure.channels.processors.clients.ActorListRequestProcessor;
+import org.iop.version_1.structure.channels.processors.clients.MessageTransmitProcessor;
 import org.iop.version_1.structure.channels.processors.clients.checkin.CheckInActorRequestProcessor;
 import org.iop.version_1.structure.channels.processors.clients.checkin.CheckInClientRequestProcessor;
 import org.iop.version_1.structure.channels.processors.clients.checkin.CheckInNetworkServiceRequestProcessor;
