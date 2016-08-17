@@ -86,7 +86,8 @@ public class IsActorOnlineRequestProcessor extends PackageProcessor {
                     IsActorOnlineMsgRespond.STATUS.SUCCESS,
                     IsActorOnlineMsgRespond.STATUS.SUCCESS.toString(),
                     actorProfile, profileStatus,
-                    isActorOnlineMsgRequest.getQueryId());
+                    isActorOnlineMsgRequest.getQueryId(),
+                    packageReceived.getNetworkServiceTypeSource().getCode());
 
             //Create instance
             if (session.isOpen()) {
@@ -116,7 +117,8 @@ public class IsActorOnlineRequestProcessor extends PackageProcessor {
                         exception.getLocalizedMessage(),
                         null,
                         null,
-                        (isActorOnlineMsgRequest == null ? null : isActorOnlineMsgRequest.getQueryId())
+                        (isActorOnlineMsgRequest == null ? null : isActorOnlineMsgRequest.getQueryId()),
+                        (packageReceived == null ? null : packageReceived.getNetworkServiceTypeSource().toString())
                 );
 
                 return Package.createInstance(

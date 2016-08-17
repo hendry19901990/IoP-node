@@ -27,6 +27,11 @@ public class IsActorOnlineMsgRespond extends MsgRespond {
     private ProfileStatus profileStatus;
 
     /**
+     * Represent the networkServicePublicKey
+     */
+    private String networkServiceType;
+
+    /**
      * Constructor with parameters
      *
      * @param packageId
@@ -39,8 +44,9 @@ public class IsActorOnlineMsgRespond extends MsgRespond {
             String details,
             ActorProfile requestedProfile,
             ProfileStatus profileStatus,
-            UUID queryId
-            ) {
+            UUID queryId,
+            String networkServiceType
+    ) {
         super(
                 packageId,
                 status,
@@ -48,6 +54,7 @@ public class IsActorOnlineMsgRespond extends MsgRespond {
         this.requestedProfile = requestedProfile;
         this.profileStatus = profileStatus;
         this.queryId = queryId;
+        this.networkServiceType = networkServiceType;
     }
 
     /**
@@ -83,6 +90,10 @@ public class IsActorOnlineMsgRespond extends MsgRespond {
         return GsonProvider.getGson().toJson(this, getClass());
     }
 
+    public String getNetworkServiceType() {
+        return networkServiceType;
+    }
+
     /**
      * Get the object
      *
@@ -99,6 +110,7 @@ public class IsActorOnlineMsgRespond extends MsgRespond {
                 "queryId=" + queryId +
                 ", requestedProfile=" + requestedProfile +
                 ", profileStatus=" + profileStatus +
+                ", networkServiceType='" + networkServiceType + '\'' +
                 '}';
     }
 }
