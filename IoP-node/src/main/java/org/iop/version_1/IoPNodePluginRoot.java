@@ -326,7 +326,7 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
             JPADaoFactory.getActorCatalogDao().setSessionsToNull();
 
         }catch (Exception e){
-            LOG.error("Can't Deleting older session and his associate entities: "+e.getMessage());
+            LOG.error("Can't Deleting older session and his associate entities, maybe is first time to run the node and the tables no exist: "+e.getMessage());
         }
 
     }
