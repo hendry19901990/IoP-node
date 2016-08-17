@@ -9,8 +9,11 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SessionManager {
 
+    /**
+     * Represent the singleton instance
+     */
+    private static SessionManager instance = new SessionManager();
 
-    private static SessionManager instance = new SessionManager();;
     /**
      * Holds all client sessions
      * SessionId+Client
@@ -29,7 +32,7 @@ public class SessionManager {
      *
      * @return ClientsSessionMemoryCache
      */
-    public static SessionManager getInstance(){
+    private static SessionManager getInstance(){
         return instance;
     }
 
@@ -39,7 +42,7 @@ public class SessionManager {
      * @param sessionId the client identity
      * @return the session of the client
      */
-    public Session get(String sessionId){
+    public static Session get(String sessionId){
 
         if (sessionId != null && !sessionId.isEmpty()){
             /*
@@ -56,7 +59,7 @@ public class SessionManager {
      *
      * @param session the client session
      */
-    public void add(final Session session){
+    public static void add(final Session session){
 
         /*
          * Add to the cache
@@ -70,7 +73,7 @@ public class SessionManager {
      * @param session the session of the connection
      * @return the id of the session
      */
-    public String remove(Session session){
+    public static String remove(Session session){
 
         /*
          * remove the session of this client
@@ -96,7 +99,7 @@ public class SessionManager {
      *
      * @return (TRUE or FALSE)
      */
-    public boolean exist(String sessionId){
+    public static boolean exist(String sessionId){
 
         return getInstance().clientSessionsById.containsKey(sessionId);
     }
