@@ -5,8 +5,6 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.pr
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.util.GsonProvider;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.MessageContentType;
 
-import java.util.UUID;
-
 /**
  * This class represents the the message to request if an actor is online.
  * Created by Manuel Perez (darkpriestrelative@gmail.com) on 16/08/16.
@@ -14,26 +12,19 @@ import java.util.UUID;
 public class IsActorOnlineMsgRequest extends PackageContent {
 
     /**
-     * Represents the query Id
-     */
-    private UUID queryId;
-
-    /**
      * Represents the requested profile
      */
-    private Profile requestedProfile;
+    private String requestedProfilePublicKey;
 
     /**
      * Default constructor with parameters
      * @param requestedProfile
      */
     public IsActorOnlineMsgRequest(
-            UUID queryId,
             Profile requestedProfile) {
 
         super(MessageContentType.JSON);
-        this.queryId = queryId;
-        this.requestedProfile = requestedProfile;
+        this.requestedProfilePublicKey = requestedProfile.getIdentityPublicKey();
     }
 
     /**
@@ -41,13 +32,9 @@ public class IsActorOnlineMsgRequest extends PackageContent {
      *
      * @return requestedProfile
      */
-    public Profile getRequestedProfile() {
+    public String getRequestedProfilePublicKey() {
 
-        return requestedProfile;
-    }
-
-    public UUID getQueryId(){
-        return queryId;
+        return requestedProfilePublicKey;
     }
 
     /**
@@ -72,8 +59,7 @@ public class IsActorOnlineMsgRequest extends PackageContent {
     @Override
     public String toString() {
         return "IsActorOnlineMsgRequest{" +
-                "queryId=" + queryId +
-                ", requestedProfile=" + requestedProfile +
+                ", requestedProfilePublicKey=" + requestedProfilePublicKey +
                 '}';
     }
 }

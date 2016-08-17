@@ -4,7 +4,6 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.da
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.IsActorOnlineMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.IsActorOnlineMsgRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.ProfileStatus;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.apache.commons.lang.ClassUtils;
@@ -61,15 +60,15 @@ public class IsActorOnlineRequestProcessor extends PackageProcessor {
                 .parseContent(packageReceived.getContent());
 
         //Profile requested
-        ActorProfile actorProfile = (ActorProfile) isActorOnlineMsgRequest.getRequestedProfile();
+        String actorProfilePublicKey = isActorOnlineMsgRequest.getRequestedProfilePublicKey();
 
         try{
             //Get the profile from node database
             ActorCatalogDao actorCatalogDao = JPADaoFactory.getActorCatalogDao();
-            ActorCatalog actorCatalog = actorCatalogDao.findById(actorProfile.getIdentityPublicKey());
+            ActorCatalog actorCatalog = actorCatalogDao.findById(actorProfilePublicKey);
             ProfileStatus profileStatus;
             if(actorCatalog==null){
-                profileStatus = ProfileStatus.UNKNOWN;
+                profileStatus = ProfileStatus.OFFLINE;
             } else{
                 //Checking the session, if the session is null the actor is offline
                 if(actorCatalog.getSessionId()!=null){
@@ -84,8 +83,7 @@ public class IsActorOnlineRequestProcessor extends PackageProcessor {
                     packageReceived.getPackageId(),
                     IsActorOnlineMsgRespond.STATUS.SUCCESS,
                     IsActorOnlineMsgRespond.STATUS.SUCCESS.toString(),
-                    actorProfile, profileStatus,
-                    isActorOnlineMsgRequest.getQueryId(),
+                    actorProfilePublicKey, profileStatus,
                     packageReceived.getNetworkServiceTypeSource().getCode());
 
             //Create instance
@@ -116,7 +114,6 @@ public class IsActorOnlineRequestProcessor extends PackageProcessor {
                         exception.getLocalizedMessage(),
                         null,
                         null,
-                        (isActorOnlineMsgRequest == null ? null : isActorOnlineMsgRequest.getQueryId()),
                         (packageReceived == null ? null : packageReceived.getNetworkServiceTypeSource().toString())
                 );
 
