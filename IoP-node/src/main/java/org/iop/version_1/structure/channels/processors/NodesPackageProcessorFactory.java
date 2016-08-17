@@ -2,6 +2,7 @@ package org.iop.version_1.structure.channels.processors;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.iop.version_1.structure.channels.processors.clients.ActorListRequestProcessor;
+import org.iop.version_1.structure.channels.processors.clients.IsActorOnlineRequestProcessor;
 import org.iop.version_1.structure.channels.processors.clients.MessageTransmitProcessor;
 import org.iop.version_1.structure.channels.processors.clients.checkin.CheckInActorRequestProcessor;
 import org.iop.version_1.structure.channels.processors.clients.checkin.CheckInClientRequestProcessor;
@@ -30,6 +31,7 @@ public class NodesPackageProcessorFactory {
         packageProcessors.put(PackageType.CHECK_IN_NETWORK_SERVICE_REQUEST.name(),new CheckInNetworkServiceRequestProcessor());
         packageProcessors.put(PackageType.CHECK_IN_ACTOR_REQUEST.name(),new CheckInActorRequestProcessor());
         packageProcessors.put(PackageType.MESSAGE_TRANSMIT.name(),new MessageTransmitProcessor());
+        packageProcessors.put(PackageType.IS_ACTOR_ONLINE.name(),new IsActorOnlineRequestProcessor());
         //todo: faltan processors
         return packageProcessors;
     }
