@@ -173,8 +173,10 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
         try {
 
 
+            LOG.info("Removing session and associate entities");
             SessionManager.remove(session);
-//            JPADaoFactory.getClientSessionDao().checkOut(session);
+            JPADaoFactory.getClientDao().checkOut(session.getId());
+            JPADaoFactory.getActorCatalogDao().checkOut(session.getId());
 
         } catch (Exception exception) {
 
@@ -197,18 +199,15 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
         try {
 
             if (session.isOpen()){
-                System.out.println("EndPoint onError: session open, cerrando");
+                LOG.warn("session is open, try to close");
                 session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, throwable.getMessage()));
             }else {
-                System.out.println("EndPoint onError: session not open");
                 LOG.error("The session already close, no try to close");
             }
 
             SessionManager.remove(session);
 
         } catch (Exception e) {
-            //I'll try to print the stacktrace to determinate this exception
-            System.out.println("ON CLOSE EXCEPTION: ");
             e.printStackTrace();
             LOG.error(e);
         }
