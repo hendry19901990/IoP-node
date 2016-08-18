@@ -96,6 +96,7 @@ public class ClientMain {
             profile.setPhoto(null);
             profile.setNsIdentityPublicKey(chatNetworkServicePluginRoot.getNetWorkServicePublicKey());
             profile.setExtraData("Test extra data");
+            profile.setLocation(10.4, -11.1);
             chatNetworkServicePluginRoot.registerActor(profile, 0, 0);
 
             ActorProfile profile2 = new ActorProfile();
@@ -108,6 +109,7 @@ public class ClientMain {
             profile2.setPhoto(null);
             profile2.setNsIdentityPublicKey(chatNetworkServicePluginRoot.getNetWorkServicePublicKey());
             profile2.setExtraData("Test extra data");
+            profile2.setLocation(80.5, -14.12);
             chatNetworkServicePluginRoot.registerActor(profile2, 0, 0);
 //            chatNetworkServicePluginRoot.getConnection().registerProfile();
 
