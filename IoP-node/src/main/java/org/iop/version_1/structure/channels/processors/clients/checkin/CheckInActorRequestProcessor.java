@@ -182,7 +182,12 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
          */
         byte[] thumbnail = null;
         if (actorProfile.getPhoto() != null && actorProfile.getPhoto().length > 0) {
-            thumbnail = ThumbnailUtil.generateThumbnail(actorProfile.getPhoto());
+            try {
+                thumbnail = ThumbnailUtil.generateThumbnail(actorProfile.getPhoto());
+            }catch (Exception e){
+                //fijarse esto...
+                e.printStackTrace();
+            }
         }
 
 
