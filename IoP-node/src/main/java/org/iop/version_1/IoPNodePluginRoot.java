@@ -28,6 +28,7 @@ import org.iop.version_1.structure.JettyEmbeddedAppServer;
 import org.iop.version_1.structure.conf.EmbeddedNodeServerConf;
 import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.NodeContextItem;
+import org.iop.version_1.structure.database.jpa.DatabaseManager;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.GeoLocation;
 import org.iop.version_1.structure.util.ConfigurationManager;
@@ -88,6 +89,8 @@ public class IoPNodePluginRoot extends AbstractPlugin implements NetworkNodeMana
 //        validateInjectedResources();
 
         try {
+
+            DatabaseManager.start();
 
             /*
              * Clean tables at start
