@@ -124,15 +124,13 @@ public class DatabaseManager {
          * Configure environment
          */
         String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
-        System.setProperty("objectdb.home", path);
-        System.setProperty("objectdb.temp.avoid-page-recycle", "true");
         System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
 
         executorService.execute(() -> {
 
             LOG.info("Initializing objectdb database in server mode");
             try {
-                Runtime.getRuntime().exec("java -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start");
+                Runtime.getRuntime().exec("java -Dobjectdb.temp.avoid-page-recycle=true -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start");
             } catch (IOException e) {
                 e.printStackTrace();
             }
