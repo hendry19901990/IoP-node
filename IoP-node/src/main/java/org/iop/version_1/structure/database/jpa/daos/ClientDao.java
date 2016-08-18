@@ -26,7 +26,7 @@ import java.util.List;
  * @version 1.0
  * @since Java JDK 1.7
  */
-public class ClientDao extends AbstractComponentsDao<Client>{
+public class ClientDao extends AbstractBaseDao<Client>{
 
     /**
      * Represent the LOG
@@ -98,4 +98,52 @@ public class ClientDao extends AbstractComponentsDao<Client>{
             connection.close();
         }
     }
+
+
+    /**
+     * Delete a client from data base whit have
+     * the sessionId
+     *
+     * @param sessionId
+     * @throws CantDeleteRecordDataBaseException
+     */
+    public void checkOut(String sessionId) throws CantDeleteRecordDataBaseException {
+
+        LOG.debug("Executing delete("+sessionId+")");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            TypedQuery<Client> query = connection.createQuery("SELECT c FROM Client c WHERE c.sessionId = :id", Client.class);
+            query.setParameter("id", sessionId);
+            Client client = query.getSingleResult();
+
+            connection.remove(connection.contains(client) ? client : connection.merge(client));
+
+            LOG.info("Deleted client = 1");
+
+            Query deleteQuery = connection.createQuery("DELETE FROM NetworkService c WHERE c.sessionId = :id");
+            deleteQuery.setParameter("id", sessionId);
+            int result = deleteQuery.executeUpdate();
+
+            LOG.info("Deleted ns = "+result);
+
+            transaction.commit();
+            connection.flush();
+
+        } catch (Exception e) {
+            LOG.error(e);
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw new CantDeleteRecordDataBaseException(CantDeleteRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
+        }
+
+    }
+
 }

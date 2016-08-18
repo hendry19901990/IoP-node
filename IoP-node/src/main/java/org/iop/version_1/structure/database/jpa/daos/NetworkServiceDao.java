@@ -23,7 +23,7 @@ import java.util.List;
  * @version 1.0
  * @since Java JDK 1.7
  */
-public class NetworkServiceDao extends AbstractComponentsDao<NetworkService> {
+public class NetworkServiceDao extends AbstractBaseDao<NetworkService> {
 
     /**
      * Represent the LOG
@@ -66,5 +66,41 @@ public class NetworkServiceDao extends AbstractComponentsDao<NetworkService> {
         }finally {
             connection.close();
         }
+    }
+
+    /**
+     * Delete a client from data base whit have
+     * the sessionId
+     *
+     * @param sessionId
+     * @throws CantDeleteRecordDataBaseException
+     */
+    void checkOut(String sessionId) throws CantDeleteRecordDataBaseException {
+
+        LOG.debug("Executing delete("+sessionId+")");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            Query deleteQuery = connection.createQuery("DELETE FROM NetworkService c WHERE c.sessionId = :id");
+            deleteQuery.setParameter("id", sessionId);
+            int result = deleteQuery.executeUpdate();
+
+            LOG.debug("Delete row = "+result+"");
+
+            transaction.commit();
+            connection.flush();
+
+        } catch (Exception e) {
+            LOG.error(e);
+            transaction.rollback();
+            throw new CantDeleteRecordDataBaseException(CantDeleteRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
+        }
+
     }
 }
