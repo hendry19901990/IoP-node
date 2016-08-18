@@ -191,7 +191,7 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
         }
 
 
-        System.out.println("YO SOY LA PUBLIC KEY DEL NODO=!!!=!!=! "+getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey());
+        LOG.info("YO SOY LA PUBLIC KEY DEL NODO=!!!=!!=! "+getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey());
         /*
          * Create the actor catalog
          */
