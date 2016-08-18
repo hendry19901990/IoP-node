@@ -38,7 +38,7 @@ import java.util.Map;
         value = "/ws/client-channel",
         configurator = ClientChannelConfigurator.class,
         encoders = {PackageEncoder.class},
-        decoders = {BlockDecoder.class}
+        decoders = {PackageDecoder.class}
 )
 public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketChannelEndpoint {
 
@@ -133,28 +133,24 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
     /**
      * Method called to handle a new message received
      *
-     * @param block new
+     * @param packageReceived new
      * @param session sender
      */
     @OnMessage
-    public void newPackageReceived(BlockPackages block, Session session) {
-        LOG.info("Thread id: "+Thread.currentThread().getId()+", New block received (" + block.toString()+ ")");
+    public Package newPackageReceived(Package packageReceived, Session session) {
+        LOG.info("Thread id: "+Thread.currentThread().getId()+", New package received (" + packageReceived.getPackageType().name() + ")");
+        try {
+
             /*
              * Process the new package received
              */
-        //todo: ver si nos conviene sacar varios hilos de acá para manejar todos estos pedidos (si es que son muchos)
-        block.getPackages().forEach(aPackage -> {
-            try {
-                sendPackage(processMessage(aPackage,session),session);
-            } catch (PackageTypeNotSupportedException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (EncodeException e) {
-                e.printStackTrace();
-            }
-        });
-//            return processMessage(block, session);
+            return processMessage(packageReceived, session);
+
+        }catch (PackageTypeNotSupportedException p){;
+            LOG.warn("Session: "+session.getId(),p);
+        }
+
+        return null;
     }
 
     @OnMessage
