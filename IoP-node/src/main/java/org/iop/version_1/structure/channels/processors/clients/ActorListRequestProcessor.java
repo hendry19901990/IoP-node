@@ -1,6 +1,5 @@
 package org.iop.version_1.structure.channels.processors.clients;
-import com.bitdubai.fermat_api.layer.all_definition.common.system.abstract_classes.AbstractPlugin;
-import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
+
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.DiscoveryQueryParameters;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.ActorListMsgRequest;
@@ -9,10 +8,8 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.da
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.ProfileStatus;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantReadRecordDataBaseException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.util.GsonProvider;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
-import com.google.gson.JsonObject;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
 import org.iop.version_1.IoPNodePluginRoot;
@@ -24,11 +21,7 @@ import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.ActorCatalog;
 
 import javax.websocket.Session;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

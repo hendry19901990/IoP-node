@@ -168,7 +168,7 @@ public class Client extends AbstractBaseEntity<String>{
      *
      * @return Session
      */
-    public String getSession() {
+    public String getSessionId() {
         return sessionId;
     }
 

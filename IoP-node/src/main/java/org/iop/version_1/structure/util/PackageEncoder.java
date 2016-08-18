@@ -2,6 +2,9 @@ package org.iop.version_1.structure.util;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.util.GsonProvider;
+import org.apache.commons.lang.ClassUtils;
+import org.apache.log4j.Logger;
+import org.iop.version_1.structure.channels.endpoinsts.clients.conf.ClientChannelConfigurator;
 
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
@@ -18,6 +21,7 @@ import javax.websocket.EndpointConfig;
  */
 public class PackageEncoder implements Encoder.Text<Package>{
 
+    private final Logger LOG = Logger.getLogger(ClassUtils.getShortClassName(PackageEncoder.class.getName()));
     /**
      * (non-javadoc)
      * @see Text#encode(Object)
@@ -29,12 +33,11 @@ public class PackageEncoder implements Encoder.Text<Package>{
 
     @Override
     public void init(EndpointConfig config) {
-
     }
 
     @Override
     public void destroy() {
-
+        LOG.info("PackageEnconder destroy method");
     }
 
 }

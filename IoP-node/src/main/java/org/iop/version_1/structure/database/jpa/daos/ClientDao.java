@@ -5,12 +5,15 @@
 package org.iop.version_1.structure.database.jpa.daos;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantDeleteRecordDataBaseException;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantReadRecordDataBaseException;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
 import org.iop.version_1.structure.database.jpa.entities.Client;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 
@@ -23,7 +26,7 @@ import java.util.List;
  * @version 1.0
  * @since Java JDK 1.7
  */
-public class ClientDao extends AbstractComponentsDao<Client>{
+public class ClientDao extends AbstractBaseDao<Client>{
 
     /**
      * Represent the LOG
@@ -67,4 +70,80 @@ public class ClientDao extends AbstractComponentsDao<Client>{
             connection.close();
         }
     }
+
+    /**
+     * Get the session id
+     * @param clientId
+     * @return String
+     * @throws CantReadRecordDataBaseException
+     */
+    public String getSessionId(String clientId) throws CantReadRecordDataBaseException {
+
+        LOG.debug("Executing getSessionId(" + clientId + ")");
+        EntityManager connection = getConnection();
+
+        try {
+
+            TypedQuery<String> query = connection.createQuery("SELECT c.sessionId FROM Client c WHERE c.id = :id", String.class);
+            query.setParameter("id", clientId);
+            query.setMaxResults(1);
+
+            List<String> ids = query.getResultList();
+            return (ids != null && !ids.isEmpty() ? ids.get(0) : null);
+
+        } catch (Exception e) {
+            LOG.error(e);
+            throw new CantReadRecordDataBaseException(CantReadRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
+        }
+    }
+
+
+    /**
+     * Delete a client from data base whit have
+     * the sessionId
+     *
+     * @param sessionId
+     * @throws CantDeleteRecordDataBaseException
+     */
+    public void checkOut(String sessionId) throws CantDeleteRecordDataBaseException {
+
+        LOG.debug("Executing delete("+sessionId+")");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            TypedQuery<Client> query = connection.createQuery("SELECT c FROM Client c WHERE c.sessionId = :id", Client.class);
+            query.setParameter("id", sessionId);
+            Client client = query.getSingleResult();
+
+            connection.remove(connection.contains(client) ? client : connection.merge(client));
+
+            LOG.info("Deleted client = 1");
+
+            Query deleteQuery = connection.createQuery("DELETE FROM NetworkService c WHERE c.sessionId = :id");
+            deleteQuery.setParameter("id", sessionId);
+            int result = deleteQuery.executeUpdate();
+
+            LOG.info("Deleted ns = "+result);
+
+            transaction.commit();
+            connection.flush();
+
+        } catch (Exception e) {
+            LOG.error(e);
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw new CantDeleteRecordDataBaseException(CantDeleteRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
+        }
+
+    }
+
 }

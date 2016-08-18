@@ -58,15 +58,9 @@ public class CheckOutNetworkServiceRequestProcessor extends PackageProcessor {
             methodCallsHistory(packageReceived.getContent(), destinationIdentityPublicKey);
 
             /*
-             * Create a Network Service profile object
-             */
-            NetworkServiceProfile profile = new NetworkServiceProfile();
-            profile.setIdentityPublicKey(profileIdentity);
-
-            /*
              * Checked Out Profile from data base
              */
-            JPADaoFactory.getNetworkServiceSessionDao().checkOut(session, profile);
+            JPADaoFactory.getNetworkServiceSessionDao().checkOut(session, profileIdentity);
 
             /*
              * If all ok, respond whit success message

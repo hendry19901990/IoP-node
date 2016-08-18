@@ -17,7 +17,6 @@ import org.iop.version_1.structure.context.NodeContextItem;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.Client;
 
-
 import javax.websocket.Session;
 
 /**

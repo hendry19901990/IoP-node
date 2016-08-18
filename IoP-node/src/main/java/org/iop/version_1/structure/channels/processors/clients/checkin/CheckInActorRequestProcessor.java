@@ -10,6 +10,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.pr
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.IoPNodePluginRoot;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
@@ -20,7 +21,6 @@ import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.ActorCatalog;
 import org.iop.version_1.structure.database.jpa.entities.NodeCatalog;
 import org.iop.version_1.structure.util.ThumbnailUtil;
-import org.apache.log4j.Logger;
 
 import javax.websocket.Session;
 import java.io.IOException;
@@ -182,11 +182,16 @@ public class CheckInActorRequestProcessor extends PackageProcessor {
          */
         byte[] thumbnail = null;
         if (actorProfile.getPhoto() != null && actorProfile.getPhoto().length > 0) {
-            thumbnail = ThumbnailUtil.generateThumbnail(actorProfile.getPhoto());
+            try {
+                thumbnail = ThumbnailUtil.generateThumbnail(actorProfile.getPhoto());
+            }catch (Exception e){
+                //fijarse esto...
+                e.printStackTrace();
+            }
         }
 
 
-        System.out.println("YO SOY LA PUBLIC KEY DEL NODO=!!!=!!=! "+getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey());
+        LOG.info("YO SOY LA PUBLIC KEY DEL NODO=!!!=!!=! "+getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey());
         /*
          * Create the actor catalog
          */

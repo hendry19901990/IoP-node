@@ -1,7 +1,10 @@
 package org.iop.version_1.structure.channels.processors;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
-import org.iop.version_1.structure.channels.processors.clients.*;
+import org.iop.version_1.structure.channels.processors.clients.ActorListRequestProcessor;
+import org.iop.version_1.structure.channels.processors.clients.IsActorOnlineRequestProcessor;
+import org.iop.version_1.structure.channels.processors.clients.MessageTransmitProcessor;
+import org.iop.version_1.structure.channels.processors.clients.UpdateProfileRequestProcessor;
 import org.iop.version_1.structure.channels.processors.clients.checkin.CheckInActorRequestProcessor;
 import org.iop.version_1.structure.channels.processors.clients.checkin.CheckInClientRequestProcessor;
 import org.iop.version_1.structure.channels.processors.clients.checkin.CheckInNetworkServiceRequestProcessor;
@@ -21,16 +24,26 @@ import java.util.Map;
 public class NodesPackageProcessorFactory {
 
 
-    public static Map<String,PackageProcessor> getClientPackageProcessorsByPackageType() {
+    private static NodesPackageProcessorFactory instance = new NodesPackageProcessorFactory();
+    private Map<String,PackageProcessor> packageProcessors;
 
-        Map<String,PackageProcessor> packageProcessors = new HashMap();
+
+    private NodesPackageProcessorFactory() {
+        packageProcessors = new HashMap<>();
         packageProcessors.put(PackageType.ACTOR_LIST_REQUEST.name(),new ActorListRequestProcessor());
         packageProcessors.put(PackageType.CHECK_IN_CLIENT_REQUEST.name(),new CheckInClientRequestProcessor());
         packageProcessors.put(PackageType.CHECK_IN_NETWORK_SERVICE_REQUEST.name(),new CheckInNetworkServiceRequestProcessor());
         packageProcessors.put(PackageType.CHECK_IN_ACTOR_REQUEST.name(),new CheckInActorRequestProcessor());
         packageProcessors.put(PackageType.MESSAGE_TRANSMIT.name(),new MessageTransmitProcessor());
-        //todo: faltan processors
+        packageProcessors.put(PackageType.IS_ACTOR_ONLINE.name(),new IsActorOnlineRequestProcessor());
+        packageProcessors.put(PackageType.UPDATE_ACTOR_PROFILE_REQUEST.name(),new UpdateProfileRequestProcessor());
+    }
+
+    public Map<String,PackageProcessor> getClientPackageProcessorsByPackageType() {
         return packageProcessors;
     }
 
+    public static NodesPackageProcessorFactory getInstance() {
+        return instance;
+    }
 }
