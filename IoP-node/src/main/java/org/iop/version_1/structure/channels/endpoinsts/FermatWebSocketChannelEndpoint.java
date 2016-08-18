@@ -125,6 +125,14 @@ public abstract class FermatWebSocketChannelEndpoint {
         }
     }
 
+    public synchronized final void sendPackage(Package p,Session session) throws IOException, EncodeException {
+        if (session.isOpen()) {
+            session.getBasicRemote().sendObject(p);
+        } else {
+            throw new IOException("connection is not opened.");
+        }
+    }
+
     public void sendPackage(Session session, UUID packageId, String packageContent, NetworkServiceType networkServiceType, PackageType packageType, String destinationIdentityPublicKey) throws IOException, EncodeException {
         if (session.isOpen()) {
             Package packageRespond = Package.createInstance(

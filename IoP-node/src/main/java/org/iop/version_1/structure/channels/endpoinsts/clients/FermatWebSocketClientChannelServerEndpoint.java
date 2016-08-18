@@ -2,6 +2,7 @@ package org.iop.version_1.structure.channels.endpoinsts.clients;
 
 import com.bitdubai.fermat_api.layer.all_definition.crypto.asymmetric.ECCKeyPair;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.BlockPackages;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ServerHandshakeRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
@@ -15,6 +16,7 @@ import org.iop.version_1.structure.channels.processors.NodesPackageProcessorFact
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.context.SessionManager;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
+import org.iop.version_1.structure.util.BlockDecoder;
 import org.iop.version_1.structure.util.PackageDecoder;
 import org.iop.version_1.structure.util.PackageEncoder;
 
@@ -36,7 +38,7 @@ import java.util.Map;
         value = "/ws/client-channel",
         configurator = ClientChannelConfigurator.class,
         encoders = {PackageEncoder.class},
-        decoders = {PackageDecoder.class}
+        decoders = {BlockDecoder.class}
 )
 public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketChannelEndpoint {
 
@@ -131,26 +133,28 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
     /**
      * Method called to handle a new message received
      *
-     * @param packageReceived new
+     * @param block new
      * @param session sender
      */
     @OnMessage
-    public Package newPackageReceived(Package packageReceived, Session session) {
-
-        LOG.info("Thread id: "+Thread.currentThread().getId()+", New package received (" + packageReceived.getPackageType().name() + ")");
-        try {
-
+    public void newPackageReceived(BlockPackages block, Session session) {
+        LOG.info("Thread id: "+Thread.currentThread().getId()+", New block received (" + block.toString()+ ")");
             /*
              * Process the new package received
              */
-            return processMessage(packageReceived, session);
-
-        }catch (PackageTypeNotSupportedException p){;
-            LOG.warn("Session: "+session.getId(),p);
-        }
-
-        return null;
-
+        //todo: ver si nos conviene sacar varios hilos de acá para manejar todos estos pedidos (si es que son muchos)
+        block.getPackages().forEach(aPackage -> {
+            try {
+                sendPackage(processMessage(aPackage,session),session);
+            } catch (PackageTypeNotSupportedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (EncodeException e) {
+                e.printStackTrace();
+            }
+        });
+//            return processMessage(block, session);
     }
 
     @OnMessage
