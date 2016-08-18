@@ -42,6 +42,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.Future;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.client.developer.bitdubai.version_1.structure.NetworkClientCommunicationConnection</code>
@@ -506,7 +507,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
                                    final PackageType        packageType,
                                    final NetworkServiceType networkServiceType          ,
                                    final String             destinationIdentityPublicKey) throws CantSendMessageException {
-        System.out.println("******* IS CONNECTED: " + isConnected() + " - TRYING NO SEND = " + packageContent.toJson());
+        System.out.println("******* IS CONNECTED: " + isConnected() + " - TRYING TO SEND = " + packageContent.toJson());
         if (isConnected()){
 
             try {
@@ -520,7 +521,12 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
                         destinationIdentityPublicKey
                 );
 
-                networkClientCommunicationChannel.getClientConnection().getAsyncRemote().sendObject(pack).get();
+
+                Future<?> result = networkClientCommunicationChannel.getClientConnection().getAsyncRemote().sendObject(pack);
+                result.get();
+                System.out.println("******* result " + result.isDone());
+
+
 
                 return pack.getPackageId();
             } catch (Exception exception) {
@@ -545,7 +551,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
                                    final NetworkServiceType networkServiceType          ,
                                    final String             destinationIdentityPublicKey,
                                        UUID messageId) throws CantSendMessageException {
-        System.out.println("******* IS CONNECTED: "+ isConnected() + " - TRYING NO SEND = "+ packageContent.toJson());
+        System.out.println("******* IS CONNECTED: "+ isConnected() + " - TRYING TO SEND = "+ packageContent.toJson());
         if (isConnected()){
 
             try {
@@ -560,7 +566,7 @@ public class NetworkClientCommunicationConnection implements NetworkClientConnec
                 );
 
                 //lock and wait
-                System.out.println("******* wainting for the sync object");
+                System.out.println("******* waiting for the sync object");
                 return (boolean) waiterObjectsBuffer.getBufferObject(messageId.toString());
 
 

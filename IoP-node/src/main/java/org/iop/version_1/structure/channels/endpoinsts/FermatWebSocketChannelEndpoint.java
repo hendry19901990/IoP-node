@@ -10,10 +10,10 @@ import org.iop.version_1.IoPNodePluginRoot;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.NodeContextItem;
+
 import javax.websocket.EncodeException;
 import javax.websocket.Session;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,7 +35,7 @@ public abstract class FermatWebSocketChannelEndpoint {
     /**
      * Represent the MAX_IDLE_TIMEOUT
      */
-    protected static final int MAX_IDLE_TIMEOUT = 22000;
+    protected static final int MAX_IDLE_TIMEOUT = 60000;
 
     /**
      * Represent the channelIdentity
@@ -120,6 +120,14 @@ public abstract class FermatWebSocketChannelEndpoint {
             );
 
             session.getBasicRemote().sendObject(packageRespond);
+        } else {
+            throw new IOException("connection is not opened.");
+        }
+    }
+
+    public synchronized final void sendPackage(Package p,Session session) throws IOException, EncodeException {
+        if (session.isOpen()) {
+            session.getBasicRemote().sendObject(p);
         } else {
             throw new IOException("connection is not opened.");
         }

@@ -108,12 +108,12 @@ public class NetworkServiceSessionDao extends AbstractBaseDao<NetworkServiceSess
      * Check out a specific Network Service associate with the session
      *
      * @param session
-     * @param networkServiceProfile
+     * @param publicKey
      * @throws CantDeleteRecordDataBaseException
      */
-    public void checkOut(Session session, NetworkServiceProfile networkServiceProfile) throws CantDeleteRecordDataBaseException {
+    public void checkOut(Session session, String publicKey) throws CantDeleteRecordDataBaseException {
 
-        LOG.info("Executing checkOut(" + session.getId() + ", " + networkServiceProfile.getIdentityPublicKey() + ")");
+        LOG.info("Executing checkOut(" + session.getId() + ", " + publicKey + ")");
 
         EntityManager connection = getConnection();
         EntityTransaction transaction = connection.getTransaction();
@@ -124,7 +124,7 @@ public class NetworkServiceSessionDao extends AbstractBaseDao<NetworkServiceSess
 
             Map<String, Object> filters = new HashMap<>();
             filters.put("sessionId", session.getId());
-            filters.put("networkService.id", networkServiceProfile.getIdentityPublicKey());
+            filters.put("networkService.id", publicKey);
             List<NetworkServiceSession> list = list(filters);
 
             if ((list != null) && (!list.isEmpty())) {
@@ -135,7 +135,7 @@ public class NetworkServiceSessionDao extends AbstractBaseDao<NetworkServiceSess
 
             //Delete client session geolocation
             Query queryNetworkServiceGeolocationDelete = connection.createQuery("DELETE FROM GeoLocation gl WHERE gl.id = :id");
-            queryNetworkServiceGeolocationDelete.setParameter("id", networkServiceProfile.getIdentityPublicKey());
+            queryNetworkServiceGeolocationDelete.setParameter("id", publicKey);
             int deletedClientGeoLocation = queryNetworkServiceGeolocationDelete.executeUpdate();
 
             LOG.info("deleted Network service geolocation = " + deletedClientGeoLocation);

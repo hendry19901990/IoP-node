@@ -5,17 +5,15 @@
 package org.iop.version_1.structure.database.jpa.daos;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.DiscoveryQueryParameters;
-
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantInsertRecordDataBaseException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantReadRecordDataBaseException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantUpdateRecordDataBaseException;
 import org.apache.commons.lang.ClassUtils;
+import org.apache.log4j.Logger;
 import org.iop.version_1.structure.database.jpa.entities.ActorCatalog;
 import org.iop.version_1.structure.database.jpa.entities.GeoLocation;
 import org.iop.version_1.structure.database.jpa.entities.NodeCatalog;
 import org.iop.version_1.structure.util.geolocation.BasicGeoRectangle;
-import org.iop.version_1.structure.util.geolocation.CoordinateCalculator;
-import org.apache.log4j.Logger;
 
 import javax.persistence.*;
 import javax.persistence.criteria.*;
@@ -30,7 +28,7 @@ import java.util.*;
  * @version 1.0
  * @since Java JDK 1.7
  */
-public class ActorCatalogDao extends AbstractComponentsDao<ActorCatalog> {
+public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
 
     /**
      * Represent the LOG
@@ -484,5 +482,102 @@ public class ActorCatalogDao extends AbstractComponentsDao<ActorCatalog> {
         }
 
     }
+
+    /**
+     * Set the session of actor to null in database
+     * @param actorId
+     * @throws CantUpdateRecordDataBaseException
+     */
+    public void setSessionToNull(String actorId) throws CantUpdateRecordDataBaseException {
+
+        LOG.debug("Executing setSessionToNull("+actorId+")");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            Query query = connection.createQuery("UPDATE ActorCatalog a SET a.sessionId = null WHERE a.id = :id");
+            query.setParameter("id", actorId);
+            int result = query.executeUpdate();
+            LOG.debug("Set to null session = "+result);
+            connection.flush();
+            transaction.commit();
+
+        }catch (Exception e){
+            LOG.error(e);
+            throw new CantUpdateRecordDataBaseException(CantUpdateRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        }finally {
+            connection.close();
+        }
+
+    }
+
+    /**
+     * Set the all session of actors to null in database
+     * @throws CantUpdateRecordDataBaseException
+     */
+    public void setSessionsToNull() throws CantUpdateRecordDataBaseException {
+
+        LOG.debug("Executing setSessionToNull()");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            Query query = connection.createQuery("UPDATE ActorCatalog a SET a.sessionId = null");
+            int result = query.executeUpdate();
+            LOG.debug("Set to null session = "+result);
+            connection.flush();
+            transaction.commit();
+
+        }catch (Exception e){
+            LOG.error(e);
+            throw new CantUpdateRecordDataBaseException(CantUpdateRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        }finally {
+            connection.close();
+        }
+
+    }
+
+    /**
+     * Delete a client from data base whit have
+     * the sessionId
+     *
+     * @param sessionId
+     * @throws CantUpdateRecordDataBaseException
+     */
+    public void checkOut(String sessionId) throws CantUpdateRecordDataBaseException {
+
+        LOG.debug("Executing delete("+sessionId+")");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            Query deleteQuery = connection.createQuery("UPDATE ActorCatalog a SET a.sessionId = null WHERE a.sessionId = :id");
+            deleteQuery.setParameter("id", sessionId);
+            int result = deleteQuery.executeUpdate();
+
+            LOG.info("Update rows = "+result+"");
+
+            transaction.commit();
+            connection.flush();
+
+        } catch (Exception e) {
+            LOG.error(e);
+            transaction.rollback();
+            throw new CantUpdateRecordDataBaseException(CantUpdateRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
+        }
+
+    }
+
 
 }

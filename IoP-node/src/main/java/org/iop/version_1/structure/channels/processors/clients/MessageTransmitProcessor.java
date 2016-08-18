@@ -3,21 +3,19 @@ package org.iop.version_1.structure.channels.processors.clients;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ACKRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.MsgRespond;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.entities.NetworkServiceMessage;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
-import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.SessionManager;
-import org.iop.version_1.structure.database.jpa.daos.ActorCatalogDao;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 
-import javax.websocket.SendHandler;
-import javax.websocket.SendResult;
 import javax.websocket.Session;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.channels.processors.clients.MessageTransmitProcessor</code>
@@ -36,16 +34,10 @@ public class MessageTransmitProcessor extends PackageProcessor {
     private final Logger LOG = Logger.getLogger(ClassUtils.getShortClassName(MessageTransmitProcessor.class));
 
     /**
-     * Represent the clientsSessionMemoryCache instance
-     */
-    private final SessionManager clientsSessionMemoryCache;
-
-    /**
      * Constructor
      */
     public MessageTransmitProcessor() {
         super(PackageType.MESSAGE_TRANSMIT);
-        this.clientsSessionMemoryCache = NodeContext.getSessionManager();
     }
 
     /**
@@ -61,44 +53,58 @@ public class MessageTransmitProcessor extends PackageProcessor {
         LOG.info("Package destinationIdentityPublicKey =  "+destinationIdentityPublicKey);
 
         try {
+
             /*
              * Get the connection to the destination
              */
-            String actorSessionId = JPADaoFactory.getActorCatalogDao().findValueById(destinationIdentityPublicKey,String.class,"sessionId");
+            String actorSessionId = JPADaoFactory.getActorCatalogDao().findValueById(destinationIdentityPublicKey, String.class, "sessionId");
 
-            Session clientDestination = null;
-            if (actorSessionId != null )
-                clientDestination = clientsSessionMemoryCache.get(actorSessionId);
+            LOG.info("ACTOR SESSION ID = "+actorSessionId);
 
-            System.out.println("MESSAGE SENDING = CLIENT DESTINATION = "+(clientDestination!=null));
+            Session clientDestination = SessionManager.get(actorSessionId);
+            LOG.info("CLIENT DESTINATION = "+(clientDestination != null ? clientDestination.getId() : null));
 
             if (clientDestination != null) {
 
-                clientDestination.getAsyncRemote().sendObject(packageReceived, new SendHandler() {
-                    @Override
-                    public void onResult(SendResult result) {
+                Future<Void> futureResult = null;
 
-                        try {
-                            if (result.isOK()) {
+                try{
 
-                                ACKRespond messageTransmitRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.SUCCESS, MsgRespond.STATUS.SUCCESS.toString());
-                                channel.sendPackage(session,packageReceived.getPackageId(), messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
-                                LOG.info("Message transmit successfully");
-                            } else {
-                                ACKRespond messageTransmitRespond = new ACKRespond(
-                                        packageReceived.getPackageId(),
-                                        MsgRespond.STATUS.FAIL,
-                                        (result.getException() != null ? result.getException().getMessage() : "destination not available"));
-                                channel.sendPackage(session,packageReceived.getPackageId(), messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
-                                LOG.info("Message cannot be transmitted", result.getException());
-                            }
-                        } catch (Exception ex) {
-                            LOG.error("Cannot send message to counter part.", ex);
+                    futureResult = clientDestination.getAsyncRemote().sendObject(packageReceived);
+                    // wait for completion max 2 seconds
+                    futureResult.get(2, TimeUnit.SECONDS);
+
+                    ACKRespond messageTransmitRespond = new ACKRespond(packageReceived.getPackageId(),MsgRespond.STATUS.SUCCESS, MsgRespond.STATUS.SUCCESS.toString());
+                    channel.sendPackage(session,packageReceived.getPackageId(), messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
+                    LOG.info("Message transmit successfully");
+
+                }catch (TimeoutException | ExecutionException | InterruptedException e){
+
+                    LOG.error("Message cannot be transmitted");
+                    LOG.error(e);
+
+                    ACKRespond messageTransmitRespond = new ACKRespond(packageReceived.getPackageId(), MsgRespond.STATUS.FAIL, "Can't send message to destination, error details: "+e.getMessage());
+                    channel.sendPackage(session,packageReceived.getPackageId(), messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
+                    LOG.info("Message cannot be transmitted");
+
+                    if (e instanceof  TimeoutException){
+
+                        if (futureResult != null){
+                            // cancel the message
+                            futureResult.cancel(true);
                         }
                     }
-                });
+
+                }
 
             } else {
+
+                /*
+                 * Remove old session
+                 */
+                if ((actorSessionId != null && !actorSessionId.isEmpty()) && clientDestination == null){
+                    JPADaoFactory.getActorCatalogDao().setSessionToNull(destinationIdentityPublicKey);
+                }
 
                 /*
                  * Notify to de sender the message can not transmit
@@ -114,8 +120,6 @@ public class MessageTransmitProcessor extends PackageProcessor {
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
                 );
-//                channel.sendPackage(session, messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
-
 
             }
 
@@ -136,7 +140,6 @@ public class MessageTransmitProcessor extends PackageProcessor {
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
                 );
-//                channel.sendPackage(session, messageTransmitRespond.toJson(), packageReceived.getNetworkServiceTypeSource(), PackageType.ACK, destinationIdentityPublicKey);
 
             } catch (Exception e) {
                 e.printStackTrace();

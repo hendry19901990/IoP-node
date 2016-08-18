@@ -2,6 +2,7 @@ package org.iop.version_1.structure.channels.endpoinsts.clients;
 
 import com.bitdubai.fermat_api.layer.all_definition.crypto.asymmetric.ECCKeyPair;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.BlockPackages;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ServerHandshakeRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
@@ -13,10 +14,9 @@ import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEnd
 import org.iop.version_1.structure.channels.endpoinsts.clients.conf.ClientChannelConfigurator;
 import org.iop.version_1.structure.channels.processors.NodesPackageProcessorFactory;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
-import org.iop.version_1.structure.context.NodeContext;
 import org.iop.version_1.structure.context.SessionManager;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
-import org.iop.version_1.structure.database.jpa.entities.Client;
+import org.iop.version_1.structure.util.BlockDecoder;
 import org.iop.version_1.structure.util.PackageDecoder;
 import org.iop.version_1.structure.util.PackageEncoder;
 
@@ -48,16 +48,10 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
     private final Logger LOG = Logger.getLogger(ClassUtils.getShortClassName(FermatWebSocketClientChannelServerEndpoint.class));
 
     /**
-     * Represent the clientsSessionMemoryCache instance
-     */
-    private final SessionManager clientsSessionMemoryCache;
-
-    /**
      * Constructor
      */
     public FermatWebSocketClientChannelServerEndpoint(){
         super();
-        this.clientsSessionMemoryCache = NodeContext.getSessionManager();
     }
 
     /**
@@ -67,7 +61,7 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
      */
     @Override
     protected Map<String,PackageProcessor> getPackageProcessors(){
-        return NodesPackageProcessorFactory.getClientPackageProcessorsByPackageType();
+        return NodesPackageProcessorFactory.getInstance().getClientPackageProcessorsByPackageType();
     }
     /**
      *  Method called to handle a new connection
@@ -97,23 +91,23 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
              * Configure the session and mach the session with the client public key identity
              */
             session.setMaxTextMessageBufferSize(FermatWebSocketChannelEndpoint.MAX_MESSAGE_SIZE);
+            session.setMaxIdleTimeout(FermatWebSocketChannelEndpoint.MAX_IDLE_TIMEOUT);
 
-            Client client = JPADaoFactory.getClientDao().findById(cpki);
+            String oldSessionId = JPADaoFactory.getClientDao().getSessionId(cpki);
 
-            if (client != null ) {
-                //todo: esto está mal
-                if (clientsSessionMemoryCache.exist(client.getSession())){
-                    Session previousSession = clientsSessionMemoryCache.get(client.getSession());
+            if (oldSessionId != null && !oldSessionId.isEmpty()) {
+
+                LOG.warn("oldSessionId found: = " + oldSessionId);
+
+                if (SessionManager.exist(oldSessionId)){
+                    Session previousSession = SessionManager.get(oldSessionId);
                     if (previousSession.isOpen()) {
                         previousSession.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "Closing a Previous Session"));
                     }
                 }
-            }else {
-                client = new Client(cpki);
-                JPADaoFactory.getClientDao().save(client);
             }
 
-            clientsSessionMemoryCache.add(session);
+            SessionManager.add(session);
 
             /*
              * Construct packet SERVER_HANDSHAKE_RESPONSE
@@ -144,8 +138,7 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
      */
     @OnMessage
     public Package newPackageReceived(Package packageReceived, Session session) {
-
-        LOG.info("New package received (" + packageReceived.getPackageType().name() + ")");
+        LOG.info("Thread id: "+Thread.currentThread().getId()+", New package received (" + packageReceived.getPackageType().name() + ")");
         try {
 
             /*
@@ -158,7 +151,6 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
         }
 
         return null;
-
     }
 
     @OnMessage
@@ -181,8 +173,10 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
         try {
 
 
-            clientsSessionMemoryCache.remove(session);
-//            JPADaoFactory.getClientSessionDao().checkOut(session);
+            LOG.info("Removing session and associate entities");
+            SessionManager.remove(session);
+            JPADaoFactory.getClientDao().checkOut(session.getId());
+            JPADaoFactory.getActorCatalogDao().checkOut(session.getId());
 
         } catch (Exception exception) {
 
@@ -205,19 +199,15 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
         try {
 
             if (session.isOpen()){
-                System.out.println("EndPoint onError: session open, cerrando");
+                LOG.warn("session is open, try to close");
                 session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, throwable.getMessage()));
             }else {
-                System.out.println("EndPoint onError: session not open");
                 LOG.error("The session already close, no try to close");
             }
-            clientsSessionMemoryCache.remove(session);
 
-
+            SessionManager.remove(session);
 
         } catch (Exception e) {
-            //I'll try to print the stacktrace to determinate this exception
-            System.out.println("ON CLOSE EXCEPTION: ");
             e.printStackTrace();
             LOG.error(e);
         }

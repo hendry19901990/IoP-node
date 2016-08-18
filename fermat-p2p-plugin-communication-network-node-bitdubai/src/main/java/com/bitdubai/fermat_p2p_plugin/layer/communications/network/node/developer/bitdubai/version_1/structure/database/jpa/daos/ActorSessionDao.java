@@ -5,7 +5,6 @@
 package com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.daos;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.ProfileTypes;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorCatalog;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ActorSession;
 import com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.entities.ProfileRegistrationHistory;
@@ -102,10 +101,10 @@ public class ActorSessionDao extends AbstractBaseDao<ActorSession> {
      * Check out a specific actor associate with the session
      *
      * @param session
-     * @param actorProfile
+     * @param publicKey
      * @throws CantDeleteRecordDataBaseException
      */
-    public void checkOut(Session session, ActorProfile actorProfile) throws CantDeleteRecordDataBaseException {
+    public void checkOut(Session session, String publicKey) throws CantDeleteRecordDataBaseException {
 
         LOG.debug("Executing checkOut(" + session.getId() + ")");
 
@@ -121,7 +120,7 @@ public class ActorSessionDao extends AbstractBaseDao<ActorSession> {
                  * exist delete
                  */
                 Map<String, Object> filters = new HashMap<>();
-                filters.put("actor.id", actorProfile.getIdentityPublicKey());
+                filters.put("actor.id", publicKey);
                 List<ActorSession> oldSession = list(filters);
                 LOG.info("oldSession = " + (oldSession != null ? oldSession.size() : 0));
 
@@ -143,7 +142,7 @@ public class ActorSessionDao extends AbstractBaseDao<ActorSession> {
 
             //Delete actor geolocation
             Query queryActorGeolocationDelete = connection.createQuery("DELETE FROM GeoLocation gl WHERE gl.id = :id");
-            queryActorGeolocationDelete.setParameter("id", actorProfile.getIdentityPublicKey());
+            queryActorGeolocationDelete.setParameter("id", publicKey);
             int deletedActorSessionGeoLocation = queryActorGeolocationDelete.executeUpdate();
 
             LOG.info("deleted actor geolocation = " + deletedActorSessionGeoLocation);
