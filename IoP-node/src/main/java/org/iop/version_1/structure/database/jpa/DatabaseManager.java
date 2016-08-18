@@ -136,7 +136,7 @@ public class DatabaseManager {
 
         executorService.execute(() -> {
 
-            LOG.info("Initializing database objectdb in server mode");
+            LOG.info("Initializing objectdb database in server mode");
             try {
                 Runtime.getRuntime().exec("java -cp "+ getObjectDbJarPath() +" com.objectdb.Server start");
             } catch (IOException e) {
