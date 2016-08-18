@@ -65,20 +65,6 @@ public class DatabaseManager {
      */
     private static ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-
-    static {
-
-        /*
-         * Configure environment
-         */
-        String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
-        System.setProperty("objectdb.home", path);
-        System.setProperty("objectdb.temp.avoid-page-recycle", "true");
-        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
-
-    }
-
-
     /**
      * Get a new instance to a Entity manager that
      * represent a connection with the data base.
@@ -134,11 +120,19 @@ public class DatabaseManager {
 
     public static void start(){
 
+        /*
+         * Configure environment
+         */
+        String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
+        System.setProperty("objectdb.home", path);
+        System.setProperty("objectdb.temp.avoid-page-recycle", "true");
+        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
+
         executorService.execute(() -> {
 
             LOG.info("Initializing objectdb database in server mode");
             try {
-                Runtime.getRuntime().exec("java -cp "+ getObjectDbJarPath() +" com.objectdb.Server start");
+                Runtime.getRuntime().exec("java -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -152,8 +146,13 @@ public class DatabaseManager {
             LOG.warn(e);
         }
 
+        Map<String, String> properties = new HashMap<String, String>();
+        properties.put("javax.jdo.option.MinPool", "50");
+        properties.put("javax.jdo.option.MaxPool", "100");
+        properties.put("javax.persistence.sharedCache.mode", "DISABLE_SELECTIVE");
+
         LOG.info("Open a database connection (create a new database if it doesn't exist yet)");
-        entityManagerFactory = Persistence.createEntityManagerFactory(CONNECTION_URL);
+        entityManagerFactory = Persistence.createEntityManagerFactory("node-pu");
 
         /*
          * Create tables at start up
