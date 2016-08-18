@@ -12,6 +12,9 @@ import org.iop.version_1.structure.util.ProviderResourcesFilesPath;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.security.ProtectionDomain;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,39 +45,25 @@ public class DatabaseManager {
     public static final String DATA_BASE_NAME = "network_node.odb";
 
     /**
+     * Represent the value of CONNECTION_URL
+     */
+    public static final String CONNECTION_URL = "objectdb://localhost/"+DATA_BASE_NAME+";user=admin;password=admin";
+
+    /**
      * Represent the entityManagerFactory instance
      */
-    private static final EntityManagerFactory entityManagerFactory;
+    private static EntityManagerFactory entityManagerFactory;
 
     static {
 
+        /*
+         * Configure environment
+         */
         String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
         System.setProperty("objectdb.home", path);
         System.setProperty("objectdb.temp.avoid-page-recycle", "true");
+        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
 
-
-        /*
-         * Configure the database properties
-         * TODO: GET THIS VALUES FROM CONFIGURATION FILE
-         */
-        Map<String, String> properties = new HashMap<>();
-        properties.put("javax.persistence.jdbc.user", "admin");
-        properties.put("javax.persistence.jdbc.password", "admin");
-        properties.put("javax.jdo.option.MinPool", "50");
-        properties.put("javax.jdo.option.MaxPool", "100");
-        properties.put("javax.persistence.sharedCache.mode", "ENABLE_SELECTIVE");
-
-        LOG.info("Open a database connection (create a new database if it doesn't exist yet)");
-        entityManagerFactory = Persistence.createEntityManagerFactory(path.concat(DATA_BASE_NAME), properties);
-
-        /*
-         * Create tables at start up
-         */
-        entityManagerFactory.createEntityManager().getMetamodel().entity(ActorCatalog.class);
-        entityManagerFactory.createEntityManager().getMetamodel().entity(Client.class);
-        entityManagerFactory.createEntityManager().getMetamodel().entity(GeoLocation.class);
-        entityManagerFactory.createEntityManager().getMetamodel().entity(NetworkService.class);
-        entityManagerFactory.createEntityManager().getMetamodel().entity(NodeCatalog.class);
     }
 
 
@@ -112,4 +101,39 @@ public class DatabaseManager {
     public static EntityManagerFactory getEntityManagerFactory() {
         return entityManagerFactory;
     }
+
+    /**
+     * Get the path of the objectdb.jar
+     * @return path
+     */
+    public static String getObjectDbJarPath(){
+        ProtectionDomain domain = com.objectdb.Utilities.class.getProtectionDomain();
+        return domain.getCodeSource().getLocation().getFile();
+    }
+
+    /**
+     * Get the path of the objectdb configuration
+     * @return path
+     */
+    public static String getObjectDbConfigurationFilePath(){
+        ProtectionDomain domain = com.objectdb.Utilities.class.getProtectionDomain();
+        return domain.getCodeSource().getLocation().getFile().replace(".jar", ".conf");
+    }
+
+    public static void start(){
+
+        LOG.info("Open a database connection (create a new database if it doesn't exist yet)");
+        entityManagerFactory = Persistence.createEntityManagerFactory(CONNECTION_URL);
+
+        /*
+         * Create tables at start up
+         */
+        entityManagerFactory.createEntityManager().getMetamodel().entity(ActorCatalog.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(Client.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(GeoLocation.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(NetworkService.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(NodeCatalog.class);
+
+    }
+
 }
