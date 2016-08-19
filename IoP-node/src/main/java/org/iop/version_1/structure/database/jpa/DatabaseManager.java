@@ -13,10 +13,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.ProtectionDomain;
+import java.text.NumberFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.DatabaseManager</code> are the
@@ -54,18 +60,10 @@ public class DatabaseManager {
      */
     private static EntityManagerFactory entityManagerFactory;
 
-    static {
-
-        /*
-         * Configure environment
-         */
-        String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
-        System.setProperty("objectdb.home", path);
-        System.setProperty("objectdb.temp.avoid-page-recycle", "true");
-        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
-
-    }
-
+    /**
+     * Represent the executorService instance
+     */
+    private static ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     /**
      * Get a new instance to a Entity manager that
@@ -122,8 +120,37 @@ public class DatabaseManager {
 
     public static void start(){
 
+        /*
+         * Configure environment
+         */
+        String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
+        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
+
+        executorService.execute(() -> {
+
+            LOG.info("Initializing objectdb database in server mode");
+            try {
+                Runtime.getRuntime().exec("java -Dobjectdb.temp.avoid-page-recycle=true -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        try {
+            System.out.println("Waiting 5 seconds to the database server start");
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            LOG.warn(e);
+        }
+
+        Map<String, String> properties = new HashMap<String, String>();
+        properties.put("javax.jdo.option.MinPool", "50");
+        properties.put("javax.jdo.option.MaxPool", "100");
+        properties.put("javax.persistence.sharedCache.mode", "DISABLE_SELECTIVE");
+
         LOG.info("Open a database connection (create a new database if it doesn't exist yet)");
-        entityManagerFactory = Persistence.createEntityManagerFactory(CONNECTION_URL);
+        entityManagerFactory = Persistence.createEntityManagerFactory("node-pu");
 
         /*
          * Create tables at start up
@@ -135,5 +162,4 @@ public class DatabaseManager {
         entityManagerFactory.createEntityManager().getMetamodel().entity(NodeCatalog.class);
 
     }
-
 }
