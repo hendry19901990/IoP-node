@@ -74,6 +74,7 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
     public void onConnect(Session session, EndpointConfig endpointConfig) throws IOException {
 
         LOG.info(" New connection stablished: " + session.getId());
+        LOG.info(" Open sessions: " + session.getOpenSessions().size());
 
         try {
 
