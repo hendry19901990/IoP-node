@@ -42,12 +42,18 @@ public class PackageDecoder implements Decoder.Binary<Package>{
     public Package decode(ByteBuffer bytes) throws DecodeException {
         com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.common.Package pack = com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.common.Package.getRootAsPackage(bytes);
         try {
+
+            NetworkServiceType networkServiceType = NetworkServiceType.getByCode(pack.networkServiceType());
+            PackageType packageType = PackageType.buildWithInt(pack.packageType());
+            System.out.println("####### DECODE: PackageType: "+packageType+" Network service type: "+networkServiceType);
+
             return Package.rebuildInstance(
-                    UUID.fromString(pack.id()),
-                    pack.content(),
-                    NetworkServiceType.getByCode(pack.networkServiceType()),
-                    PackageType.buildWithInt(pack.packageType()),
-                    pack.destinationPk()
+                    UUID.fromString(
+                            pack.id()),
+                            pack.content(),
+                            networkServiceType,
+                            packageType,
+                            pack.destinationPk()
             );
         } catch (InvalidParameterException e) {
             e.printStackTrace();
