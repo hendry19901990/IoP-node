@@ -5,6 +5,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.da
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.UpdateActorProfileMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ACKRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.IsActorOnlineMsgRespond;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.MsgRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.ProfileStatus;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
@@ -76,51 +77,59 @@ public class UpdateProfileRequestProcessor extends PackageProcessor {
 
             ActorCatalog actorsCatalogToUpdate = actorCatalogDao.findById(actorProfile.getIdentityPublicKey());
 
-            boolean hasChanges = false;
+            ACKRespond isActorOnlineMsgRespond;
 
-            if (!actorProfile.getName().equals(actorsCatalogToUpdate.getName())) {
-                actorsCatalogToUpdate.setName(actorProfile.getName());
-                hasChanges = true;
+            if (actorsCatalogToUpdate != null) {
+
+                boolean hasChanges = false;
+
+                if (!actorProfile.getName().equals(actorsCatalogToUpdate.getName())) {
+                    actorsCatalogToUpdate.setName(actorProfile.getName());
+                    hasChanges = true;
+                }
+
+                if (!actorProfile.getAlias().equals(actorsCatalogToUpdate.getAlias())) {
+                    actorsCatalogToUpdate.setAlias(actorProfile.getAlias());
+                    hasChanges = true;
+                }
+
+                if (!Arrays.equals(actorProfile.getPhoto(), actorsCatalogToUpdate.getPhoto())) {
+                    actorsCatalogToUpdate.setPhoto(actorProfile.getPhoto());
+                    hasChanges = true;
+                }
+
+                if (!getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey().equals(actorsCatalogToUpdate.getHomeNode().getId())) {
+                    actorsCatalogToUpdate.setHomeNode(new NodeCatalog(getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey()));
+                    hasChanges = true;
+                }
+
+                if (actorProfile.getLocation() != null && actorsCatalogToUpdate.getLocation() != null && !actorProfile.getLocation().equals(actorsCatalogToUpdate.getLocation())) {
+                    actorsCatalogToUpdate.setLocation(actorProfile.getLocation().getLatitude(), actorProfile.getLocation().getLongitude());
+                    hasChanges = true;
+                }
+
+                LOG.info("hasChanges = " + hasChanges);
+
+                if (hasChanges) {
+
+                    Timestamp currentMillis = new Timestamp(System.currentTimeMillis());
+
+                    actorsCatalogToUpdate.setLastConnection(currentMillis);
+                    actorsCatalogToUpdate.setLastUpdateTime(currentMillis);
+                    actorsCatalogToUpdate.setVersion(actorsCatalogToUpdate.getVersion() + 1);
+                    actorsCatalogToUpdate.setTriedToPropagateTimes(0);
+
+                    LOG.info("Updating profile");
+
+                    actorCatalogDao.update(actorsCatalogToUpdate);
+                }
+
+                //Respond the request
+                isActorOnlineMsgRespond = new ACKRespond(packageReceived.getPackageId(), ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString());
+            } else {
+
+                isActorOnlineMsgRespond = new ACKRespond(packageReceived.getPackageId(), ACKRespond.STATUS.FAIL, "An actor with that public key does not exist.");
             }
-
-            if (!actorProfile.getAlias().equals(actorsCatalogToUpdate.getAlias())) {
-                actorsCatalogToUpdate.setAlias(actorProfile.getAlias());
-                hasChanges = true;
-            }
-
-            if (!Arrays.equals(actorProfile.getPhoto(), actorsCatalogToUpdate.getPhoto())) {
-                actorsCatalogToUpdate.setPhoto(actorProfile.getPhoto());
-                hasChanges = true;
-            }
-
-            if (!getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey().equals(actorsCatalogToUpdate.getHomeNode().getId())) {
-                actorsCatalogToUpdate.setHomeNode(new NodeCatalog(getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey()));
-                hasChanges = true;
-            }
-
-            if (actorProfile.getLocation() != null && actorsCatalogToUpdate.getLocation() != null && !actorProfile.getLocation().equals(actorsCatalogToUpdate.getLocation())) {
-                actorsCatalogToUpdate.setLocation(actorProfile.getLocation().getLatitude(), actorProfile.getLocation().getLongitude());
-                hasChanges = true;
-            }
-
-            LOG.info("hasChanges = "+hasChanges);
-
-            if (hasChanges){
-
-                Timestamp currentMillis = new Timestamp(System.currentTimeMillis());
-
-                actorsCatalogToUpdate.setLastConnection(currentMillis);
-                actorsCatalogToUpdate.setLastUpdateTime(currentMillis);
-                actorsCatalogToUpdate.setVersion(actorsCatalogToUpdate.getVersion() + 1);
-                actorsCatalogToUpdate.setTriedToPropagateTimes(0);
-
-                LOG.info("Updating profile");
-
-                actorCatalogDao.update(actorsCatalogToUpdate);
-            }
-
-            //Respond the request
-            ACKRespond isActorOnlineMsgRespond = new ACKRespond(packageReceived.getPackageId(), ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString());
 
             //Create instance
             if (session.isOpen()) {
