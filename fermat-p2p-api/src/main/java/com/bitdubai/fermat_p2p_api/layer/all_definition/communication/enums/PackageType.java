@@ -42,6 +42,7 @@ public enum PackageType {
     CHECK_IN_CLIENT_RESPOND,
 
 
+    CHECK_IN_NETWORK_SERVICE_RESPOND, CHECK_IN_ACTOR_RESPONSE;
     // Definition types Client channel
 
     /*
@@ -118,9 +119,92 @@ public enum PackageType {
     ACTOR_CATALOG_TO_PROPAGATE_RESPONSE, // the node responds to the counterpart if it needs or not the information sent by it
 
 
-    CHECK_IN_NETWORK_SERVICE_RESPOND, CHECK_IN_ACTOR_RESPONSE;
 
 
+    public short getPackageTypeAsShort(){
+        short packageType = -1;
+        switch (this){
+            case CHECK_IN_CLIENT_REQUEST:
+                packageType = 1;
+                break;
+            case CHECK_IN_NETWORK_SERVICE_REQUEST:
+                packageType = 2;
+                break;
+            case CHECK_IN_ACTOR_REQUEST:
+                packageType = 3;
+                break;
+            case ACTOR_LIST_REQUEST:
+                packageType = 4;
+                break;
+            case MESSAGE_TRANSMIT:
+                packageType = 5;
+                break;
+            case UPDATE_ACTOR_PROFILE_REQUEST:
+                packageType = 6;
+                break;
+            case ACK:
+                packageType = 7;
+                break;
+            case IS_ACTOR_ONLINE:
+                packageType = 8;
+                break;
+            case SERVER_HANDSHAKE_RESPONSE:
+                packageType = 9;
+                break;
+            case CHECK_IN_CLIENT_RESPOND:
+                packageType = 10;
+                break;
+            case CHECK_IN_NETWORK_SERVICE_RESPOND:
+                packageType = 11;
+                break;
+            case CHECK_IN_ACTOR_RESPONSE:
+                packageType = 12;
+                break;
+        }
+        return packageType;
+    }
 
+    public static PackageType buildWithInt(short type){
+        PackageType packageType = null;
+        switch (type){
+            case 1:
+                packageType = CHECK_IN_CLIENT_REQUEST;
+                break;
+            case 2:
+                packageType = CHECK_IN_NETWORK_SERVICE_REQUEST;
+                break;
+            case 3:
+                packageType = CHECK_IN_ACTOR_REQUEST;
+                break;
+            case 4:
+                packageType = ACTOR_LIST_REQUEST;
+                break;
+            case 5:
+                packageType = MESSAGE_TRANSMIT;
+                break;
+            case 6:
+                packageType = UPDATE_ACTOR_PROFILE_REQUEST;
+                break;
+            case 7:
+                packageType = ACK;
+                break;
+            case 8:
+                packageType = IS_ACTOR_ONLINE;
+                break;
+            case 9:
+                packageType = SERVER_HANDSHAKE_RESPONSE;
+                break;
+            case 10:
+                packageType = CHECK_IN_CLIENT_RESPOND;
+                break;
+            case 11:
+                packageType = CHECK_IN_NETWORK_SERVICE_RESPOND;
+                break;
+            case 12:
+                packageType = CHECK_IN_ACTOR_RESPONSE;
+                break;
+        }
+        return packageType;
+    }
 
 }
