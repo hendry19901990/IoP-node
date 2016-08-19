@@ -1,0 +1,10 @@
+
+table Package {
+    id : string;
+    content : string;
+    package_type : short;
+    network_service_type : string;
+    destination_pk : string;
+}
+
+root_type Package;
