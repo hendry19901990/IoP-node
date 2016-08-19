@@ -282,6 +282,7 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
             connection.flush();
 
         } catch (Exception e) {
+            e.printStackTrace();
             LOG.error(e);
             transaction.rollback();
             throw new CantUpdateRecordDataBaseException(CantUpdateRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
