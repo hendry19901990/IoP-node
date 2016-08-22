@@ -1,5 +1,3 @@
-package org.iop.version_1;
-
 import com.bitdubai.fermat_api.layer.osa_android.file_system.PluginFileSystem;
 import com.bitdubai.fermat_api.layer.osa_android.location_system.LocationManager;
 import com.bitdubai.fermat_osa_addon.layer.linux.device_location.developer.bitdubai.version_1.DeviceLocationSystemAddonRoot;
@@ -21,7 +19,7 @@ public class AppMain {
      */
 
     /**
-     * org.iop.version_1.AppMain method
+     * AppMain method
      *
      * @param args
      */
