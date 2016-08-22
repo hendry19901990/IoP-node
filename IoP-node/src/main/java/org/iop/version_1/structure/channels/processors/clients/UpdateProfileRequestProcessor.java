@@ -66,10 +66,10 @@ public class UpdateProfileRequestProcessor extends PackageProcessor {
         String destinationIdentityPublicKey = (String) session.getUserProperties().get(HeadersAttName.CPKI_ATT_HEADER_NAME);
 
         //Parsing the json String
-        UpdateActorProfileMsgRequest isActorOnlineMsgRequest = UpdateActorProfileMsgRequest.parseContent(packageReceived.getContent());
+        UpdateActorProfileMsgRequest updateActorProfileMsgRequest = UpdateActorProfileMsgRequest.parseContent(packageReceived.getContent());
 
         //Profile requested
-        ActorProfile actorProfile = (ActorProfile) isActorOnlineMsgRequest.getProfileToUpdate();
+        ActorProfile actorProfile = (ActorProfile) updateActorProfileMsgRequest.getProfileToUpdate();
 
         try{
             //Get the profile from node database
