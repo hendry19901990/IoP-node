@@ -1,4 +1,9 @@
 
+
+table Block {
+    packages : [Package];
+}
+
 table Package {
     id : string;
     content : string;
@@ -7,4 +12,5 @@ table Package {
     destination_pk : string;
 }
 
-root_type Package;
+
+root_type Block;
