@@ -2,6 +2,7 @@ package com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.d
 
 import java.nio.*;
 import java.lang.*;
+import java.util.*;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.common.com.google.flatbuffers.*;
 
@@ -109,10 +110,6 @@ public final class Package extends Table {
     public static int endPackage(FlatBufferBuilder builder) {
         int o = builder.endObject();
         return o;
-    }
-
-    public static void finishPackageBuffer(FlatBufferBuilder builder, int offset) {
-        builder.finish(offset);
     }
 }
 
