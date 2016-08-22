@@ -52,6 +52,7 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
      */
     public List<ActorCatalog> findAll(
             final DiscoveryQueryParameters discoveryQueryParameters,
+            final String requesterPublicKey,
             Integer max,
             Integer offset) throws CantReadRecordDataBaseException {
         LOG.debug("Executing list(" +
@@ -163,7 +164,6 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
                             }
 
                         }
-                        //System.out.println("***************Hi, I'm a filter: "+filter);
                         predicates.add(filter);
                     }
 
@@ -172,27 +172,22 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
             }
 
             //Filter the requester actor
-            Path<Object> path = entities.get("clientIdentityPublicKey");
-//            Predicate actorFilter = criteriaBuilder.notEqual(path, clientIdentityPublicKey);
-            //System.out.println("I'm an actor filter: "+actorFilter.toString());
-//            predicates.add(actorFilter);
-            //System.out.println("I'm predicates: "+predicates);
-            // Add the conditions of the where
+
+            if (requesterPublicKey != null && !requesterPublicKey.isEmpty()) {
+                Path<Object> path = entities.get("id");
+                Predicate actorFilter = criteriaBuilder.notEqual(path, requesterPublicKey);
+                predicates.add(actorFilter);
+            }
+            
+//             Add the conditions of the where
             criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
 
-            //TODO: determinate the distance of every actor and order it
-            //criteriaQuery.orderBy(criteriaBuilder.asc(entities.get(attributeNameOrder)));
-            //Root<ActorCatalog> root = criteriaQuery.from(entityClass);
-            //criteriaQuery.select(root);
             TypedQuery<ActorCatalog> query = connection.createQuery(criteriaQuery);
-            //System.out.println("---------------Criteria Q:"+criteriaQuery);
-            //System.out.println("---------------Typed Query:"+query);
 
             if(offset != null)
                 query.setFirstResult(offset);
             if(max != null)
                 query.setMaxResults(max);
-
 
             return query.getResultList();
 
