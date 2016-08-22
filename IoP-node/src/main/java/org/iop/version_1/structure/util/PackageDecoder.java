@@ -57,6 +57,8 @@ public class PackageDecoder implements Decoder.Binary<Package>{
             );
         } catch (InvalidParameterException e) {
             e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
         }
         return null;
 

@@ -38,7 +38,7 @@ import java.util.Map;
         value = "/ws/client-channel",
         configurator = ClientChannelConfigurator.class,
         encoders = {PackageEncoder.class},
-        decoders = {BlockDecoder2.class}
+        decoders = {PackageDecoder.class}
 )
 public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketChannelEndpoint {
 
@@ -134,42 +134,23 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
     /**
      * Method called to handle a new message received
      *
-     * @param blockReceived new
+     * @param packageReceived new
      * @param session sender
      */
     @OnMessage
-    public void newPackageReceived(BlockPackages blockReceived, Session session) {
-        LOG.info("Thread id: "+Thread.currentThread().getId()+", New block received (size: " + blockReceived.size() + " )");
+    public Package newPackageReceived(Package packageReceived, Session session) {
+        LOG.info("Thread id: "+Thread.currentThread().getId()+", New package received (" + packageReceived.getPackageType() + " )");
         try {
 
             /*
              * Process the new package received
-             * todo: mejorar esto, quizás nos haga falta tratarlo con más hilos en vez de con uno solo...
              */
-            blockReceived.getPackages().forEach(pack -> {
-                try {
-                    Package respond = processMessage(pack, session);
-                    if (respond!=null)
-                        sendPackage(respond,session);
-                    else LOG.info("Package respond null, please check this");
-                } catch (PackageTypeNotSupportedException e) {
-                    LOG.warn("Session: "+session.getId(),e);
-                    e.printStackTrace();
-                } catch (EncodeException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            });
-//            return ;
+            return processMessage(packageReceived,session);
 
         }catch (Exception p){;
             LOG.warn("Session: "+session.getId(),p);
         }
-
-//        return null;
+        return null;
     }
 
     @OnMessage
