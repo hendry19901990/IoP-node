@@ -178,7 +178,7 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
                 Predicate actorFilter = criteriaBuilder.notEqual(path, requesterPublicKey);
                 predicates.add(actorFilter);
             }
-            
+
 //             Add the conditions of the where
             criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()]));
 
