@@ -24,7 +24,7 @@ import java.util.Map;
 public class NodesPackageProcessorFactory {
 
 
-    private static NodesPackageProcessorFactory instance = new NodesPackageProcessorFactory();
+    private static final NodesPackageProcessorFactory instance = new NodesPackageProcessorFactory();
     private Map<String,PackageProcessor> packageProcessors;
 
 
