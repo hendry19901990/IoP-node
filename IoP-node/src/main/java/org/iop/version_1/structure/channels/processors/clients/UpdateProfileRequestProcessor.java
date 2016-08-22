@@ -5,23 +5,31 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.da
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.UpdateActorProfileMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ACKRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.IsActorOnlineMsgRespond;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.MsgRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.ProfileStatus;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.ActorProfile;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
+import org.iop.version_1.IoPNodePluginRoot;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
+import org.iop.version_1.structure.context.NodeContext;
+import org.iop.version_1.structure.context.NodeContextItem;
 import org.iop.version_1.structure.database.jpa.daos.ActorCatalogDao;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.ActorCatalog;
+import org.iop.version_1.structure.database.jpa.entities.NodeCatalog;
 
 import javax.websocket.Session;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Arrays;
 
 /**
  * Created by Manuel Perez P. (darkpriestrelative@gmail.com) on 16/08/16.
+ *
  */
 public class UpdateProfileRequestProcessor extends PackageProcessor {
 
@@ -39,28 +47,26 @@ public class UpdateProfileRequestProcessor extends PackageProcessor {
 
     /**
      * This method process the request message
-     * @param session that send the package
-     * @param packageReceived to process
-     * @param channel
-     * @return
-     * @throws IOException
+     * @param session          that send the package
+     * @param packageReceived  to process
+     * @param channel          in which we are processing the package.
+     *
+     * @return a package instance as response.
+     *
+     * @throws IOException if something goes wrong.
      */
     @Override
-    public Package processingPackage(
-            Session session,
-            Package packageReceived,
-            FermatWebSocketChannelEndpoint channel) throws IOException {
+    public Package processingPackage(final Session                        session        ,
+                                     final Package                        packageReceived,
+                                     final FermatWebSocketChannelEndpoint channel        ) throws IOException {
 
         LOG.info("Processing new package received: " + packageReceived.getPackageType());
 
         //Represents the requester pk
-        String destinationIdentityPublicKey = (String) session
-                .getUserProperties()
-                .get(HeadersAttName.CPKI_ATT_HEADER_NAME);
+        String destinationIdentityPublicKey = (String) session.getUserProperties().get(HeadersAttName.CPKI_ATT_HEADER_NAME);
 
         //Parsing the json String
-        UpdateActorProfileMsgRequest isActorOnlineMsgRequest = UpdateActorProfileMsgRequest
-                .parseContent(packageReceived.getContent());
+        UpdateActorProfileMsgRequest isActorOnlineMsgRequest = UpdateActorProfileMsgRequest.parseContent(packageReceived.getContent());
 
         //Profile requested
         ActorProfile actorProfile = (ActorProfile) isActorOnlineMsgRequest.getProfileToUpdate();
@@ -69,16 +75,61 @@ public class UpdateProfileRequestProcessor extends PackageProcessor {
             //Get the profile from node database
             ActorCatalogDao actorCatalogDao = JPADaoFactory.getActorCatalogDao();
 
-            ActorCatalog actorCatalog = new ActorCatalog(actorProfile,null,actorProfile.getHomeNodePublicKey(),null);
+            ActorCatalog actorsCatalogToUpdate = actorCatalogDao.findById(actorProfile.getIdentityPublicKey());
 
+            ACKRespond isActorOnlineMsgRespond;
 
-            actorCatalogDao.update(actorCatalog);
+            if (actorsCatalogToUpdate != null) {
 
-            //Respond the request
-            ACKRespond isActorOnlineMsgRespond = new ACKRespond(
-                    packageReceived.getPackageId(),
-                    IsActorOnlineMsgRespond.STATUS.SUCCESS,
-                    IsActorOnlineMsgRespond.STATUS.SUCCESS.toString());
+                boolean hasChanges = false;
+
+                if (!actorProfile.getName().equals(actorsCatalogToUpdate.getName())) {
+                    actorsCatalogToUpdate.setName(actorProfile.getName());
+                    hasChanges = true;
+                }
+
+                if (!actorProfile.getAlias().equals(actorsCatalogToUpdate.getAlias())) {
+                    actorsCatalogToUpdate.setAlias(actorProfile.getAlias());
+                    hasChanges = true;
+                }
+
+                if (!Arrays.equals(actorProfile.getPhoto(), actorsCatalogToUpdate.getPhoto())) {
+                    actorsCatalogToUpdate.setPhoto(actorProfile.getPhoto());
+                    hasChanges = true;
+                }
+
+                if (!getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey().equals(actorsCatalogToUpdate.getHomeNode().getId())) {
+                    actorsCatalogToUpdate.setHomeNode(new NodeCatalog(getNetworkNodePluginRoot().getNodeProfile().getIdentityPublicKey()));
+                    hasChanges = true;
+                }
+
+                if (actorProfile.getLocation() != null && actorsCatalogToUpdate.getLocation() != null && !actorProfile.getLocation().equals(actorsCatalogToUpdate.getLocation())) {
+                    actorsCatalogToUpdate.setLocation(actorProfile.getLocation().getLatitude(), actorProfile.getLocation().getLongitude());
+                    hasChanges = true;
+                }
+
+                LOG.info("hasChanges = " + hasChanges);
+
+                if (hasChanges) {
+
+                    Timestamp currentMillis = new Timestamp(System.currentTimeMillis());
+
+                    actorsCatalogToUpdate.setLastConnection(currentMillis);
+                    actorsCatalogToUpdate.setLastUpdateTime(currentMillis);
+                    actorsCatalogToUpdate.setVersion(actorsCatalogToUpdate.getVersion() + 1);
+                    actorsCatalogToUpdate.setTriedToPropagateTimes(0);
+
+                    LOG.info("Updating profile");
+
+                    actorCatalogDao.update(actorsCatalogToUpdate);
+                }
+
+                //Respond the request
+                isActorOnlineMsgRespond = new ACKRespond(packageReceived.getPackageId(), ACKRespond.STATUS.SUCCESS, ACKRespond.STATUS.SUCCESS.toString());
+            } else {
+
+                isActorOnlineMsgRespond = new ACKRespond(packageReceived.getPackageId(), ACKRespond.STATUS.FAIL, "An actor with that public key does not exist.");
+            }
 
             //Create instance
             if (session.isOpen()) {
@@ -102,11 +153,7 @@ public class UpdateProfileRequestProcessor extends PackageProcessor {
                 /*
                  * Respond whit fail message
                  */
-                ACKRespond actorListMsgRespond = new ACKRespond(
-                        packageReceived.getPackageId(),
-                        IsActorOnlineMsgRespond.STATUS.FAIL,
-                        exception.getLocalizedMessage()
-                );
+                ACKRespond actorListMsgRespond = new ACKRespond(packageReceived.getPackageId(), IsActorOnlineMsgRespond.STATUS.FAIL, exception.getLocalizedMessage());
 
                 return Package.createInstance(
                         actorListMsgRespond.toJson()                      ,
@@ -122,5 +169,15 @@ public class UpdateProfileRequestProcessor extends PackageProcessor {
                 return null;
             }
         }
+    }
+
+    private IoPNodePluginRoot pluginRoot;
+
+    private IoPNodePluginRoot getNetworkNodePluginRoot() {
+
+        if (pluginRoot == null)
+            pluginRoot = (IoPNodePluginRoot) NodeContext.get(NodeContextItem.PLUGIN_ROOT);
+
+        return pluginRoot;
     }
 }

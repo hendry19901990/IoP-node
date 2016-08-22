@@ -23,7 +23,7 @@ public interface P2PLayerManager {
 
     void register(NetworkChannel networkChannel);
 
-    void register(ActorProfile profile);
+    void register(ActorProfile profile, NetworkServiceType type);
 
     void update(ActorProfile profile, UpdateTypes type);
 

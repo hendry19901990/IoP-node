@@ -10,6 +10,7 @@ import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
+import org.iop.version_1.structure.context.SessionManager;
 import org.iop.version_1.structure.database.jpa.daos.ActorCatalogDao;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.ActorCatalog;
@@ -63,36 +64,38 @@ public class IsActorOnlineRequestProcessor extends PackageProcessor {
         String actorProfilePublicKey = isActorOnlineMsgRequest.getRequestedProfilePublicKey();
 
         try{
-            //Get the profile from node database
-            ActorCatalogDao actorCatalogDao = JPADaoFactory.getActorCatalogDao();
-            ActorCatalog actorCatalog = actorCatalogDao.findById(actorProfilePublicKey);
-            ProfileStatus profileStatus;
-            if(actorCatalog==null){
-                profileStatus = ProfileStatus.OFFLINE;
-            } else{
-                //Checking the session, if the session is null the actor is offline
-                if(actorCatalog.getSessionId()!=null){
-                    profileStatus = ProfileStatus.ONLINE;
-                } else {
-                    profileStatus = ProfileStatus.OFFLINE;
-                }
 
+            ProfileStatus profileStatus = ProfileStatus.OFFLINE;
+
+            /*
+             * Get the actorSessionId
+             */
+            String actorSessionId = JPADaoFactory.getActorCatalogDao().findValueById(destinationIdentityPublicKey, String.class, "sessionId");
+
+            /*
+             * Validate the session
+             */
+            if(actorSessionId != null &&
+                    !actorSessionId.isEmpty() &&
+                        SessionManager.exist(actorSessionId)){
+
+                profileStatus = ProfileStatus.ONLINE;
             }
+
             //Respond the request
-            IsActorOnlineMsgRespond isActorOnlineMsgRespond = new IsActorOnlineMsgRespond(
-                    packageReceived.getPackageId(),
-                    IsActorOnlineMsgRespond.STATUS.SUCCESS,
-                    IsActorOnlineMsgRespond.STATUS.SUCCESS.toString(),
-                    actorProfilePublicKey, profileStatus,
-                    packageReceived.getNetworkServiceTypeSource().getCode());
+            IsActorOnlineMsgRespond isActorOnlineMsgRespond = new IsActorOnlineMsgRespond(packageReceived.getPackageId(),
+                                                                                          IsActorOnlineMsgRespond.STATUS.SUCCESS,
+                                                                                          IsActorOnlineMsgRespond.STATUS.SUCCESS.toString(),
+                                                                                          actorProfilePublicKey, profileStatus,
+                                                                                          packageReceived.getNetworkServiceTypeSource().getCode());
 
             //Create instance
             if (session.isOpen()) {
 
                 return Package.createInstance(
-                        isActorOnlineMsgRespond.toJson()                      ,
-                        packageReceived.getNetworkServiceTypeSource()                  ,
-                        PackageType.IS_ACTOR_ONLINE                         ,
+                        isActorOnlineMsgRespond.toJson(),
+                        packageReceived.getNetworkServiceTypeSource(),
+                        PackageType.IS_ACTOR_ONLINE,
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
                 );

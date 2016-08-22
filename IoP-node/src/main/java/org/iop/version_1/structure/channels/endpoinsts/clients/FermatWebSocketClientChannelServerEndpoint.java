@@ -16,7 +16,7 @@ import org.iop.version_1.structure.channels.processors.NodesPackageProcessorFact
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.context.SessionManager;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
-import org.iop.version_1.structure.util.BlockDecoder;
+import org.iop.version_1.structure.util.BlockDecoder2;
 import org.iop.version_1.structure.util.PackageDecoder;
 import org.iop.version_1.structure.util.PackageEncoder;
 
@@ -38,7 +38,7 @@ import java.util.Map;
         value = "/ws/client-channel",
         configurator = ClientChannelConfigurator.class,
         encoders = {PackageEncoder.class},
-        decoders = {PackageDecoder.class}
+        decoders = {BlockDecoder2.class}
 )
 public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketChannelEndpoint {
 
@@ -134,24 +134,42 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
     /**
      * Method called to handle a new message received
      *
-     * @param packageReceived new
+     * @param blockReceived new
      * @param session sender
      */
     @OnMessage
-    public Package newPackageReceived(Package packageReceived, Session session) {
-        LOG.info("Thread id: "+Thread.currentThread().getId()+", New package received (" + packageReceived.getPackageType().name() + ")");
+    public void newPackageReceived(BlockPackages blockReceived, Session session) {
+        LOG.info("Thread id: "+Thread.currentThread().getId()+", New block received (size: " + blockReceived.size() + " )");
         try {
 
             /*
              * Process the new package received
+             * todo: mejorar esto, quizás nos haga falta tratarlo con más hilos en vez de con uno solo...
              */
-            return processMessage(packageReceived, session);
+            blockReceived.getPackages().forEach(pack -> {
+                try {
+                    Package respond = processMessage(pack, session);
+                    if (respond!=null)
+                        sendPackage(respond,session);
+                    else LOG.info("Package respond null, please check this");
+                } catch (PackageTypeNotSupportedException e) {
+                    LOG.warn("Session: "+session.getId(),e);
+                    e.printStackTrace();
+                } catch (EncodeException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+            });
+//            return ;
 
-        }catch (PackageTypeNotSupportedException p){;
+        }catch (Exception p){;
             LOG.warn("Session: "+session.getId(),p);
         }
 
-        return null;
+//        return null;
     }
 
     @OnMessage

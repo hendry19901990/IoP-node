@@ -69,7 +69,7 @@ public class ActorListRequestProcessor extends PackageProcessor {
             /*
              * Create the method call history
              */
-            List<ActorProfile> actorsList = filterActors(messageContent.getParameters());
+            List<ActorProfile> actorsList = filterActors(messageContent.getParameters(), messageContent.getRequesterPublicKey());
 
             /*
              * If all ok, respond whit success message
@@ -136,7 +136,7 @@ public class ActorListRequestProcessor extends PackageProcessor {
      *
      * @return a list of actor profiles.
      */
-    private List<ActorProfile> filterActors(final DiscoveryQueryParameters discoveryQueryParameters) throws CantReadRecordDataBaseException {
+    private List<ActorProfile> filterActors(final DiscoveryQueryParameters discoveryQueryParameters, String requesterPublicKey) throws CantReadRecordDataBaseException {
 
         Map<String, ActorProfile> profileList = new HashMap<>();
 
@@ -151,7 +151,7 @@ public class ActorListRequestProcessor extends PackageProcessor {
         if (discoveryQueryParameters.getOffset() != null && discoveryQueryParameters.getOffset() >= 0)
             offset = discoveryQueryParameters.getOffset();
 
-        actorsList = JPADaoFactory.getActorCatalogDao().findAll(discoveryQueryParameters, max, offset);
+        actorsList = JPADaoFactory.getActorCatalogDao().findAll(discoveryQueryParameters, requesterPublicKey, max, offset);
 
         if (discoveryQueryParameters.isOnline())
             for (ActorCatalog actorsCatalog : actorsList)
