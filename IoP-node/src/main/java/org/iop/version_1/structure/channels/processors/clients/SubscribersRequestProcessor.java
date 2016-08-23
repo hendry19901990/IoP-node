@@ -6,6 +6,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.da
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ACKRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.IsActorOnlineMsgRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.ProfileStatus;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.events_op_codes.EventOp;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.apache.commons.lang.ClassUtils;
@@ -64,8 +65,13 @@ public class SubscribersRequestProcessor extends PackageProcessor {
 
         try{
 
-
-            JPADaoFactory.getEventListenerDao().save(new EventListener(packageReceived.getPackageId().toString(),session.getId(),subscriberMsgRequest.getEventCode(),subscriberMsgRequest.getCondition()));
+            if (subscriberMsgRequest.getEventCode() == EventOp.EVENT_OP_IS_PROFILE_ONLINE){
+                //esto deberi ser con un count..
+                String id = JPADaoFactory.getActorCatalogDao().findValueById(subscriberMsgRequest.getCondition(),String.class,"id");
+                if (id!=null){
+                    JPADaoFactory.getEventListenerDao().save(new EventListener(packageReceived.getPackageId().toString(),session.getId(),subscriberMsgRequest.getEventCode(),subscriberMsgRequest.getCondition()));
+                }
+            }
 
             //Respond the request
             ACKRespond ackRespond = new ACKRespond(packageReceived.getPackageId(),

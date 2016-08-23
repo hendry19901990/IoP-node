@@ -617,5 +617,4 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
     }
 
 
-
 }
