@@ -114,12 +114,8 @@ public class DatabaseManager {
      * @return path
      */
     public static String getObjectDbConfigurationFilePath(){
-
-
-        return DatabaseManager.class.getClassLoader().getResource("objectdb.conf").toString();
-        /*
         ProtectionDomain domain = com.objectdb.Utilities.class.getProtectionDomain();
-        return domain.getCodeSource().getLocation().getFile().replace(".jar", ".conf");*/
+        return domain.getCodeSource().getLocation().getFile().replace(".jar", ".conf");
     }
 
     public static void start(){
@@ -127,26 +123,27 @@ public class DatabaseManager {
         /*
          * Configure environment
          */
-        String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
-       // System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
+//        String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
+//        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
 
         executorService.execute(() -> {
 
             LOG.info("Initializing objectdb database in server mode");
-            try {
-                Runtime.getRuntime().exec("java -Dobjectdb.temp.avoid-page-recycle=true -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                String s = "java -Dobjectdb.temp.avoid-page-recycle=true -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start";
+//                Runtime.getRuntime().exec(s);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
         });
 
-        try {
-            System.out.println("Waiting 5 seconds to the database server start");
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            LOG.warn(e);
-        }
+//        try {
+//            System.out.println("Waiting 5 seconds to the database server start");
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            LOG.warn(e);
+//        }
 
         Map<String, String> properties = new HashMap<String, String>();
         properties.put("javax.jdo.option.MinPool", "50");
@@ -154,7 +151,7 @@ public class DatabaseManager {
         properties.put("javax.persistence.sharedCache.mode", "DISABLE_SELECTIVE");
 
         LOG.info("Open a database connection (create a new database if it doesn't exist yet)");
-        entityManagerFactory = Persistence.createEntityManagerFactory("node-pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory(System.getProperty("user.home")+"/externalStorage/node-pers-unit.odb",properties);
 
         /*
          * Create tables at start up
@@ -164,6 +161,7 @@ public class DatabaseManager {
         entityManagerFactory.createEntityManager().getMetamodel().entity(GeoLocation.class);
         entityManagerFactory.createEntityManager().getMetamodel().entity(NetworkService.class);
         entityManagerFactory.createEntityManager().getMetamodel().entity(NodeCatalog.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(EventListener.class);
 
     }
 }

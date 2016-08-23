@@ -5,9 +5,11 @@ import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.Networ
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.BlockPackages;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ServerHandshakeRespond;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.events_op_codes.EventOp;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.exception.PackageTypeNotSupportedException;
+import org.apache.commons.collections4.Predicate;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
@@ -23,6 +25,7 @@ import org.iop.version_1.structure.util.PackageEncoder;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +41,7 @@ import java.util.Map;
         value = "/ws/client-channel",
         configurator = ClientChannelConfigurator.class,
         encoders = {PackageEncoder.class},
-        decoders = {BlockDecoder2.class}
+        decoders = {PackageDecoder.class}
 )
 public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketChannelEndpoint {
 
@@ -134,42 +137,23 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
     /**
      * Method called to handle a new message received
      *
-     * @param blockReceived new
+     * @param packageReceived new
      * @param session sender
      */
     @OnMessage
-    public void newPackageReceived(BlockPackages blockReceived, Session session) {
-        LOG.info("Thread id: "+Thread.currentThread().getId()+", New block received (size: " + blockReceived.size() + " )");
+    public Package newPackageReceived(Package packageReceived, Session session) {
+        LOG.info("Thread id: "+Thread.currentThread().getId()+", New package received (" + packageReceived.getPackageType() + " )");
         try {
 
             /*
              * Process the new package received
-             * todo: mejorar esto, quizás nos haga falta tratarlo con más hilos en vez de con uno solo...
              */
-            blockReceived.getPackages().forEach(pack -> {
-                try {
-                    Package respond = processMessage(pack, session);
-                    if (respond!=null)
-                        sendPackage(respond,session);
-                    else LOG.info("Package respond null, please check this");
-                } catch (PackageTypeNotSupportedException e) {
-                    LOG.warn("Session: "+session.getId(),e);
-                    e.printStackTrace();
-                } catch (EncodeException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (Exception e){
-                    e.printStackTrace();
-                }
-            });
-//            return ;
+            return processMessage(packageReceived,session);
 
         }catch (Exception p){;
             LOG.warn("Session: "+session.getId(),p);
         }
-
-//        return null;
+        return null;
     }
 
     @OnMessage
@@ -195,7 +179,15 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
             LOG.info("Removing session and associate entities");
             SessionManager.remove(session);
             JPADaoFactory.getClientDao().checkOut(session.getId());
-            JPADaoFactory.getActorCatalogDao().checkOut(session.getId());
+            //Este checkout deberia ser más controlado
+            List<String> listActorsCheckingOut = JPADaoFactory.getActorCatalogDao().checkOutAndGet(session.getId());
+            //subscribers
+//            Predicate<String> predicate = pk -> {return (pk.equals());};
+            try {
+                JPADaoFactory.getEventListenerDao().getEventsForCodeAndConditions(EventOp.EVENT_OP_IS_PROFILE_ONLINE, listActorsCheckingOut);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
         } catch (Exception exception) {
 

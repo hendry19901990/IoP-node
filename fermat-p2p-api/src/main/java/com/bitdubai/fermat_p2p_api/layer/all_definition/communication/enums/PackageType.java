@@ -36,6 +36,9 @@ public enum PackageType {
 
     IS_ACTOR_ONLINE, //This represents a request to check if an actor in online in this or any node
 
+    //
+    SUBSCRIBER,
+
 
     //todo: esto no creo que vaya
     SERVER_HANDSHAKE_RESPONSE, // the servers returns a message to the client when the client check in and the connection was successful
@@ -160,6 +163,9 @@ public enum PackageType {
             case CHECK_IN_ACTOR_RESPONSE:
                 packageType = 12;
                 break;
+            case SUBSCRIBER:
+                packageType = 13;
+                break;
         }
         return packageType;
     }
@@ -202,6 +208,9 @@ public enum PackageType {
                 break;
             case 12:
                 packageType = CHECK_IN_ACTOR_RESPONSE;
+                break;
+            case 13:
+                packageType = SUBSCRIBER;
                 break;
         }
         return packageType;

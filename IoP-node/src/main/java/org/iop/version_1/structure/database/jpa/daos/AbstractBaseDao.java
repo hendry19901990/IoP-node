@@ -125,6 +125,8 @@ public class AbstractBaseDao<E extends AbstractBaseEntity> {
     }
 
 
+
+
     /**
      * Persist the entity into the data base
      *
