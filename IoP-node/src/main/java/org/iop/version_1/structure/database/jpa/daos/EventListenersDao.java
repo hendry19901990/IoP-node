@@ -15,6 +15,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -74,7 +76,7 @@ public class EventListenersDao extends AbstractBaseDao<EventListener>{
 
         try {
             //todo: no hace falta cargar todo en memoria en realidad, con cargar solo el id de la session me basta pero esto es para probar si todo va bien
-            TypedQuery<EventListener> query = connection.createQuery("SELECT c FROM EventListener c WHERE c.event = :eventCode AND c.condition = :condition", EventListener.class);
+            TypedQuery<EventListener> query = connection.createQuery("SELECT EventListener c FROM EventListener c WHERE c.event = :eventCode AND c.condition = :condition", EventListener.class);
             query.setParameter("eventCode", eventCode);
             query.setParameter("condition", condition);
             return query.getResultList();
@@ -87,6 +89,34 @@ public class EventListenersDao extends AbstractBaseDao<EventListener>{
         }
     }
 
+    public List<EventListener> getEventsForCodeAndConditions(short eventCode,List<String> conditions) throws CantReadRecordDataBaseException {
+        LOG.debug("Executing getEventsForCodeAndConditions(" + eventCode + ", condition: "+conditions+")");
+        EntityManager connection = null;
+        try {
+            connection = getConnection();
+            CriteriaBuilder criteriaBuilder = connection.getCriteriaBuilder();
+            Predicate[] predicateConditions = new Predicate[conditions.size()];
+            ParameterExpression parameterExpression = criteriaBuilder.parameter(EventListener.class,"condition");
+            for (int i=0;i<conditions.size();i++){
+                String condition = conditions.get(i);
+                predicateConditions[i]=(criteriaBuilder.equal(parameterExpression,condition));
+            }
+            CriteriaQuery<EventListener> criteriaQuery = criteriaBuilder.createQuery(entityClass);
+            //no hacen falta todos los eventos, solo el string de la sessionId.. pero bueno
+            TypedQuery<EventListener> query = connection.createQuery(criteriaQuery.where(
+                    criteriaBuilder.and(
+                            criteriaBuilder.equal(criteriaBuilder.parameter(EventListener.class,"event"),eventCode),
+                            criteriaBuilder.or(predicateConditions))).select(criteriaQuery.from(entityClass)));
+            return query.getResultList();
+        } catch (Exception e) {
+            LOG.error(e);
+            throw new CantReadRecordDataBaseException(CantReadRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            if (connection != null) {
+                connection.close();
+            }
+        }
+    }
 
     /**
      * Delete a client from data base whit have

@@ -574,5 +574,48 @@ public class ActorCatalogDao extends AbstractBaseDao<ActorCatalog> {
 
     }
 
+    /**
+     * List of actor pk checking out
+     * @param sessionId
+     * @return
+     * @throws CantUpdateRecordDataBaseException
+     */
+    public List<String> checkOutAndGet(String sessionId) throws CantUpdateRecordDataBaseException {
+
+        LOG.debug("Executing delete("+sessionId+")");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+        List<String> list = null;
+
+        try {
+
+            transaction.begin();
+
+
+            TypedQuery<String> query = connection.createQuery("SELECT a.id FROM ActorCatalog a WHERE a.sessionId = :id", String.class);
+            query.setParameter("id", sessionId);
+            list = query.getResultList();
+
+            Query deleteQuery = connection.createQuery("UPDATE ActorCatalog a SET a.sessionId = null WHERE a.sessionId = :id");
+            deleteQuery.setParameter("id", sessionId);
+            int result = deleteQuery.executeUpdate();
+
+            LOG.info("Update rows = "+result+"");
+
+            transaction.commit();
+            connection.flush();
+
+        } catch (Exception e) {
+            LOG.error(e);
+            transaction.rollback();
+            throw new CantUpdateRecordDataBaseException(CantUpdateRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
+        }
+
+        return list;
+    }
+
+
 
 }

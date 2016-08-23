@@ -31,7 +31,7 @@ public class PackageEncoder implements Encoder.Binary<Package>{
         FlatBufferBuilder flatBufferBuilder = new FlatBufferBuilder();
         int packageId = flatBufferBuilder.createString(packageToSend.getPackageId().toString());
         int content = flatBufferBuilder.createString(packageToSend.getContent());
-        int networkServiceType = flatBufferBuilder.createString(packageToSend.getNetworkServiceTypeSource().getCode());
+        int networkServiceType = (packageToSend.getNetworkServiceTypeSource()!=null)? flatBufferBuilder.createString(packageToSend.getNetworkServiceTypeSource().getCode()) : 0 ;
         int destinationPublicKey = flatBufferBuilder.createString(packageToSend.getDestinationPublicKey());
         int pack = com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.common.Package.createPackage(
                 flatBufferBuilder,

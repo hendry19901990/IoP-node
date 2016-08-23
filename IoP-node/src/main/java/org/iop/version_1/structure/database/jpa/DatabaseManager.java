@@ -123,8 +123,8 @@ public class DatabaseManager {
         /*
          * Configure environment
          */
-        String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
-        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
+//        String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
+//        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
 
         executorService.execute(() -> {
 
@@ -138,12 +138,12 @@ public class DatabaseManager {
 
         });
 
-        try {
-            System.out.println("Waiting 5 seconds to the database server start");
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            LOG.warn(e);
-        }
+//        try {
+//            System.out.println("Waiting 5 seconds to the database server start");
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            LOG.warn(e);
+//        }
 
         Map<String, String> properties = new HashMap<String, String>();
         properties.put("javax.jdo.option.MinPool", "50");
@@ -151,7 +151,7 @@ public class DatabaseManager {
         properties.put("javax.persistence.sharedCache.mode", "DISABLE_SELECTIVE");
 
         LOG.info("Open a database connection (create a new database if it doesn't exist yet)");
-        entityManagerFactory = Persistence.createEntityManagerFactory("node-pu");
+        entityManagerFactory = Persistence.createEntityManagerFactory(System.getProperty("user.home")+"/externalStorage/node-pers-unit.odb",properties);
 
         /*
          * Create tables at start up
@@ -161,6 +161,7 @@ public class DatabaseManager {
         entityManagerFactory.createEntityManager().getMetamodel().entity(GeoLocation.class);
         entityManagerFactory.createEntityManager().getMetamodel().entity(NetworkService.class);
         entityManagerFactory.createEntityManager().getMetamodel().entity(NodeCatalog.class);
+        entityManagerFactory.createEntityManager().getMetamodel().entity(EventListener.class);
 
     }
 }

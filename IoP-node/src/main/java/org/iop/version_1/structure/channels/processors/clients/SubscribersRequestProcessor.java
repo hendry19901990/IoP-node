@@ -77,7 +77,6 @@ public class SubscribersRequestProcessor extends PackageProcessor {
 
                 return Package.createInstance(
                         ackRespond.toJson(),
-                        packageReceived.getNetworkServiceTypeSource(),
                         PackageType.ACK,
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
@@ -94,15 +93,14 @@ public class SubscribersRequestProcessor extends PackageProcessor {
                 /*
                  * Respond whit fail message
                  */
-                ACKRespond actorListMsgRespond = new ACKRespond(
+                ACKRespond ackRespond = new ACKRespond(
                         packageReceived.getPackageId(),
                         ACKRespond.STATUS.FAIL,
                         exception.getLocalizedMessage()
                 );
 
                 return Package.createInstance(
-                        actorListMsgRespond.toJson()                      ,
-                        packageReceived.getNetworkServiceTypeSource()                  ,
+                        ackRespond.toJson()                      ,
                         PackageType.ACK                         ,
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
