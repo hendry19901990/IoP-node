@@ -19,27 +19,21 @@ import java.util.UUID;
  */
 public class ActorListMsgRequest extends PackageContent {
 
-    private UUID                     queryId           ;
     private String                   networkServiceType;
     private DiscoveryQueryParameters parameters        ;
     private String                   requesterPublicKey;
 
-    public ActorListMsgRequest(final UUID                     queryId           ,
-                               final String                   networkServiceType,
+    public ActorListMsgRequest(final String                   networkServiceType,
                                final DiscoveryQueryParameters parameters        ,
                                final String                   requesterPublicKey) {
 
         super(MessageContentType.JSON);
 
-        this.queryId            = queryId           ;
         this.networkServiceType = networkServiceType;
         this.parameters         = parameters        ;
         this.requesterPublicKey = requesterPublicKey;
     }
 
-    public UUID getQueryId() {
-        return queryId;
-    }
 
     public String getNetworkServiceType() {
         return networkServiceType;
@@ -76,7 +70,6 @@ public class ActorListMsgRequest extends PackageContent {
     @Override
     public String toString() {
         return "ActorListMsgRequest{" +
-                "queryId=" + queryId +
                 ", networkServiceType='" + networkServiceType + '\'' +
                 ", parameters=" + parameters +
                 ", requesterPublicKey='" + requesterPublicKey + '\'' +

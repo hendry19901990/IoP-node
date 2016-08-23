@@ -67,4 +67,8 @@ public final class JPADaoFactory {
         return new GeoLocationDao();
     }
 
+    static public EventListenersDao getEventListenerDao(){
+        return new EventListenersDao();
+    }
+
 }

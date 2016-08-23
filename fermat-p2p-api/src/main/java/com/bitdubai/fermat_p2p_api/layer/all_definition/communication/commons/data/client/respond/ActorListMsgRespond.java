@@ -18,7 +18,6 @@ import java.util.UUID;
  */
 public class ActorListMsgRespond extends MsgRespond {
 
-    private UUID queryId;
     /**
      * Represent the profile list
      */
@@ -41,8 +40,7 @@ public class ActorListMsgRespond extends MsgRespond {
             UUID packageId,final STATUS                  status                 ,
                                final String                  details                ,
                                final List<ActorProfile> profileList            ,
-                               final String                  networkServiceType,
-                               final UUID                    queryId                ) {
+                               final String                  networkServiceType) {
 
         super(packageId,
                 status ,
@@ -51,7 +49,6 @@ public class ActorListMsgRespond extends MsgRespond {
 
         this.profileList             = profileList            ;
         this.networkServiceType = networkServiceType;
-        this.queryId                 = queryId                ;
     }
 
     /**
@@ -71,9 +68,6 @@ public class ActorListMsgRespond extends MsgRespond {
         return networkServiceType;
     }
 
-    public UUID getQueryId() {
-        return queryId;
-    }
 
     /**
      * Generate the json representation
@@ -97,7 +91,6 @@ public class ActorListMsgRespond extends MsgRespond {
     @Override
     public String toString() {
         return "ActorListMsgRespond{" +
-                "queryId=" + queryId +
                 ", profileList=" + profileList +
                 ", NetworkServiceType='" + networkServiceType + '\'' +
                 '}';
