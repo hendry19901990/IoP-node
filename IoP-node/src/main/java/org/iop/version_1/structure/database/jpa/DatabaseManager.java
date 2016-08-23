@@ -129,11 +129,12 @@ public class DatabaseManager {
         executorService.execute(() -> {
 
             LOG.info("Initializing objectdb database in server mode");
-            try {
-                Runtime.getRuntime().exec("java -Dobjectdb.temp.avoid-page-recycle=true -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                String s = "java -Dobjectdb.temp.avoid-page-recycle=true -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start";
+//                Runtime.getRuntime().exec(s);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
         });
 
