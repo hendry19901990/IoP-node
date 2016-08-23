@@ -1,16 +1,25 @@
 apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
 group 'Iop'
+
 version '1.0-SNAPSHOT'
-
+mainClassName = 'org.iop.version_1.AppMain'
 sourceCompatibility = 1.8
-mainClassName = "Main"
-
 
 repositories {
     mavenCentral()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
 }
 
 sourceSets {
@@ -20,7 +29,6 @@ sourceSets {
         }
     }
 }
-
 
 dependencies {
     compile project(':fermat-p2p-api')
@@ -39,6 +47,7 @@ dependencies {
     compile 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.3.11.v20160721'
     compile 'org.eclipse.jetty:jetty-servlet:9.3.11.v20160721'
     compile 'org.eclipse.jetty:jetty-webapp:9.3.11.v20160721'
+    compile 'org.eclipse.jetty:jetty-webapp:9.3.11.v20160721'
 
     compile 'org.slf4j:slf4j-log4j12:1.7.21'
     compile 'commons-configuration:commons-configuration:1.10'
@@ -53,14 +62,22 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
 
-task fatJar(type: Jar) {
+shadowJar {
+    archiveName = project.name + '-production-' + version  + ".jar"
+    mergeServiceFiles()
     manifest {
-        attributes 'Implementation-Title': 'Gradle Jar File Example',
-                'Implementation-Version': version,
-                'Main-Class': 'Main'
+        attributes 'Built-Date': new Date()
+        attributes 'Built-By': System.getProperty('user.name')
+        attributes 'Build-Jdk': System.getProperty('java.version')
+        attributes 'Implementation-Title': project.name
+        attributes 'Implementation-Version': project.version
+        attributes 'Implementation-Vendor-Id': project.group
     }
-    baseName = project.name + '-with-dependencies-' + version
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
 }
-
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
