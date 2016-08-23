@@ -56,13 +56,6 @@ public class NetworkService extends AbstractBaseEntity<String>{
     @Enumerated(EnumType.STRING)
     private NetworkServiceType networkServiceType;
 
-    /**
-     * Represent the client
-     */
-    @NotNull
-    @ManyToOne @MapsId
-    private Client client;
-
 //    /**
 //     * Represent the session
 //     */
@@ -78,7 +71,6 @@ public class NetworkService extends AbstractBaseEntity<String>{
         this.location = null;
         this.status = null;
         this.networkServiceType = null;
-        this.client = null;
         this.location = null;
     }
 
@@ -90,9 +82,9 @@ public class NetworkService extends AbstractBaseEntity<String>{
         this.id = networkServiceProfile.getIdentityPublicKey();
         this.status = networkServiceProfile.getStatus();
         this.networkServiceType = networkServiceProfile.getNetworkServiceType();
-        this.client = new Client(networkServiceProfile.getClientIdentityPublicKey());
         if (networkServiceProfile.getLocation() != null){
-            this.location = new GeoLocation(networkServiceProfile.getClientIdentityPublicKey(), networkServiceProfile.getLocation().getLatitude(), networkServiceProfile.getLocation().getLongitude());
+            this.location = null;
+//            this.location = new GeoLocation(networkServiceProfile.getClientIdentityPublicKey(), networkServiceProfile.getLocation().getLatitude(), networkServiceProfile.getLocation().getLongitude());
         }else {
             this.location = null;
         }
@@ -103,15 +95,14 @@ public class NetworkService extends AbstractBaseEntity<String>{
      * @param location
      * @param status
      * @param networkServiceType
-     * @param clientIdentityPublicKey
      */
-    public NetworkService(GeoLocation location, ProfileStatus status, NetworkServiceType networkServiceType, String clientIdentityPublicKey) {
+    public NetworkService(GeoLocation location, ProfileStatus status, NetworkServiceType networkServiceType) {
         this.location = location;
         this.status = status;
         this.networkServiceType = networkServiceType;
-        this.client = new Client(clientIdentityPublicKey);
         if (location != null){
-            this.location = new GeoLocation(clientIdentityPublicKey, location.getLatitude(), location.getLongitude());
+//            this.location = new GeoLocation(clientIdentityPublicKey, location.getLatitude(), location.getLongitude());
+            this.location = null;
         }else {
             this.location = null;
         }
@@ -191,25 +182,6 @@ public class NetworkService extends AbstractBaseEntity<String>{
     }
 
     /**
-     * Get the value of client
-     *
-     * @return client
-     */
-    public Client getClient() {
-        return client;
-    }
-
-    /**
-     * Set the value of client
-     *
-     * @param client
-     */
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-
-    /**
      * Get the Session value
      *
      * @return Session
@@ -263,7 +235,6 @@ public class NetworkService extends AbstractBaseEntity<String>{
         sb.append(", location=").append(location);
         sb.append(", status=").append(status);
         sb.append(", networkServiceType=").append(networkServiceType);
-        sb.append(", client=").append(client);
         sb.append('}');
         return sb.toString();
     }
@@ -279,7 +250,6 @@ public class NetworkService extends AbstractBaseEntity<String>{
         networkServiceProfile.setNetworkServiceType(this.getNetworkServiceType());
         networkServiceProfile.setStatus(this.getStatus());
         networkServiceProfile.setLocation(this.getLocation());
-        networkServiceProfile.setClientIdentityPublicKey(this.getClient().getId());
 
         return networkServiceProfile;
     }

@@ -183,11 +183,11 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
             List<String> listActorsCheckingOut = JPADaoFactory.getActorCatalogDao().checkOutAndGet(session.getId());
             //subscribers
 //            Predicate<String> predicate = pk -> {return (pk.equals());};
-            try {
-                JPADaoFactory.getEventListenerDao().getEventsForCodeAndConditions(EventOp.EVENT_OP_IS_PROFILE_ONLINE, listActorsCheckingOut);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+//            try {
+//                JPADaoFactory.getEventListenerDao().getEventsForCodeAndConditions(EventOp.EVENT_OP_IS_PROFILE_ONLINE, listActorsCheckingOut);
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
 
         } catch (Exception exception) {
 
