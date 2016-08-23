@@ -1,4 +1,4 @@
-
+apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'application'
@@ -6,9 +6,21 @@ group 'Iop'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+mainClassName = "Main"
+
+
 repositories {
     mavenCentral()
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+
 
 dependencies {
     compile project(':fermat-p2p-api')
@@ -40,3 +52,15 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Implementation-Version': version,
+                'Main-Class': 'Main'
+    }
+    baseName = project.name + '-with-dependencies-' + version
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+

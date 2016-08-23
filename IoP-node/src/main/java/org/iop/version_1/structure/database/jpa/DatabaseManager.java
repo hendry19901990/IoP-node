@@ -114,8 +114,12 @@ public class DatabaseManager {
      * @return path
      */
     public static String getObjectDbConfigurationFilePath(){
+
+
+        return DatabaseManager.class.getClassLoader().getResource("objectdb.conf").toString();
+        /*
         ProtectionDomain domain = com.objectdb.Utilities.class.getProtectionDomain();
-        return domain.getCodeSource().getLocation().getFile().replace(".jar", ".conf");
+        return domain.getCodeSource().getLocation().getFile().replace(".jar", ".conf");*/
     }
 
     public static void start(){
@@ -124,7 +128,7 @@ public class DatabaseManager {
          * Configure environment
          */
         String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
-        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
+       // System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
 
         executorService.execute(() -> {
 

@@ -12,14 +12,14 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by mati on 12/08/16.
  */
-public class AppMain {
+public class Main {
 
     /**
      * Represent the fermatSystem instance
      */
 
     /**
-     * AppMain method
+     * Main method
      *
      * @param args
      */
