@@ -175,19 +175,25 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
 
         try {
 
-
+            LOG.info(" Open sessions: " + session.getOpenSessions().size());
             LOG.info("Removing session and associate entities");
             SessionManager.remove(session);
             JPADaoFactory.getClientDao().checkOut(session.getId());
+
+
+
+
             //Este checkout deberia ser más controlado
-            List<String> listActorsCheckingOut = JPADaoFactory.getActorCatalogDao().checkOutAndGet(session.getId());
+      //      List<String> listActorsCheckingOut = JPADaoFactory.getActorCatalogDao().checkOutAndGet(session.getId());
             //subscribers
-//            Predicate<String> predicate = pk -> {return (pk.equals());};
 //            try {
 //                JPADaoFactory.getEventListenerDao().getEventsForCodeAndConditions(EventOp.EVENT_OP_IS_PROFILE_ONLINE, listActorsCheckingOut);
 //            }catch (Exception e){
 //                e.printStackTrace();
 //            }
+
+            session.getOpenSessions().remove(session);
+            LOG.info(" Open sessions: " + session.getOpenSessions().size());
 
         } catch (Exception exception) {
 

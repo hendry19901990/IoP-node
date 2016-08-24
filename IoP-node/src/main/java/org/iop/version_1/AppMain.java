@@ -50,10 +50,10 @@ public class AppMain {
                     long allocatedMemory = runtime.totalMemory();
                     long freeMemory = runtime.freeMemory();
 
-                    sb.append("free memory: " + format.format(freeMemory / 1024) + "<br/>");
-                    sb.append("allocated memory: " + format.format(allocatedMemory / 1024) + "<br/>");
-                    sb.append("max memory: " + format.format(maxMemory / 1024) + "<br/>");
-                    sb.append("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024) + "<br/>");
+                    sb.append("free memory: " + format.format((freeMemory / 1024 / 1024) ) + " mb / ");
+                    sb.append("allocated memory: " + format.format((allocatedMemory / 1024 / 1024)) + " mb / ");
+                    sb.append("max memory: " + format.format((maxMemory / 1024 / 1024)) + " mb / ");
+                    sb.append("total free memory: " + format.format(((freeMemory + (maxMemory - allocatedMemory)) / 1024 / 1024)) + " mb ");
 
                     System.out.println(sb.toString());
                 }

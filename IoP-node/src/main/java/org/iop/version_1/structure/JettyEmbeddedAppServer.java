@@ -11,6 +11,7 @@ import org.eclipse.jetty.util.log.Slf4jLog;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.eclipse.jetty.websocket.jsr356.server.ServerContainer;
 import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
+import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.endpoinsts.clients.FermatWebSocketClientChannelServerEndpoint;
 import org.iop.version_1.structure.util.ConfigurationManager;
 
@@ -138,6 +139,10 @@ public class JettyEmbeddedAppServer {
          * Initialize javax.websocket layer
          */
         this.wsServerContainer = WebSocketServerContainerInitializer.configureContext(webAppContext);
+        this.wsServerContainer.setDefaultMaxSessionIdleTimeout(FermatWebSocketChannelEndpoint.MAX_IDLE_TIMEOUT);
+
+        LOG.info("WebSocketServerContainer Default Max Session Idle Timeout = "+wsServerContainer.getDefaultMaxSessionIdleTimeout() + " milliseconds");
+
 
         /*
          * Add WebSocket endpoint to javax.websocket layer

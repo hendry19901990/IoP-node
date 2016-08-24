@@ -30,12 +30,12 @@ public abstract class FermatWebSocketChannelEndpoint {
     /**
      * Represent the MAX_MESSAGE_SIZE
      */
-    protected static final int MAX_MESSAGE_SIZE = 3000000;
+    public static final int MAX_MESSAGE_SIZE = 3000000;
 
     /**
      * Represent the MAX_IDLE_TIMEOUT
      */
-    protected static final int MAX_IDLE_TIMEOUT = 60000;
+    public static final int MAX_IDLE_TIMEOUT = 60000;
 
     /**
      * Represent the channelIdentity
