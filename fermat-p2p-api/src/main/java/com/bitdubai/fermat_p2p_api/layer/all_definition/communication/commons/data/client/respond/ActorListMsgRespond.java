@@ -23,10 +23,6 @@ public class ActorListMsgRespond extends MsgRespond {
      */
     private List<ActorProfile> profileList;
 
-    /**
-     * Represent the networkServicePublicKey
-     */
-    private String networkServiceType;
 
     /**
      * Constructor with parameters
@@ -34,13 +30,11 @@ public class ActorListMsgRespond extends MsgRespond {
      * @param status
      * @param details
      * @param profileList
-     * @param networkServiceType
      */
     public ActorListMsgRespond(
             UUID packageId,final STATUS                  status                 ,
                                final String                  details                ,
-                               final List<ActorProfile> profileList            ,
-                               final String                  networkServiceType) {
+                               final List<ActorProfile> profileList            ) {
 
         super(packageId,
                 status ,
@@ -48,7 +42,6 @@ public class ActorListMsgRespond extends MsgRespond {
         );
 
         this.profileList             = profileList            ;
-        this.networkServiceType = networkServiceType;
     }
 
     /**
@@ -60,13 +53,6 @@ public class ActorListMsgRespond extends MsgRespond {
         return profileList;
     }
 
-    /**
-     * Gets the value of networkServiceType and returns
-     * @return networkServiceType
-     */
-    public String getNetworkServiceType() {
-        return networkServiceType;
-    }
 
 
     /**
@@ -92,7 +78,6 @@ public class ActorListMsgRespond extends MsgRespond {
     public String toString() {
         return "ActorListMsgRespond{" +
                 ", profileList=" + profileList +
-                ", NetworkServiceType='" + networkServiceType + '\'' +
                 '}';
     }
 }

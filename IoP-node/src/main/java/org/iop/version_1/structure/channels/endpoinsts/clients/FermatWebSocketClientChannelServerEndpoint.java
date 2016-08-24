@@ -2,14 +2,13 @@ package org.iop.version_1.structure.channels.endpoinsts.clients;
 
 import com.bitdubai.fermat_api.layer.all_definition.crypto.asymmetric.ECCKeyPair;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.BlockPackages;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.EventPublishRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ServerHandshakeRespond;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.events_op_codes.EventOp;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.exception.PackageTypeNotSupportedException;
-import org.apache.commons.collections4.Predicate;
+import org.apache.commons.collections.functors.ExceptionClosure;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
@@ -18,7 +17,7 @@ import org.iop.version_1.structure.channels.processors.NodesPackageProcessorFact
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.context.SessionManager;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
-import org.iop.version_1.structure.util.BlockDecoder2;
+import org.iop.version_1.structure.database.jpa.entities.EventListener;
 import org.iop.version_1.structure.util.PackageDecoder;
 import org.iop.version_1.structure.util.PackageEncoder;
 
@@ -27,6 +26,7 @@ import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.channels.endpoinsts.clients.FermatWebSocketClientChannelServerEndpoint</code> this
@@ -179,18 +179,47 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
             LOG.info("Removing session and associate entities");
             SessionManager.remove(session);
             JPADaoFactory.getClientDao().checkOut(session.getId());
-
-
-
-
             //Este checkout deberia ser más controlado
-      //      List<String> listActorsCheckingOut = JPADaoFactory.getActorCatalogDao().checkOutAndGet(session.getId());
+            List<String> listActorsCheckingOut = JPADaoFactory.getActorCatalogDao().checkOutAndGet(session.getId());
+
+            //remover eventos que está escuchando la session ya que no va a recibir más.
+            try {
+                JPADaoFactory.getEventListenerDao().removeEventListenersFromSessionId(session.getId());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
             //subscribers
-//            try {
-//                JPADaoFactory.getEventListenerDao().getEventsForCodeAndConditions(EventOp.EVENT_OP_IS_PROFILE_ONLINE, listActorsCheckingOut);
-//            }catch (Exception e){
-//                e.printStackTrace();
-//            }
+            try {
+                List<EventListener> listEvent = JPADaoFactory.getEventListenerDao().getEventsForCodeAndConditions(EventOp.EVENT_OP_IS_PROFILE_ONLINE, listActorsCheckingOut);
+                // todo: hacerlo mejor
+                listEvent.forEach(e -> {
+                    try {
+                        EventPublishRespond eventPublishRespond = new EventPublishRespond(true);
+
+                        Session listenerSession = SessionManager.get(e.getSessionId());
+                        LOG.info("Sending event happen to session: "+e.getSessionId());
+                        if (listenerSession != null) {
+                            sendPackage(
+                                    listenerSession,
+                                    UUID.fromString(e.getId()),
+                                    eventPublishRespond.toJson(),
+                                    null,
+                                    PackageType.EVENT_PUBLISH,
+                                    null
+                            );
+                        }else LOG.info("Tenemos un problema en la db, hay eventListener que no se estan borrando cuando su session se cierra y quedan escuchando..");
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (EncodeException e1) {
+                        e1.printStackTrace();
+                    } catch (Exception e2){
+                        e2.printStackTrace();
+                    }
+                });
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
             session.getOpenSessions().remove(session);
             LOG.info(" Open sessions: " + session.getOpenSessions().size());

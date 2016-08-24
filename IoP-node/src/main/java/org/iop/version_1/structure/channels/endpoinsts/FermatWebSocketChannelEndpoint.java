@@ -6,6 +6,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.da
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.exception.PackageTypeNotSupportedException;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.iop.version_1.IoPNodePluginRoot;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.context.NodeContext;
@@ -103,27 +104,6 @@ public abstract class FermatWebSocketChannelEndpoint {
         }
     }
 
-    public synchronized final void sendPackage(final Session            session           ,
-                                               final String             packageContent    ,
-                                               final NetworkServiceType networkServiceType,
-                                               final PackageType        packageType       ,
-                                               final String             identityPublicKey ) throws EncodeException, IOException {
-
-        if (session.isOpen()) {
-
-            Package packageRespond = Package.createInstance(
-                    packageContent                      ,
-                    networkServiceType                  ,
-                    packageType                         ,
-                    getChannelIdentity().getPrivateKey(),
-                    identityPublicKey
-            );
-
-            session.getBasicRemote().sendObject(packageRespond);
-        } else {
-            throw new IOException("connection is not opened.");
-        }
-    }
 
     public synchronized final void sendPackage(Package p,Session session) throws IOException, EncodeException {
         if (session.isOpen()) {
@@ -133,7 +113,8 @@ public abstract class FermatWebSocketChannelEndpoint {
         }
     }
 
-    public void sendPackage(Session session, UUID packageId, String packageContent, NetworkServiceType networkServiceType, PackageType packageType, String destinationIdentityPublicKey) throws IOException, EncodeException {
+    public void sendPackage(Session session, UUID packageId, String packageContent, NetworkServiceType networkServiceType, PackageType packageType, String destinationIdentityPublicKey) throws IOException, EncodeException, InvalidArgumentException {
+        if (session==null) throw new InvalidArgumentException(new String[]{"session null"});
         if (session.isOpen()) {
             Package packageRespond = Package.createInstance(
                     packageId,
@@ -149,6 +130,8 @@ public abstract class FermatWebSocketChannelEndpoint {
             throw new IOException("connection is not opened.");
         }
     }
+
+
 
     public synchronized final void sendPackage(final Session            session           ,
                                                final byte[]             packageContent    ,

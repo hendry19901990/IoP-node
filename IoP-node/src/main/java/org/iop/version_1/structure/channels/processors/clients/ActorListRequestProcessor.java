@@ -74,11 +74,12 @@ public class ActorListRequestProcessor extends PackageProcessor {
             /*
              * If all ok, respond whit success message
              */
-            ActorListMsgRespond actorListMsgRespond = new ActorListMsgRespond(packageReceived.getPackageId(),ActorCallMsgRespond.STATUS.SUCCESS, ActorCallMsgRespond.STATUS.SUCCESS.toString(), actorsList, messageContent.getNetworkServiceType());
+            ActorListMsgRespond actorListMsgRespond = new ActorListMsgRespond(packageReceived.getPackageId(),ActorCallMsgRespond.STATUS.SUCCESS, ActorCallMsgRespond.STATUS.SUCCESS.toString(), actorsList);
 
             if (session.isOpen()) {
 
                 return Package.createInstance(
+                        packageReceived.getPackageId(),
                         actorListMsgRespond.toJson()                      ,
                         packageReceived.getNetworkServiceTypeSource()                  ,
                         PackageType.ACTOR_LIST_REQUEST                         ,
@@ -105,11 +106,10 @@ public class ActorListRequestProcessor extends PackageProcessor {
                         packageReceived.getPackageId(),
                         ActorListMsgRespond.STATUS.FAIL,
                         exception.getLocalizedMessage(),
-                        null,
-                        null
-                );
+                        null);
 
                 return Package.createInstance(
+                        packageReceived.getPackageId(),
                         actorListMsgRespond.toJson()                      ,
                         packageReceived.getNetworkServiceTypeSource()                  ,
                         PackageType.ACTOR_LIST_REQUEST                         ,
