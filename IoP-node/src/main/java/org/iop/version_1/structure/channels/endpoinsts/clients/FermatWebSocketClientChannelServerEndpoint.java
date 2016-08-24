@@ -11,6 +11,7 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.Pack
 import org.apache.commons.collections.functors.ExceptionClosure;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.websocket.api.MessageTooLargeException;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.endpoinsts.clients.conf.ClientChannelConfigurator;
 import org.iop.version_1.structure.channels.processors.NodesPackageProcessorFactory;
@@ -235,21 +236,24 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
      */
     @OnError
     public void onError(Session session, Throwable throwable){
-
         LOG.error("@OnError - Unhandled exception catch");
         throwable.printStackTrace();
         LOG.error(throwable);
+
         try {
 
-            if (session.isOpen()){
-                LOG.warn("session is open, try to close");
-                session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, throwable.getMessage()));
+            if (throwable instanceof MessageTooLargeException){
+                LOG.warn("No voy a cerrar el canal acá...");
             }else {
-                LOG.error("The session already close, no try to close");
+
+                if (session.isOpen()) {
+                    LOG.warn("session is open, try to close");
+                    session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, throwable.getMessage()));
+                } else {
+                    LOG.error("The session already close, no try to close");
+                }
             }
-
             SessionManager.remove(session);
-
         } catch (Exception e) {
             e.printStackTrace();
             LOG.error(e);
