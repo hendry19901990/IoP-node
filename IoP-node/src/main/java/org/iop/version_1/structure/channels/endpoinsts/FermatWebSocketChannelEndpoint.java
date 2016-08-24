@@ -6,7 +6,6 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.da
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.exception.PackageTypeNotSupportedException;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import org.iop.version_1.IoPNodePluginRoot;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.context.NodeContext;
@@ -113,8 +112,8 @@ public abstract class FermatWebSocketChannelEndpoint {
         }
     }
 
-    public void sendPackage(Session session, UUID packageId, String packageContent, NetworkServiceType networkServiceType, PackageType packageType, String destinationIdentityPublicKey) throws IOException, EncodeException, InvalidArgumentException {
-        if (session==null) throw new InvalidArgumentException(new String[]{"session null"});
+    public void sendPackage(Session session, UUID packageId, String packageContent, NetworkServiceType networkServiceType, PackageType packageType, String destinationIdentityPublicKey) throws IOException, EncodeException, IllegalArgumentException {
+        if (session==null) throw new IllegalArgumentException("Session can't be null");
         if (session.isOpen()) {
             Package packageRespond = Package.createInstance(
                     packageId,
