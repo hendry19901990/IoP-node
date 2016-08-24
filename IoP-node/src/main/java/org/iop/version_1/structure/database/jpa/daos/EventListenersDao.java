@@ -89,24 +89,24 @@ public class EventListenersDao extends AbstractBaseDao<EventListener>{
         }
     }
 
-    public List<EventListener> getEventsForCodeAndConditions(short eventCode,List<String> conditions) throws CantReadRecordDataBaseException {
+    public List<EventListener> getEventsForCodeAndConditions(short eventCode, List<String> conditions) throws CantReadRecordDataBaseException {
         LOG.debug("Executing getEventsForCodeAndConditions(" + eventCode + ", condition: "+conditions+")");
         EntityManager connection = null;
         try {
             connection = getConnection();
             CriteriaBuilder criteriaBuilder = connection.getCriteriaBuilder();
-            Predicate[] predicateConditions = new Predicate[conditions.size()];
-            ParameterExpression parameterExpression = criteriaBuilder.parameter(EventListener.class,"condition");
-            for (int i=0;i<conditions.size();i++){
-                String condition = conditions.get(i);
-                predicateConditions[i]=(criteriaBuilder.equal(parameterExpression,condition));
-            }
-            CriteriaQuery<EventListener> criteriaQuery = criteriaBuilder.createQuery(entityClass);
-            //no hacen falta todos los eventos, solo el string de la sessionId.. pero bueno
-            TypedQuery<EventListener> query = connection.createQuery(criteriaQuery.where(
-                    criteriaBuilder.and(
-                            criteriaBuilder.equal(criteriaBuilder.parameter(EventListener.class,"event"),eventCode),
-                            criteriaBuilder.or(predicateConditions))).select(criteriaQuery.from(entityClass)));
+
+            CriteriaQuery<EventListener> criteriaQuery = criteriaBuilder.createQuery(EventListener.class);
+
+            Root<EventListener> root = criteriaQuery.from(EventListener.class);
+
+            criteriaQuery.select(root)
+                    .where(root.get("condition").in(conditions),
+                            criteriaBuilder.equal(root.get("event"), eventCode
+                            )
+                    );
+
+            TypedQuery<EventListener> query = connection.createQuery(criteriaQuery);
             return query.getResultList();
         } catch (Exception e) {
             LOG.error(e);
@@ -156,4 +156,32 @@ public class EventListenersDao extends AbstractBaseDao<EventListener>{
 
     }
 
+    public void removeEventListenersFromSessionId(String id) throws CantDeleteRecordDataBaseException {
+        LOG.debug("Executing delete("+id+")");
+        EntityManager connection = getConnection();
+        EntityTransaction transaction = connection.getTransaction();
+
+        try {
+
+            transaction.begin();
+
+            Query deleteQuery = connection.createQuery("DELETE FROM EventListener c WHERE c.sessionId = :id");
+            deleteQuery.setParameter("id", id);
+            int result = deleteQuery.executeUpdate();
+
+            LOG.info("Deleted events = "+result);
+
+            transaction.commit();
+            connection.flush();
+
+        } catch (Exception e) {
+            LOG.error(e);
+            if (transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw new CantDeleteRecordDataBaseException(CantDeleteRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
+        } finally {
+            connection.close();
+        }
+    }
 }

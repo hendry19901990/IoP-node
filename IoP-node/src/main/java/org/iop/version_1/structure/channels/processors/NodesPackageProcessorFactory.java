@@ -34,7 +34,7 @@ public class NodesPackageProcessorFactory {
         packageProcessors.put(PackageType.MESSAGE_TRANSMIT.name(),new MessageTransmitProcessor());
         packageProcessors.put(PackageType.IS_ACTOR_ONLINE.name(),new IsActorOnlineRequestProcessor());
         packageProcessors.put(PackageType.UPDATE_ACTOR_PROFILE_REQUEST.name(),new UpdateProfileRequestProcessor());
-        packageProcessors.put(PackageType.SUBSCRIBER.name(),new SubscribersRequestProcessor());
+        packageProcessors.put(PackageType.EVENT_SUBSCRIBER.name(),new SubscribersRequestProcessor());
     }
 
     public Map<String,PackageProcessor> getClientPackageProcessorsByPackageType() {
