@@ -142,7 +142,8 @@ public class JettyEmbeddedAppServer {
         this.wsServerContainer.setDefaultMaxSessionIdleTimeout(FermatWebSocketChannelEndpoint.MAX_IDLE_TIMEOUT);
 
         LOG.info("WebSocketServerContainer Default Max Session Idle Timeout = "+wsServerContainer.getDefaultMaxSessionIdleTimeout() + " milliseconds");
-
+        LOG.info("WebSocketServerContainer Default Max Binary Message Buffer Size = "+wsServerContainer.getDefaultMaxBinaryMessageBufferSize() + " Bytes");
+        LOG.info("WebSocketServerContainer Default Max Text Message Buffer Size = "+wsServerContainer.getDefaultMaxTextMessageBufferSize() + " Bytes");
 
         /*
          * Add WebSocket endpoint to javax.websocket layer
