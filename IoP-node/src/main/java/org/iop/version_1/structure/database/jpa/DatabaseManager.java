@@ -121,13 +121,13 @@ public class DatabaseManager {
         executorService.execute(() -> {
 
 
-            LOG.info("- Database path: "+path);
-            //LOG.info("- Database Configuration File: "+pathDbConfFile);
+            LOG.info("Database path: "+path);
+            //LOG.info("Database Configuration File: "+pathDbConfFile);
 
             try {
 
                 String command = "java -Dobjectdb.temp.avoid-page-recycle=true -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start";
-                LOG.info("- Initializing objectdb database in server mode, whit command:");
+                LOG.info("Initializing objectdb database in server mode, whit command:");
                 LOG.info(command);
 
                 Runtime.getRuntime().exec(command);
@@ -158,6 +158,7 @@ public class DatabaseManager {
         connection.getMetamodel().entity(GeoLocation.class);
         connection.getMetamodel().entity(NetworkService.class);
         connection.getMetamodel().entity(NodeCatalog.class);
+        connection.getMetamodel().entity(EventListener.class);
         connection.close();
 
     }
