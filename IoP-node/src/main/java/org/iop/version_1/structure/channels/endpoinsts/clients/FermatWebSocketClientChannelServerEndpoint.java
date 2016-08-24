@@ -91,12 +91,6 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
              */
             String cpki = (String) endpointConfig.getUserProperties().get(HeadersAttName.CPKI_ATT_HEADER_NAME);
 
-            /*
-             * Configure the session and mach the session with the client public key identity
-             */
-            session.setMaxTextMessageBufferSize(FermatWebSocketChannelEndpoint.MAX_MESSAGE_SIZE);
-            session.setMaxIdleTimeout(FermatWebSocketChannelEndpoint.MAX_IDLE_TIMEOUT);
-
             String oldSessionId = JPADaoFactory.getClientDao().getSessionId(cpki);
 
             if (oldSessionId != null && !oldSessionId.isEmpty()) {
