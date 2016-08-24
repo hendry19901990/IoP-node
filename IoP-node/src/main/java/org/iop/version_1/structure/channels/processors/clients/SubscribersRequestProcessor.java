@@ -1,18 +1,15 @@
 package org.iop.version_1.structure.channels.processors.clients;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.IsActorOnlineMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.request.SubscriberMsgRequest;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.ACKRespond;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.client.respond.IsActorOnlineMsgRespond;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.enums.ProfileStatus;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.events_op_codes.EventOp;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
-import org.iop.version_1.structure.context.SessionManager;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
 import org.iop.version_1.structure.database.jpa.entities.EventListener;
 
@@ -33,7 +30,7 @@ public class SubscribersRequestProcessor extends PackageProcessor {
      * Default constructor
      */
     public SubscribersRequestProcessor() {
-        super(PackageType.SUBSCRIBER);
+        super(PackageType.EVENT_SUBSCRIBER);
     }
 
     /**
@@ -64,8 +61,13 @@ public class SubscribersRequestProcessor extends PackageProcessor {
 
         try{
 
-
-            JPADaoFactory.getEventListenerDao().save(new EventListener(packageReceived.getPackageId().toString(),session.getId(),subscriberMsgRequest.getEventCode(),subscriberMsgRequest.getCondition()));
+            if (subscriberMsgRequest.getEventCode() == EventOp.EVENT_OP_IS_PROFILE_ONLINE){
+                //esto deberi ser con un count..
+                String id = JPADaoFactory.getActorCatalogDao().findValueById(subscriberMsgRequest.getCondition(),String.class,"id");
+                if (id!=null){
+                    JPADaoFactory.getEventListenerDao().save(new EventListener(packageReceived.getPackageId().toString(),session.getId(),subscriberMsgRequest.getEventCode(),subscriberMsgRequest.getCondition()));
+                }
+            }
 
             //Respond the request
             ACKRespond ackRespond = new ACKRespond(packageReceived.getPackageId(),
@@ -77,7 +79,6 @@ public class SubscribersRequestProcessor extends PackageProcessor {
 
                 return Package.createInstance(
                         ackRespond.toJson(),
-                        packageReceived.getNetworkServiceTypeSource(),
                         PackageType.ACK,
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey
@@ -94,15 +95,14 @@ public class SubscribersRequestProcessor extends PackageProcessor {
                 /*
                  * Respond whit fail message
                  */
-                ACKRespond actorListMsgRespond = new ACKRespond(
+                ACKRespond ackRespond = new ACKRespond(
                         packageReceived.getPackageId(),
                         ACKRespond.STATUS.FAIL,
                         exception.getLocalizedMessage()
                 );
 
                 return Package.createInstance(
-                        actorListMsgRespond.toJson()                      ,
-                        packageReceived.getNetworkServiceTypeSource()                  ,
+                        ackRespond.toJson()                      ,
                         PackageType.ACK                         ,
                         channel.getChannelIdentity().getPrivateKey(),
                         destinationIdentityPublicKey

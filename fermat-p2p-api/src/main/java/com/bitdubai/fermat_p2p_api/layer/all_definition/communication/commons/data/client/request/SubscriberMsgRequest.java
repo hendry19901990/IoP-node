@@ -31,6 +31,10 @@ public class SubscriberMsgRequest extends PackageContent{
         return GsonProvider.getGson().fromJson(content,SubscriberMsgRequest.class);
     }
 
+    public String toJson() {
+        return GsonProvider.getGson().toJson(this);
+    }
+
     @Override
     public String toString() {
         return "SubscriberMsgRequest{" +

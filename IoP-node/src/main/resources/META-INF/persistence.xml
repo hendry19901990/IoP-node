@@ -5,7 +5,7 @@
  http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd" version="1.0">
 
     <persistence-unit name="node-pu">
-        <description>My Persistence Unit</description>
+        <description>IoP Node Persistence Unit</description>
         <provider>com.objectdb.jpa.Provider</provider>
         <class>org.iop.version_1.structure.database.jpa.entities.ActorCatalog</class>
         <class>org.iop.version_1.structure.database.jpa.entities.Client</class>

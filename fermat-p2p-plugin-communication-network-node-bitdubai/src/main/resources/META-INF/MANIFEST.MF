@@ -1,2 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.FermatNodeAppMain

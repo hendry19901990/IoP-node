@@ -1,13 +1,33 @@
-
+apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'maven'
-apply plugin: 'application'
-group 'Iop'
-version '1.0-SNAPSHOT'
+apply plugin: 'com.github.johnrengelman.shadow'
 
+group 'Iop'
+
+version '1.0-SNAPSHOT'
+mainClassName = 'org.iop.version_1.AppMain'
 sourceCompatibility = 1.8
+
 repositories {
     mavenCentral()
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
 }
 
 dependencies {
@@ -27,6 +47,7 @@ dependencies {
     compile 'org.eclipse.jetty.websocket:javax-websocket-server-impl:9.3.11.v20160721'
     compile 'org.eclipse.jetty:jetty-servlet:9.3.11.v20160721'
     compile 'org.eclipse.jetty:jetty-webapp:9.3.11.v20160721'
+    compile 'org.eclipse.jetty:jetty-webapp:9.3.11.v20160721'
 
     compile 'org.slf4j:slf4j-log4j12:1.7.21'
     compile 'commons-configuration:commons-configuration:1.10'
@@ -39,4 +60,24 @@ dependencies {
     compile 'org.bitlet:weupnp:0.1.4'
 
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+shadowJar {
+    archiveName = project.name + '-production-' + version  + ".jar"
+    mergeServiceFiles()
+    manifest {
+        attributes 'Built-Date': new Date()
+        attributes 'Built-By': System.getProperty('user.name')
+        attributes 'Build-Jdk': System.getProperty('java.version')
+        attributes 'Implementation-Title': project.name
+        attributes 'Implementation-Version': project.version
+        attributes 'Implementation-Vendor-Id': project.group
+    }
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+}
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
 }

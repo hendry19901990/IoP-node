@@ -12,17 +12,10 @@ import org.iop.version_1.structure.util.ProviderResourcesFilesPath;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.security.ProtectionDomain;
-import java.text.NumberFormat;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The Class <code>com.bitdubai.fermat_p2p_plugin.layer.communications.network.node.developer.bitdubai.version_1.structure.database.jpa.DatabaseManager</code> are the
@@ -114,8 +107,7 @@ public class DatabaseManager {
      * @return path
      */
     public static String getObjectDbConfigurationFilePath(){
-        ProtectionDomain domain = com.objectdb.Utilities.class.getProtectionDomain();
-        return domain.getCodeSource().getLocation().getFile().replace(".jar", ".conf");
+        return DatabaseManager.class.getClassLoader().getResource("META-INF/object-db.conf").toString();
     }
 
     public static void start(){
@@ -124,13 +116,22 @@ public class DatabaseManager {
          * Configure environment
          */
         String path = ProviderResourcesFilesPath.createNewFilesPath(DIR_NAME);
-        System.setProperty("objectdb.conf", getObjectDbConfigurationFilePath());
+        //String pathDbConfFile = getObjectDbConfigurationFilePath();
 
         executorService.execute(() -> {
 
-            LOG.info("Initializing objectdb database in server mode");
+
+            LOG.info("- Database path: "+path);
+            //LOG.info("- Database Configuration File: "+pathDbConfFile);
+
             try {
-                Runtime.getRuntime().exec("java -Dobjectdb.temp.avoid-page-recycle=true -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start");
+
+                String command = "java -Dobjectdb.temp.avoid-page-recycle=true -Dobjectdb.home="+path+" -cp "+ getObjectDbJarPath() +" com.objectdb.Server start";
+                LOG.info("- Initializing objectdb database in server mode, whit command:");
+                LOG.info(command);
+
+                Runtime.getRuntime().exec(command);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -138,28 +139,26 @@ public class DatabaseManager {
         });
 
         try {
-            System.out.println("Waiting 5 seconds to the database server start");
-            Thread.sleep(5000);
+            LOG.info("Waiting 10 seconds to the database server start");
+            Thread.sleep(10000);
         } catch (InterruptedException e) {
             LOG.warn(e);
         }
 
-        Map<String, String> properties = new HashMap<String, String>();
-        properties.put("javax.jdo.option.MinPool", "50");
-        properties.put("javax.jdo.option.MaxPool", "100");
-        properties.put("javax.persistence.sharedCache.mode", "DISABLE_SELECTIVE");
-
         LOG.info("Open a database connection (create a new database if it doesn't exist yet)");
         entityManagerFactory = Persistence.createEntityManagerFactory("node-pu");
+
 
         /*
          * Create tables at start up
          */
-        entityManagerFactory.createEntityManager().getMetamodel().entity(ActorCatalog.class);
-        entityManagerFactory.createEntityManager().getMetamodel().entity(Client.class);
-        entityManagerFactory.createEntityManager().getMetamodel().entity(GeoLocation.class);
-        entityManagerFactory.createEntityManager().getMetamodel().entity(NetworkService.class);
-        entityManagerFactory.createEntityManager().getMetamodel().entity(NodeCatalog.class);
+        EntityManager connection = entityManagerFactory.createEntityManager();
+        connection.getMetamodel().entity(ActorCatalog.class);
+        connection.getMetamodel().entity(Client.class);
+        connection.getMetamodel().entity(GeoLocation.class);
+        connection.getMetamodel().entity(NetworkService.class);
+        connection.getMetamodel().entity(NodeCatalog.class);
+        connection.close();
 
     }
 }

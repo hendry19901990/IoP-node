@@ -23,10 +23,10 @@ public class NetworkServiceProfile extends Profile {
      */
     private NetworkServiceType networkServiceType;
 
-    /**
-     * Represent the clientIdentityPublicKey
-     */
-    private String clientIdentityPublicKey;
+//    /**
+//     * Represent the clientIdentityPublicKey
+//     */
+//    private String clientIdentityPublicKey;
 
     /**
      * Constructor
@@ -40,18 +40,18 @@ public class NetworkServiceProfile extends Profile {
      *
      * @return clientIdentityPublicKey
      */
-    public String getClientIdentityPublicKey() {
-        return clientIdentityPublicKey;
-    }
+//    public String getClientIdentityPublicKey() {
+//        return clientIdentityPublicKey;
+//    }
 
     /**
      * Sets the clientIdentityPublicKey
      *
      * @param clientIdentityPublicKey to set
      */
-    public void setClientIdentityPublicKey(String clientIdentityPublicKey) {
-        this.clientIdentityPublicKey = clientIdentityPublicKey;
-    }
+//    public void setClientIdentityPublicKey(String clientIdentityPublicKey) {
+//        this.clientIdentityPublicKey = clientIdentityPublicKey;
+//    }
 
     /**
      * Gets the value of networkServiceType and returns
@@ -87,8 +87,8 @@ public class NetworkServiceProfile extends Profile {
         if (jsonObject.get("lng") != null)
             longitude = jsonObject.get("lng").getAsDouble();
 
-        if (jsonObject.get("clpk") != null)
-            profile.setClientIdentityPublicKey(jsonObject.get("clpk").getAsString());
+//        if (jsonObject.get("clpk") != null)
+//            profile.setClientIdentityPublicKey(jsonObject.get("clpk").getAsString());
 
         try {
             profile.setNetworkServiceType(NetworkServiceType.getByCode(jsonObject.get("nst").getAsString()));
@@ -109,8 +109,8 @@ public class NetworkServiceProfile extends Profile {
         if (networkServiceType != null)
             jsonObject.addProperty("nst", networkServiceType.getCode());
 
-        if (clientIdentityPublicKey != null)
-            jsonObject.addProperty("clpk", clientIdentityPublicKey);
+//        if (clientIdentityPublicKey != null)
+//            jsonObject.addProperty("clpk", clientIdentityPublicKey);
 
         return jsonObject;
     }
@@ -138,7 +138,7 @@ public class NetworkServiceProfile extends Profile {
     public String toString() {
         return "NetworkServiceProfile{" +
                 "networkServiceType=" + networkServiceType +
-                ", clientIdentityPublicKey='" + clientIdentityPublicKey + '\'' +
+//                ", clientIdentityPublicKey='" + clientIdentityPublicKey + '\'' +
                 '}';
     }
 }
