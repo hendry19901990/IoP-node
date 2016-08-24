@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
  * @since Java JDK 1.7
  */
 @Entity
+@Cacheable(false)
 public class EventListener extends AbstractBaseEntity<String>{
 
     /**
