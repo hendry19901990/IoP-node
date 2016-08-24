@@ -21,7 +21,6 @@ import com.bitdubai.fermat_api.layer.osa_android.location_system.Location;
 import com.bitdubai.fermat_api.layer.osa_android.location_system.LocationManager;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.NetworkNodeManager;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.profiles.NodeProfile;
-
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.log4j.Logger;

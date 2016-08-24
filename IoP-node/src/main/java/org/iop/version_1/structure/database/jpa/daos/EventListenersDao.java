@@ -8,12 +8,12 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.ne
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantReadRecordDataBaseException;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
-import org.iop.version_1.structure.database.jpa.entities.Client;
 import org.iop.version_1.structure.database.jpa.entities.EventListener;
 
 import javax.persistence.*;
-import javax.persistence.criteria.*;
-import java.util.ArrayList;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 
