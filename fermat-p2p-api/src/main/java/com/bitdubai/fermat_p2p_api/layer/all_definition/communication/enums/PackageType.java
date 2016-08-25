@@ -50,7 +50,7 @@ public enum PackageType {
     CHECK_IN_CLIENT_RESPOND,
 
 
-    CHECK_IN_NETWORK_SERVICE_RESPOND, CHECK_IN_ACTOR_RESPONSE;
+    CHECK_IN_NETWORK_SERVICE_RESPOND, CHECK_IN_ACTOR_RESPONSE,
     // Definition types Client channel
 
     /*
@@ -124,7 +124,7 @@ public enum PackageType {
     NODES_CATALOG_TO_PROPAGATE_RESPONSE, // the node responds to the counterpart if it needs or not the information sent by it
 
     GET_ACTOR_CATALOG_RESPONSE, // the node returns the information requested that it contains in its catalog
-    ACTOR_CATALOG_TO_PROPAGATE_RESPONSE, // the node responds to the counterpart if it needs or not the information sent by it
+    ACTOR_CATALOG_TO_PROPAGATE_RESPONSE; // ;he node responds to the counterpart if it needs or not the information sent by it
 
 
 
