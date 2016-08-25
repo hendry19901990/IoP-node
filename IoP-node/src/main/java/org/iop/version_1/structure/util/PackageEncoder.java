@@ -1,9 +1,9 @@
 package org.iop.version_1.structure.util;
 
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.Package;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.common.com.google.flatbuffers.FlatBufferBuilder;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.data.common.com.google.flatbuffers.FlatBufferBuilder;
 
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;

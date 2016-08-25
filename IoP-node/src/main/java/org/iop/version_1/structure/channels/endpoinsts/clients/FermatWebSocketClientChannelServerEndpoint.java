@@ -8,7 +8,6 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.da
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.events_op_codes.EventOp;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
-import org.apache.commons.collections.functors.ExceptionClosure;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.websocket.api.MessageTooLargeException;
@@ -92,12 +91,6 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
              */
             String cpki = (String) endpointConfig.getUserProperties().get(HeadersAttName.CPKI_ATT_HEADER_NAME);
 
-            /*
-             * Configure the session and mach the session with the client public key identity
-             */
-            session.setMaxTextMessageBufferSize(FermatWebSocketChannelEndpoint.MAX_MESSAGE_SIZE);
-            session.setMaxIdleTimeout(FermatWebSocketChannelEndpoint.MAX_IDLE_TIMEOUT);
-
             String oldSessionId = JPADaoFactory.getClientDao().getSessionId(cpki);
 
             if (oldSessionId != null && !oldSessionId.isEmpty()) {
@@ -176,7 +169,7 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
 
         try {
 
-
+            LOG.info(" Open sessions: " + session.getOpenSessions().size());
             LOG.info("Removing session and associate entities");
             SessionManager.remove(session);
             JPADaoFactory.getClientDao().checkOut(session.getId());
@@ -221,6 +214,9 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
             }catch (Exception e){
                 e.printStackTrace();
             }
+
+            session.getOpenSessions().remove(session);
+            LOG.info(" Open sessions: " + session.getOpenSessions().size());
 
         } catch (Exception exception) {
 
