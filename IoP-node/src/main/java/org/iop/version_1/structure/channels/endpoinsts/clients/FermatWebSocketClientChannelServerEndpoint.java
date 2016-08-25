@@ -8,9 +8,9 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.da
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.events_op_codes.EventOp;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.HeadersAttName;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.PackageType;
-import org.apache.commons.collections.functors.ExceptionClosure;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
+import org.eclipse.jetty.websocket.api.MessageTooLargeException;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.endpoinsts.clients.conf.ClientChannelConfigurator;
 import org.iop.version_1.structure.channels.processors.NodesPackageProcessorFactory;
@@ -91,12 +91,6 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
              */
             String cpki = (String) endpointConfig.getUserProperties().get(HeadersAttName.CPKI_ATT_HEADER_NAME);
 
-            /*
-             * Configure the session and mach the session with the client public key identity
-             */
-            session.setMaxTextMessageBufferSize(FermatWebSocketChannelEndpoint.MAX_MESSAGE_SIZE);
-            session.setMaxIdleTimeout(FermatWebSocketChannelEndpoint.MAX_IDLE_TIMEOUT);
-
             String oldSessionId = JPADaoFactory.getClientDao().getSessionId(cpki);
 
             if (oldSessionId != null && !oldSessionId.isEmpty()) {
@@ -175,7 +169,7 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
 
         try {
 
-
+            LOG.info(" Open sessions: " + session.getOpenSessions().size());
             LOG.info("Removing session and associate entities");
             SessionManager.remove(session);
             JPADaoFactory.getClientDao().checkOut(session.getId());
@@ -221,6 +215,9 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
                 e.printStackTrace();
             }
 
+            session.getOpenSessions().remove(session);
+            LOG.info(" Open sessions: " + session.getOpenSessions().size());
+
         } catch (Exception exception) {
 
             exception.printStackTrace();
@@ -235,21 +232,24 @@ public class FermatWebSocketClientChannelServerEndpoint extends FermatWebSocketC
      */
     @OnError
     public void onError(Session session, Throwable throwable){
-
         LOG.error("@OnError - Unhandled exception catch");
         throwable.printStackTrace();
         LOG.error(throwable);
+
         try {
 
-            if (session.isOpen()){
-                LOG.warn("session is open, try to close");
-                session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, throwable.getMessage()));
+            if (throwable instanceof MessageTooLargeException){
+                LOG.warn("No voy a cerrar el canal acá...");
             }else {
-                LOG.error("The session already close, no try to close");
+
+                if (session.isOpen()) {
+                    LOG.warn("session is open, try to close");
+                    session.close(new CloseReason(CloseReason.CloseCodes.UNEXPECTED_CONDITION, throwable.getMessage()));
+                } else {
+                    LOG.error("The session already close, no try to close");
+                }
             }
-
             SessionManager.remove(session);
-
         } catch (Exception e) {
             e.printStackTrace();
             LOG.error(e);

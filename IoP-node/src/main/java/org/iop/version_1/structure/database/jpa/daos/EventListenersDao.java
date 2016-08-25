@@ -8,15 +8,12 @@ import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.ne
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.network_services.database.exceptions.CantReadRecordDataBaseException;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.log4j.Logger;
-import org.iop.version_1.structure.database.jpa.entities.Client;
 import org.iop.version_1.structure.database.jpa.entities.EventListener;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
-import java.util.ArrayList;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 
@@ -91,13 +88,14 @@ public class EventListenersDao extends AbstractBaseDao<EventListener>{
 
     public List<EventListener> getEventsForCodeAndConditions(short eventCode, List<String> conditions) throws CantReadRecordDataBaseException {
         LOG.debug("Executing getEventsForCodeAndConditions(" + eventCode + ", condition: "+conditions+")");
-        EntityManager connection = null;
+        EntityManager connection = getConnection();
+
         try {
-            connection = getConnection();
+
+            connection.setProperty("javax.persistence.cache.storeMode", CacheStoreMode.BYPASS);
+
             CriteriaBuilder criteriaBuilder = connection.getCriteriaBuilder();
-
             CriteriaQuery<EventListener> criteriaQuery = criteriaBuilder.createQuery(EventListener.class);
-
             Root<EventListener> root = criteriaQuery.from(EventListener.class);
 
             criteriaQuery.select(root)

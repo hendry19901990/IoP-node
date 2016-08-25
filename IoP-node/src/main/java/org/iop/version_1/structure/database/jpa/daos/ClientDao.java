@@ -139,7 +139,6 @@ public class ClientDao extends AbstractBaseDao<Client>{
             if (transaction.isActive()) {
                 transaction.rollback();
             }
-            throw new CantDeleteRecordDataBaseException(CantDeleteRecordDataBaseException.DEFAULT_MESSAGE, e, "Network Node", "");
         } finally {
             connection.close();
         }

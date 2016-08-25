@@ -38,6 +38,9 @@ public enum PackageType {
 
     // request to subscribe an specific event
     EVENT_SUBSCRIBER,
+    // unsubscribe specific event
+    EVENT_UNSUBSCRIBER,
+
     // event pushed from node to client
     EVENT_PUBLISH,
 
@@ -171,6 +174,9 @@ public enum PackageType {
             case EVENT_PUBLISH:
                 packageType = 14;
                 break;
+            case EVENT_UNSUBSCRIBER:
+                packageType = 15;
+                break;
         }
         return packageType;
     }
@@ -219,6 +225,9 @@ public enum PackageType {
                 break;
             case 14:
                 packageType = EVENT_PUBLISH;
+                break;
+            case 15:
+                packageType = EVENT_UNSUBSCRIBER;
                 break;
         }
         return packageType;

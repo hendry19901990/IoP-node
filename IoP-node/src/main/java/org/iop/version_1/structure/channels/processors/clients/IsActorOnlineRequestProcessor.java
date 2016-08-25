@@ -11,9 +11,7 @@ import org.apache.log4j.Logger;
 import org.iop.version_1.structure.channels.endpoinsts.FermatWebSocketChannelEndpoint;
 import org.iop.version_1.structure.channels.processors.PackageProcessor;
 import org.iop.version_1.structure.context.SessionManager;
-import org.iop.version_1.structure.database.jpa.daos.ActorCatalogDao;
 import org.iop.version_1.structure.database.jpa.daos.JPADaoFactory;
-import org.iop.version_1.structure.database.jpa.entities.ActorCatalog;
 
 import javax.websocket.Session;
 import java.io.IOException;

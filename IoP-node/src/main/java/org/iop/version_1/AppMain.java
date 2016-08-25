@@ -4,7 +4,6 @@ import com.bitdubai.fermat_api.layer.osa_android.file_system.PluginFileSystem;
 import com.bitdubai.fermat_api.layer.osa_android.location_system.LocationManager;
 import com.bitdubai.fermat_osa_addon.layer.linux.device_location.developer.bitdubai.version_1.DeviceLocationSystemAddonRoot;
 import com.bitdubai.fermat_osa_addon.layer.linux.file_system.developer.bitdubai.version_1.PluginFileSystemLinuxAddonRoot;
-import org.iop.version_1.IoPNodePluginRoot;
 
 import java.text.NumberFormat;
 import java.util.concurrent.Executors;
@@ -50,10 +49,10 @@ public class AppMain {
                     long allocatedMemory = runtime.totalMemory();
                     long freeMemory = runtime.freeMemory();
 
-                    sb.append("free memory: " + format.format(freeMemory / 1024) + "<br/>");
-                    sb.append("allocated memory: " + format.format(allocatedMemory / 1024) + "<br/>");
-                    sb.append("max memory: " + format.format(maxMemory / 1024) + "<br/>");
-                    sb.append("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024) + "<br/>");
+                    sb.append("free memory: " + format.format((freeMemory / 1024 / 1024) ) + " mb / ");
+                    sb.append("allocated memory: " + format.format((allocatedMemory / 1024 / 1024)) + " mb / ");
+                    sb.append("max memory: " + format.format((maxMemory / 1024 / 1024)) + " mb / ");
+                    sb.append("total free memory: " + format.format(((freeMemory + (maxMemory - allocatedMemory)) / 1024 / 1024)) + " mb ");
 
                     System.out.println(sb.toString());
                 }
